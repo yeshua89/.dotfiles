@@ -1,0 +1,680 @@
+# format = """
+# $username\
+# $hostname\
+# $directory\
+# $git_branch\
+# $git_state\
+# $git_status\
+# $cmd_duration\
+# $line_break\
+# $python\
+# $character"""
+#
+# [directory]
+# style = "blue"
+#
+# [character]
+# success_symbol = "[❯](purple)"
+# error_symbol = "[❯](red)"
+# vimcmd_symbol = "[❮](green)"
+#
+# [git_branch]
+# format = "[$branch]($style)"
+# style = "bright-black"
+#
+# [git_status]
+# format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+# style = "cyan"
+# conflicted = "​"
+# untracked = "​"
+# modified = "​"
+# staged = "​"
+# renamed = "​"
+# deleted = "​"
+# stashed = "≡"
+#
+# [git_state]
+# format = '\([$state( $progress_current/$progress_total)]($style)\) '
+# style = "bright-black"
+#
+# [cmd_duration]
+# format = "[$duration]($style) "
+# style = "yellow"
+#
+# [python]
+# format = "[$virtualenv]($style) "
+# style = "bright-black"
+# symbol = " "
+
+#############
+### tokyo ###
+#############
+
+# format = """
+# [](#a3aed2)\
+# [󰣇 ](bg:#a3aed2 fg:#090c0c)\
+# [](bg:#769ff0 fg:#a3aed2)\
+# $directory\
+# [](fg:#769ff0 bg:#394260)\
+# $git_branch\
+# $git_status\
+# [](fg:#394260 bg:#212736)\
+# $nodejs\
+# $rust\
+# $golang\
+# $php\
+# $python\
+# $docker_context\
+# $lua\
+# [](fg:#212736 bg:#1d2230)\
+# [](fg:#1d2230)\
+# $cmd_duration\
+# \n$character"""
+#
+# [directory]
+# style = "fg:#e3e5e5 bg:#769ff0"
+# format = "[ $path ]($style)"
+# truncation_length = 3
+# truncation_symbol = "…/"
+#
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = " "
+# "Pictures" = " "
+#
+# [git_branch]
+# symbol = ""
+# style = "bg:#394260"
+# format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+#
+# [git_status]
+# style = "bg:#394260"
+# format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+#
+# [nodejs]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [rust]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [golang]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [php]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [python]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [docker_context]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [lua]
+# symbol = ""
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+#
+# [cmd_duration]
+# format = "[$duration]($style) "
+# style = "yellow"
+#
+# [time]
+# disabled = false
+# time_format = "%R" # Hour:Minute Format
+# style = "bg:#1d2230"
+# format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+
+###############
+### GruvBox ###
+###############
+
+# "$schema" = 'https://starship.rs/config-schema.json'
+# format = """
+# [](color_orange)\
+# $os\
+# $username\
+# [](bg:color_yellow fg:color_orange)\
+# $directory\
+# [](fg:color_yellow bg:color_aqua)\
+# $git_branch\
+# $git_status\
+# [](fg:color_aqua bg:color_blue)\
+# $c\
+# $rust\
+# $golang\
+# $nodejs\
+# $php\
+# $java\
+# $kotlin\
+# $haskell\
+# $python\
+# [](fg:color_blue bg:color_bg3)\
+# $docker_context\
+# [](fg:color_bg3 bg:color_bg1)\
+# [ ](fg:color_bg1)\
+# $cmd_duration\
+# \n$character"""
+#
+# palette = 'gruvbox_dark'
+#
+# [palettes.gruvbox_dark]
+# color_fg0 = '#fbf1c7'
+# color_bg1 = '#3c3836'
+# color_bg3 = '#665c54'
+# color_blue = '#458588'
+# color_aqua = '#689d6a'
+# color_green = '#98971a'
+# color_orange = '#d65d0e'
+# color_purple = '#b16286'
+# color_red = '#cc241d'
+# color_yellow = '#d79921'
+#
+# [os]
+# disabled = false
+# style = "bg:color_orange fg:color_fg0"
+#
+# [os.symbols]
+# Windows = "󰍲"
+# Ubuntu = "󰕈"
+# SUSE = ""
+# Raspbian = "󰐿"
+# Mint = "󰣭"
+# Macos = "󰀵"
+# Manjaro = ""
+# Linux = "󰌽"
+# Gentoo = "󰣨"
+# Fedora = "󰣛"
+# Alpine = ""
+# Amazon = ""
+# Android = ""
+# Arch = "󰣇"
+# Artix = "󰣇"
+# CentOS = ""
+# Debian = "󰣚"
+# Redhat = "󱄛"
+# RedHatEnterprise = "󱄛"
+#
+# [username]
+# show_always = true
+# style_user = "bg:color_orange fg:color_fg0"
+# style_root = "bg:color_orange fg:color_fg0"
+# format = '[ $user ]($style)'
+#
+# [directory]
+# style = "fg:color_fg0 bg:color_yellow"
+# format = "[ $path ]($style)"
+# truncation_length = 3
+# truncation_symbol = "…/"
+#
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = "󰝚 "
+# "Pictures" = " "
+# "Developer" = "󰲋 "
+#
+# [git_branch]
+# symbol = ""
+# style = "bg:color_aqua"
+# format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+#
+# [git_status]
+# style = "bg:color_aqua"
+# format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+#
+# [nodejs]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [c]
+# symbol = " "
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [rust]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [golang]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [php]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [java]
+# symbol = " "
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [kotlin]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [haskell]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [python]
+# symbol = ""
+# style = "bg:color_blue"
+# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+#
+# [docker_context]
+# symbol = ""
+# style = "bg:color_bg3"
+# format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+#
+# [lua]
+# symbol = ""
+# style = "bg:color_bg3"
+# format = '[[ $symbol ($context) ](fg:#83a598 bg:color_bg3)]($style)'
+
+# [cmd_duration]
+# format = "[$duration]($style) "
+# style = "yellow"
+#
+# [time]
+# disabled = false
+# time_format = "%R"
+# style = "bg:color_bg1"
+# format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+#
+# [line_break]
+# disabled = false
+#
+# [character]
+# disabled = false
+# success_symbol = '[](bold fg:color_green)'
+# error_symbol = '[](bold fg:color_red)'
+# vimcmd_symbol = '[](bold fg:color_green)'
+# vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+# vimcmd_replace_symbol = '[](bold fg:color_purple)'
+# vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
+##############
+### Pastel ###
+##############
+
+# format = """
+# [](#9A348E)\
+# $os\
+# $username\
+# [](bg:#DA627D fg:#9A348E)\
+# $directory\
+# [](fg:#DA627D bg:#FCA17D)\
+# $git_branch\
+# $git_status\
+# $line_break\
+# [](fg:#FCA17D bg:#86BBD8)\
+# $c\
+# $elixir\
+# $elm\
+# $golang\
+# $gradle\
+# $haskell\
+# $java\
+# $julia\
+# $nodejs\
+# $nim\
+# $rust\
+# $python\
+# $php\
+# $lua\
+# $scala\
+# [](fg:#86BBD8 bg:#06969A)\
+# $docker_context\
+# [](fg:#06969A bg:#33658A)\
+# [ ](fg:#33658A)\
+# $cmd_duration\
+# \n$character"""
+#
+# # Disable the blank line at the start of the prompt
+# # add_newline = false
+#
+# # You can also replace your username with a neat symbol like   or disable this
+# # and use the os module below
+# [username]
+# show_always = true
+# style_user = "bg:#9A348E"
+# style_root = "bg:#9A348E"
+# format = '[󰣇 ]($style)'
+# disabled = false
+#
+# # An alternative to the username module which displays a symbol that
+# # represents the current operating system
+# [os]
+# style = "bg:#9A348E"
+# disabled = true # Disabled by default
+#
+# [directory]
+# style = "bg:#DA627D"
+# format = "[ $path ]($style)"
+# truncation_length = 3
+# truncation_symbol = "…/"
+#
+# # Here is how you can shorten some long paths by text replacement
+# # similar to mapped_locations in Oh My Posh:
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = " "
+# "Pictures" = " "
+# # Keep in mind that the order matters. For example:
+# # "Important Documents" = " 󰈙 "
+# # will not be replaced, because "Documents" was already substituted before.
+# # So either put "Important Documents" before "Documents" or use the substituted version:
+# # "Important 󰈙 " = " 󰈙 "
+#
+# [c]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [docker_context]
+# symbol = " "
+# style = "bg:#06969A"
+# format = '[ $symbol $context ]($style)'
+#
+# [elixir]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [elm]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [git_branch]
+# symbol = ""
+# style = "bg:#FCA17D"
+# format = '[ $symbol $branch ]($style)'
+#
+# [git_status]
+# style = "bg:#FCA17D"
+# format = '[$all_status$ahead_behind ]($style)'
+#
+# [golang]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [gradle]
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [haskell]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [java]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [julia]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [nodejs]
+# symbol = ""
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [nim]
+# symbol = "󰆥 "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [rust]
+# symbol = ""
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [scala]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [php]
+# symbol = ""
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [python]
+# symbol = ""
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [lua]
+# symbol = ""
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+# [time]
+# disabled = false
+# time_format = "%R" # Hour:Minute Format
+# style = "bg:#33658A"
+# format = '[ ♥ $time ]($style)'
+#
+# [line_break]
+# disabled = true
+#
+# [cmd_duration]
+# format = "[$duration]($style) "
+# style = "yellow"
+
+#################
+### TypeCraft ###
+#################
+
+format = """
+[](surface0)\
+$os\
+[](bg:peach fg:surface0)\
+$directory\
+[](fg:peach bg:green)\
+$git_branch\
+$git_status\
+[](fg:green bg:teal)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:teal bg:blue)\
+$docker_context\
+[](fg:blue bg:purple)\
+[ ](fg:purple)\
+$cmd_duration\
+$line_break$character"""
+
+palette = 'catppuccin_mocha'
+
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+orange = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+[os]
+disabled = false
+style = "bg:surface0 fg:text"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇 "
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:surface0 fg:text"
+style_root = "bg:surface0 fg:text"
+format = '[ $user ]($style)'
+
+[directory]
+style = "fg:mantle bg:peach"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:base bg:green)]($style)'
+
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:base bg:green)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[c]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[php]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[java]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[python]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol( $version) ](fg:base bg:teal)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:mantle"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:peach"
+format = '[[  $time ](fg:mantle bg:purple)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:creen)'
+vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
+vimcmd_replace_symbol = '[❮](bold fg:purple)'
+vimcmd_visual_symbol = '[❮](bold fg:lavender)'
