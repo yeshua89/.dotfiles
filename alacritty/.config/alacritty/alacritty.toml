@@ -20,7 +20,7 @@ decorations = "full"
 dynamic_title = true
 #history = false
 #multiplier = false
-opacity = 0.95
+opacity = 0.90
 
 [window.padding]
 x = 15
