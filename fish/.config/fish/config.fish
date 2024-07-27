@@ -78,6 +78,9 @@ alias ish='kitty +kitten icat'
 # Load the fzf key bindings file
 source ~/.config/fish/functions/fzf_key_bindings.fish
 
+# Load Zoxide
+zoxide init fish | source
+
 function extractPorts
     set ports (cat $argv[1] | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')
     set ip_address (cat $argv[1] | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)
