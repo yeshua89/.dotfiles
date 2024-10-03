@@ -34,8 +34,13 @@ local M = {
 }
 
 M.ui = {
-  theme = "chadracula-evondev",
+  theme = "poimandres",
   transparency = true,
+  statusline = { theme = "vscode_colored" },
+
+  cmp = {
+    style = "flat_dark",
+  },
 
   -- hl_override = {
   -- 	Comment = { italic = true },
