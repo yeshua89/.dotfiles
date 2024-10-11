@@ -8,6 +8,7 @@ local options = {
     python = { "black" },
     php = { "phpcbf" },
     bash = { "shfmt" },
+    django = { "djlint" },
   },
 
   diagnostics = {
@@ -17,11 +18,11 @@ local options = {
     "djlint",
   },
 
-  format_on_save = {
-    -- These options will be passed to conform.format()
-    timeout_ms = 500,
-    lsp_fallback = true,
-  },
+  -- format_on_save = {
+  --   -- These options will be passed to conform.format()
+  --   timeout_ms = 500,
+  --   lsp_fallback = true,
+  -- },
 }
 
 require("conform").setup(options)

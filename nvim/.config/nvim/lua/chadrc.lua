@@ -29,6 +29,7 @@ local M = {
       "gopls",
       "json-lsp",
       "vtsls",
+      "djlint",
     },
   },
 }
