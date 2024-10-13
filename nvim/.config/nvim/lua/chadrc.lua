@@ -34,9 +34,13 @@ local M = {
   },
 }
 
-M.ui = {
+M.base46 = {
+
   theme = "poimandres",
   transparency = true,
+}
+
+M.ui = {
   statusline = { theme = "vscode_colored" },
 
   cmp = {
