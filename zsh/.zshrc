@@ -136,7 +136,7 @@ export LS_COLORS="rs=0:di=34:ln=36:mh=00:pi=33:so=35:bd=33;01:cd=33;01:su=37;41:
 eval "$(starship init zsh)"
 
 # Zoxide
-eval "$(zoxide init --cmd cd zsh)"
+#eval "$(zoxide init --cmd cd zsh)"
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
