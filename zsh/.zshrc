@@ -18,6 +18,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light marlonrichert/zsh-autocomplete
 zinit light Aloxaf/fzf-tab
 zinit light sineto/web-search
 zinit light hlissner/zsh-autopair
