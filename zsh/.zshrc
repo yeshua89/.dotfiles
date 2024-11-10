@@ -46,6 +46,9 @@ alias gc='git commit -m'
 alias gp='git push origin main'
 alias gs='git status'
 
+# Lazy Git 
+alias lg='lazygit'
+
 # Use modern completion system
 autoload -Uz compinit;
 compinit
