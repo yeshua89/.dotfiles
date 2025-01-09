@@ -139,6 +139,9 @@ export LS_COLORS="rs=0:di=34:ln=36:mh=00:pi=33:so=35:bd=33;01:cd=33;01:su=37;41:
 # Starship
 eval "$(starship init zsh)"
 
+# Fnm
+eval "$(fnm env --use-on-cd --shell zsh)"
+
 # Zoxide
 #eval "$(zoxide init --cmd cd zsh)"
 
