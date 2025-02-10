@@ -37,3 +37,4 @@ setxkbmap -layout us -variant intl &
 xsettings
 vmware-user-suid-wrapper &
 xrandr --output eDP-1 --brightness 0.5 &
+xrandr -s 1920x1080 &

@@ -143,7 +143,7 @@ eval "$(starship init zsh)"
 eval "$(fnm env --use-on-cd --shell zsh)"
 
 # Zoxide
-#eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
