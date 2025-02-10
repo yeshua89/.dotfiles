@@ -49,6 +49,9 @@ alias gs='git status'
 # Lazy Git 
 alias lg='lazygit'
 
+# Lazy Docker
+alias ld='lazydocker'
+
 # Use modern completion system
 autoload -Uz compinit;
 compinit
