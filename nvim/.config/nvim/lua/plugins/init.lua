@@ -16,36 +16,6 @@ return {
     end,
   },
 
-  -- {
-  --   "williamboman/mason.nvim",
-  --   opts = {
-  --     ensure_installed = {
-  --       "lua-language-server",
-  --       "stylua",
-  --       "html-lsp",
-  --       "css-lsp",
-  --       "typescript-language-server",
-  --       "prettier",
-  --       "pyright",
-  --       "intelephense",
-  --       "black",
-  --       "mypy",
-  --       "ruff",
-  --       "debugpy",
-  --       "bash-language-server",
-  --       "shfmt",
-  --       "dockerfile-language-server",
-  --       "docker-compose-language-service",
-  --       "yaml-language-server",
-  --       "sqlls",
-  --       "phpcbf",
-  --       "eslint_d",
-  --       "gopls",
-  --       "json-lsp",
-  --     },
-  --   },
-  -- },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -71,5 +41,4 @@ return {
       indent = { enable = true },
     },
   },
-
 }

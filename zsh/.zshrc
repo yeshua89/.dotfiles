@@ -139,6 +139,10 @@ function cleartarget(){
 
 export LS_COLORS="rs=0:di=34:ln=36:mh=00:pi=33:so=35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=32"
 
+export GOOGLE_API_KEY="AIzaSyBLlGN0qTnQHURG29k8nJuI0tx0QaE2zMw" 
+
+export OPENAI_API_KEY="sk-01599651eaec40c0800bd5675df24f36"
+
 # Starship
 eval "$(starship init zsh)"
 
