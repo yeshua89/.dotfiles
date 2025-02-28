@@ -3,8 +3,8 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 compton --config /home/shaddai/.config/picom/picom.conf &
-#wmname LG3D &
-feh --bg-fill /home/shaddai/Backgrounds/image27.jpg &
+wmname LG3D &
+feh --bg-fill /home/shaddai/Backgrounds/linux.png &
 ~/.config/polybar/launch_polybar.sh &
 #/usr/bin/polybar &
 xfce4-power-manager &

@@ -13,6 +13,7 @@ fi
 
 # Source/load zinit
 source "${ZINIT_HOME}/zinit.zsh"
+source ~/.okta-completion.zsh
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -31,12 +32,17 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
-# Vim and VsCode
-alias vim='nvim'
+# Vim and VsCode and Windsurf
+alias nv='nvim'
 alias code='code'
+alias codin='code-insiders'
+alias surf='windsurf'
 
 # Web-Search
 alias ws='web_search'
+
+# Auth0
+alias auth='auth0'
 
 # Git
 alias gcl='git clone --depth 1'
@@ -146,6 +152,12 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 # Zoxide
 eval "$(zoxide init zsh)"
 
+# Apis-keys
+
+export OPENAI_API_KEY="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"
+
+export GEMINI_API_KEY="AIzaSyBEUfyMpyLm1qL4eC72883_zkLEt1xtBYs"
+ 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
