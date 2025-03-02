@@ -13,7 +13,7 @@ fi
 
 # Source/load zinit
 source "${ZINIT_HOME}/zinit.zsh"
-source ~/.okta-completion.zsh
+# source ~/.okta-completion.zsh
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
