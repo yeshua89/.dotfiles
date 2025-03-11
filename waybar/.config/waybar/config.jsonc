@@ -173,8 +173,8 @@
     //"pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         //"format": " {volume}% {icon} {format_source} ", // Added spaces
-        //"format-bluetooth": " {volume}% {icon} {format_source} ", // Added spaces
-        //"format-bluetooth-muted": "  {icon} {format_source} ", // Added spaces
+        "format-bluetooth": " {volume}% {icon} {format_source} ", // Added spaces
+        "format-bluetooth-muted": "  {icon} {format_source} ", // Added spaces
         //"format-muted": "  {format_source} ", // Added spaces
         //"format-source": " {volume}%  ", // Added spaces
         //"format-source-muted": "  ", // Added spaces
