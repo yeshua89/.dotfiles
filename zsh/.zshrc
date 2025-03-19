@@ -108,9 +108,9 @@ function rmk(){
 }
 
 # Crear carpetas para Hack
-function mkt(){
-    mkdir {nmap,content,exploits,scripts}
-}
+# function mkt(){
+#     mkdir {nmap,content,exploits,scripts}
+# }
 
 # Funccion para listar y copiar puertos abiertos
 # Extract nmap information
