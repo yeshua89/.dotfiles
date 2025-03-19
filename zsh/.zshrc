@@ -1,7 +1,4 @@
 # Created by newuser for 5.9
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 # Set the directory we want to share to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -117,28 +114,28 @@ function mkt(){
 
 # Funccion para listar y copiar puertos abiertos
 # Extract nmap information
-function extractPorts(){
-    ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
-    ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
-    echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
-    echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
-    echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
-    echo $ports | tr -d '\n' | xclip -sel clip
-    echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
-    cat extractPorts.tmp; rm extractPorts.tmp
-}
+# function extractPorts(){
+#     ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
+#     ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
+#     echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
+#     echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
+#     echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
+#     echo $ports | tr -d '\n' | xclip -sel clip
+#     echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
+#     cat extractPorts.tmp; rm extractPorts.tmp
+# }
 
 # Set Victim Target
-function settarget(){
-    ip_address=$1
-    machine_name=$2
-    echo "$ip_address $machine_name" > /home/hacker/.config/bin/target
-}
+# function settarget(){
+#     ip_address=$1
+#     machine_name=$2
+#     echo "$ip_address $machine_name" > /home/hacker/.config/bin/target
+# }
 
 # Clear Victim Target
-function cleartarget(){
-    echo '' > /home/hacker/.config/bin/target
-}
+# function cleartarget(){
+#     echo '' > /home/hacker/.config/bin/target
+# }
 
 # Colors Lsd
 export LS_COLORS="rs=0:di=34:ln=36:mh=00:pi=33:so=35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=32"
@@ -153,9 +150,6 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
 
 # Apis-keys
-
-export OPENAI_API_KEY="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"
-
 export GEMINI_API_KEY="AIzaSyBEUfyMpyLm1qL4eC72883_zkLEt1xtBYs"
  
 bindkey "^[[H" beginning-of-line
