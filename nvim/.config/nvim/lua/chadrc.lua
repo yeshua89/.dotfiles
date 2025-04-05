@@ -36,7 +36,7 @@ local M = {
 
 M.base46 = {
 
-  theme = "tokyodark",
+  theme = "carbonfox",
   transparency = true,
 }
 
