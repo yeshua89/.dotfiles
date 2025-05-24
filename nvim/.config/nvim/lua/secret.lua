@@ -1,3 +1,3 @@
 return {
-  google_api_key = "AIzaSyBEUfyMpyLm1qL4eC72883_zkLEt1xtBYs",
+  google_api_key = "AIzaSyAhfOVtQQbZF5lj740n5V2eSnMqmEQqexw",
 }
