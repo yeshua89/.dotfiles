@@ -150,7 +150,7 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
 
 # Apis-keys
-export GEMINI_API_KEY="AIzaSyBEUfyMpyLm1qL4eC72883_zkLEt1xtBYs"
+export GEMINI_API_KEY="AIzaSyAhfOVtQQbZF5lj740n5V2eSnMqmEQqexw"
  
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
