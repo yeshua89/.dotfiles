@@ -21,9 +21,6 @@ input-field {
     placeholder_text = "Enter password…"
     placeholder_color = rgba(143,143,143,0.8)
     font_family = "JetBrainsMono Nerd Font"
-    fail_color = rgba(235,100,100,1.0) 
-    fail_text = "<i><span foreground='red'>  Error </span></i>"
-    fail_transition = 300 
 }
 
 label {
@@ -55,3 +52,7 @@ label {
     halign = center
     valign = center
 }
+# Efecto vibración cuando password es errónea
+shake_password = true
+shake_password_strength = 10
+shake_password_duration = 300
