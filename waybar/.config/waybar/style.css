@@ -82,12 +82,8 @@ window#waybar {
     animation-direction: alternate;
 }
 
-/* --- Audio (Pulseaudio) --- */
-/* #pulseaudio { */
-/*     color: @foam; */
-/*     border-bottom: 2px solid @foam; */
-/* } */
-#custom-audio {
+/*--- Audio --- */
+#pulseaudio {
     color: @foam;
     border-bottom: 2px solid @foam;
     padding: 0 10px;
