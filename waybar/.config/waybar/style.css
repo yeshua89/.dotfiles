@@ -6,7 +6,7 @@
     border: none;
     border-radius: 0;
     font-family: "FiraCode Nerd Font", FontAwesome, sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     min-height: 0;
 }
 
@@ -56,28 +56,28 @@ window#waybar {
 /* --- Bluetooth --- */
 #bluetooth {
     color: @iris;
-    border-bottom: 2px solid @iris;
+    border-bottom: 0px solid @iris;
 }
 
 /* --- Network --- */
 #network {
     color: @gold;
-    border-bottom: 2px solid @gold;
+    border-bottom: 0px solid @gold;
 }
 
 /* --- Battery --- */
 #battery {
     color: @pine;
-    border-bottom: 2px solid @pine;
+    border-bottom: 0px solid @pine;
 }
 #battery.charging,
 #battery.plugged {
     color: @foam;
-    border-bottom: 2px solid @foam;
+    border-bottom: 0px solid @foam;
 }
 #battery.critical:not(.charging) {
     color: @love;
-    border-bottom: 2px solid @love;
+    border-bottom: 0px solid @love;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -88,7 +88,7 @@ window#waybar {
 /*--- Audio --- */
 #pulseaudio {
     color: @foam;
-    border-bottom: 2px solid @foam;
+    border-bottom: 0px solid @foam;
     padding: 0 10px;
     border-radius: 8px;
     background-color: @surface;
@@ -97,7 +97,7 @@ window#waybar {
 /* --- Reloj --- */
 #clock {
     color: @rose;
-    border-bottom: 2px solid @rose;
+    border-bottom: 0px solid @rose;
 }
 
 /* --- Idle Inhibitor --- */
@@ -106,19 +106,19 @@ window#waybar {
 }
 #idle_inhibitor.activated {
     color: @love;
-    border-bottom: 2px solid @love;
+    border-bottom: 0px solid @love;
 }
 
 /* --- Backlight --- */
 #backlight {
     color: @gold;
-    border-bottom: 2px solid @gold;
+    border-bottom: 0px solid @gold;
 }
 
 /* --- Power --- */
 #custom-power {
     color: @love;
-    border-bottom: 2px solid @love;
+    border-bottom: 0px solid @love;
     min-width: 28px;
     font-size: 18px;
 }
@@ -127,7 +127,7 @@ window#waybar {
 
 #custom-arch {
     color: @love;
-    border-bottom: 2px solid @love;
+    border-bottom: 0px solid @love;
     min-width: 28px;
     font-size: 18px;
 }
