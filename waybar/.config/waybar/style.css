@@ -19,6 +19,7 @@ window#waybar {
 
 /* Fondo, padding y radio comunes a todos los módulos */
 #workspaces,
+#window,
 #clock,
 #battery,
 #pulseaudio,
@@ -27,6 +28,7 @@ window#waybar {
 #tray,
 #idle_inhibitor,
 #backlight,
+#custom-arch,
 #custom-power {
     padding: 0 10px;
     border-radius: 8px;
@@ -120,3 +122,11 @@ window#waybar {
     font-size: 18px;
 }
 
+/*-- arch logo --*/
+
+#custom-arch {
+    color: @love;
+    border-bottom: 2px solid @love;
+    min-width: 28px;
+    font-size: 18px;
+}

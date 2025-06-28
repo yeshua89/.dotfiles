@@ -5,6 +5,7 @@
   "height": 30, // Puedes ajustar la altura si lo necesitas
   // Módulos a la izquierda
   "modules-left": [
+    "custom/arch",
     "hyprland/workspaces" // Asumo que usas Hyprland por la sintaxis común
   ],
   // Módulos en el centro
@@ -17,6 +18,7 @@
     "network",
     "bluetooth",
     "backlight",
+    "idle_inhibitor",
     "battery",
     "clock",
     "custom/power"
@@ -30,10 +32,6 @@
     "format": "{}",
     "max-length": 50 // Limita el largo del título para que no ocupe toda la barra
   },
-  // "clock": {
-  //     "format": " {:%H:%M}", // Formato de 24 horas
-  //     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  // },
   "clock": {
     // Cambia H (24h) por I (12h).
     "format": " {:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
@@ -114,5 +112,10 @@
     "tooltip": true,
     "tooltip-format": "Menú de apagado",
     "on-click": "wlogout" // Asegúrate de tener wlogout instalado
+  },
+  "custom/arch": {
+    "format": "󰣇",
+    "tooltip": true,
+    "tooltip-format": "btw"
   }
 }
