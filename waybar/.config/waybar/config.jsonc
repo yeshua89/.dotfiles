@@ -16,6 +16,7 @@
   "modules-right": [
     "pulseaudio",
     "network",
+    "power-profiles-daemon",
     "bluetooth",
     "backlight",
     "idle_inhibitor",
@@ -37,15 +38,6 @@
     "format": " {:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "on-click": "gnome-calendar" // O el calendario que uses
-  },
-  "custom/audio": {
-    "exec": "~/.config/waybar/scripts/audio-icon.sh",
-    "return-type": "json",
-    "interval": 2,
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-    "on-right-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -79,6 +71,17 @@
     "format-disconnected": "⚠ Desconectado",
     "tooltip-format": "{ifname} via {gwaddr} ",
     "on-click": "nm-connection-editor"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "", // F0E7 →  (rayo)
+      "performance": "",
+      "balanced": "", // F24E →  (balanza)
+      "power-saver": "" // F06C →  (bombillo)
+    }
   },
   "bluetooth": {
     "format": "",

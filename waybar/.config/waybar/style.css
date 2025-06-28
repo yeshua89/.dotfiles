@@ -28,6 +28,7 @@ window#waybar {
 #tray,
 #idle_inhibitor,
 #backlight,
+#power-profiles-daemon,
 #custom-arch,
 #custom-power {
     padding: 0 10px;
@@ -130,3 +131,27 @@ window#waybar {
     min-width: 28px;
     font-size: 18px;
 }
+
+#power-profiles-daemon {
+    padding-right: 15px;
+    color: @text;
+}
+
+/* Modo rendimiento: color 'love' */
+#power-profiles-daemon.performance {
+    background-color: @love;
+    color: @base;
+}
+
+/* Modo equilibrado: color 'foam' */
+#power-profiles-daemon.balanced {
+    background-color: @foam;
+    color: @base;
+}
+
+/* Modo ahorro de energía: color 'pine' */
+#power-profiles-daemon.power-saver {
+    background-color: @pine;
+    color: @text;
+}
+
