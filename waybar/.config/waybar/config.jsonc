@@ -34,7 +34,7 @@
   },
   "clock": {
     // Cambia H (24h) por I (12h).
-    "format": " {:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
+    "format": " {:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "on-click": "gnome-calendar" // O el calendario que uses
   },
@@ -106,6 +106,14 @@
       "",
       ""
     ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "", // candado cerrado (bloqueo activo)
+      "deactivated": "" // candado abierto (bloqueo desactivado)
+    },
+    "tooltip": true
   },
   "custom/power": {
     "format": "⏻", // Ícono de apagado más común y visible
