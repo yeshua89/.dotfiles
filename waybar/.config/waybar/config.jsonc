@@ -16,12 +16,12 @@
   "modules-right": [
     "pulseaudio",
     "network",
-    "power-profiles-daemon",
     "bluetooth",
     "backlight",
     "idle_inhibitor",
     "battery",
-    "clock"
+    "clock",
+    "power-profiles-daemon"
   ],
   // --- CONFIGURACIÓN DETALLADA DE CADA MÓDULO ---
   "hyprland/workspaces": {
