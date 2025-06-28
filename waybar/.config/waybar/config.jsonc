@@ -5,12 +5,12 @@
   "height": 30, // Puedes ajustar la altura si lo necesitas
   // Módulos a la izquierda
   "modules-left": [
-    "custom/arch",
-    "hyprland/workspaces" // Asumo que usas Hyprland por la sintaxis común
+    "hyprland/workspaces", // Asumo que usas Hyprland por la sintaxis común
+    "hyprland/window"
   ],
   // Módulos en el centro
   "modules-center": [
-    "hyprland/window"
+
   ],
   // Módulos a la derecha
   "modules-right": [
@@ -21,8 +21,7 @@
     "backlight",
     "idle_inhibitor",
     "battery",
-    "clock",
-    "custom/power"
+    "clock"
   ],
   // --- CONFIGURACIÓN DETALLADA DE CADA MÓDULO ---
   "hyprland/workspaces": {
@@ -35,7 +34,7 @@
   },
   "clock": {
     // Cambia H (24h) por I (12h).
-    "format": " {:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
+    "format": "{:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "on-click": "gnome-calendar" // O el calendario que uses
   },
@@ -69,7 +68,7 @@
     "format-wifi": "  {essid} ({signalStrength}%)",
     "format-ethernet": "󰈀 {ifname}",
     "format-disconnected": "⚠ Desconectado",
-    "tooltip-format": "{ifname} via {gwaddr} ",
+    "tooltip-format": "{ifname} via {gwaddr}",
     "on-click": "nm-connection-editor"
   },
   "power-profiles-daemon": {
