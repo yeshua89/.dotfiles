@@ -30,23 +30,12 @@ window#waybar {
 #backlight,
 #power-profiles-daemon,
 #custom-arch,
-#custom-power {
+#custom-power,
+#custom-logo { /* <-- Añadí tu nuevo módulo aquí */
     padding: 0 10px;
     border-radius: 8px;
     background-color: @surface;
     margin: 0 3px;
-}
-
-/* --- Workspaces --- */
-#workspaces button {
-    padding: 0 5px;
-    color: @subtle;
-    background: transparent;
-}
-#workspaces button.active {
-    color: @rose;
-    background-color: @highlightMed;
-    border-radius: 8px;
 }
 #workspaces button:hover {
     background: @overlay;
@@ -56,28 +45,23 @@ window#waybar {
 /* --- Bluetooth --- */
 #bluetooth {
     color: @iris;
-    border-bottom: 0px solid @iris;
 }
 
 /* --- Network --- */
 #network {
     color: @gold;
-    border-bottom: 0px solid @gold;
 }
 
 /* --- Battery --- */
 #battery {
     color: @pine;
-    border-bottom: 0px solid @pine;
 }
 #battery.charging,
 #battery.plugged {
     color: @foam;
-    border-bottom: 0px solid @foam;
 }
 #battery.critical:not(.charging) {
     color: @love;
-    border-bottom: 0px solid @love;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -85,19 +69,14 @@ window#waybar {
     animation-direction: alternate;
 }
 
-/*--- Audio --- */
+/* --- Pulseaudio --- */
 #pulseaudio {
     color: @foam;
-    border-bottom: 0px solid @foam;
-    padding: 0 10px;
-    border-radius: 8px;
-    background-color: @surface;
 }
 
 /* --- Reloj --- */
 #clock {
     color: @rose;
-    border-bottom: 0px solid @rose;
 }
 
 /* --- Idle Inhibitor --- */
@@ -106,52 +85,30 @@ window#waybar {
 }
 #idle_inhibitor.activated {
     color: @love;
-    border-bottom: 0px solid @love;
 }
 
 /* --- Backlight --- */
 #backlight {
     color: @gold;
-    border-bottom: 0px solid @gold;
 }
 
 /* --- Power --- */
 #custom-power {
     color: @love;
-    border-bottom: 0px solid @love;
     min-width: 28px;
     font-size: 18px;
 }
 
 /*-- arch logo --*/
-
 #custom-arch {
     color: @love;
-    border-bottom: 0px solid @love;
     min-width: 28px;
     font-size: 18px;
 }
 
-#power-profiles-daemon {
-    padding-right: 15px;
-    color: @text;
+/* --- Módulo de la Balanza (Logo) --- */
+/* NUEVA SECCIÓN PARA TU MÓDULO */
+#custom-logo {
+    color: @foam; /* Color celeste como en la imagen */
+    font-size: 18px;
 }
-
-/* Modo rendimiento: color 'love' */
-#power-profiles-daemon.performance {
-    background-color: @love;
-    color: @base;
-}
-
-/* Modo equilibrado: color 'foam' */
-#power-profiles-daemon.balanced {
-    background-color: @foam;
-    color: @base;
-}
-
-/* Modo ahorro de energía: color 'pine' */
-#power-profiles-daemon.power-saver {
-    background-color: @pine;
-    color: @text;
-}
-
