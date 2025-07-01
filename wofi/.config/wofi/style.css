@@ -1,0 +1,57 @@
+window {
+  margin: 0px;
+  background-color: #191724;
+  border-radius: 0px;
+  border: 1px solid #31748f;
+  color: #e0def4;
+  font-family: "FiraCode Nerd Font";
+  font-size: 17px;
+}
+
+#input {
+  margin: 0px;
+  border-radius: 0px;
+  border: none;
+  border-radius: 0px;
+  color: #eb6f92;
+  background-color: #26233a;
+}
+
+#inner-box {
+  margin: 0px;
+  border: none;
+  background-color: #26233a;
+  color: #191724;
+  border-radius: 0px;
+}
+
+#outer-box {
+  margin: 10px;
+  border: none;
+  background-color: #191724;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #e0def4;
+}
+
+#entry:selected {
+  background-color: #1f1d2e;
+  color: #191724;
+  border-radius: 0px;
+  outline: none;
+}
+
+#entry:selected * {
+  background-color: #31748f;
+  color: #191724;
+  border-radius: 0px;
+  outline: none;
+}

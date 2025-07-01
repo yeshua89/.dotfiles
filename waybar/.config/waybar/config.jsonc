@@ -65,7 +65,7 @@
     "on-scroll-down": "brightnessctl set 5%-"
   },
   "network": {
-    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-wifi": "  {essid}",
     "format-ethernet": "󰈀 {ifname}",
     "format-disconnected": "⚠ Desconectado",
     "tooltip-format": "{ifname} via {gwaddr}",
