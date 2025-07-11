@@ -47,6 +47,7 @@ alias gi='git init'
 alias ga='git add'
 alias gc='git commit -m'
 alias gp='git push origin main'
+alias gpl='git pull'
 alias gs='git status'
 
 # Lazy Git 
