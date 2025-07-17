@@ -53,13 +53,4 @@ M.ui = {
   -- },
 }
 
--- Corrige el color de fondo de las notificaciones para que coincida con el tema
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  desc = "Fix nvim-notify background color",
-  callback = function()
-    vim.api.nvim_set_hl(0, "NotifyBackground", { link = "NormalFloat" })
-  end,
-})
-
 return M
