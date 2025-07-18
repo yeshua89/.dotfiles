@@ -1,5 +1,5 @@
-/* Importa la NUEVA paleta */
-@import "tokyo-night.css";
+/* Importa la paleta */
+@import "rose-pine.css";
 
 /* Estilos generales */
 * {
@@ -31,7 +31,7 @@ window#waybar {
 #power-profiles-daemon,
 #custom-arch,
 #custom-power,
-#custom-logo {
+#custom-logo { /* <-- Añadí tu nuevo módulo aquí */
     padding: 0 10px;
     border-radius: 8px;
     background-color: @surface;
@@ -107,7 +107,8 @@ window#waybar {
 }
 
 /* --- Módulo de la Balanza (Logo) --- */
+/* NUEVA SECCIÓN PARA TU MÓDULO */
 #custom-logo {
-    color: @foam;
+    color: @foam; /* Color celeste como en la imagen */
     font-size: 18px;
 }

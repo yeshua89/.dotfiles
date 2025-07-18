@@ -186,4 +186,5 @@ return {
       require("telescope").load_extension "file_browser"
     end,
   },
+  { import = "nvchad.blink.lazyspec" }
 }
