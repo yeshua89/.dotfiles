@@ -6,7 +6,9 @@
 
 config_version: 2
 settings:
+  content.media.audio_capture:
+    https://meet.google.com: true
   tabs.position:
     global: top
   tabs.show:
-    global: never
+    global: multiple
