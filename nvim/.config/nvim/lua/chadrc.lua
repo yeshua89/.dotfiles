@@ -36,10 +36,10 @@ local M = {
 
 M.base46 = {
 
-  theme = "rosepine",
+  theme = "material-deep-ocean",
   transparency = true,
 }
-
+M.nvdash = { load_on_startup = true }
 M.ui = {
   statusline = { theme = "vscode_colored" },
 

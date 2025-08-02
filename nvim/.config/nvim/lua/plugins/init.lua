@@ -1,13 +1,43 @@
 return {
+  -- Importa la configuración base de blink.cmp de NvChad
+  { import = "nvchad.blink.lazyspec" },
+
+  -- Personalización de blink.cmp
+  {
+    "Saghen/blink.cmp",
+    opts = function(_, opts)
+      local new_opts = vim.tbl_deep_extend("force", opts or {}, {
+        keymap = {
+          ["<C-n>"] = { "select_next", "fallback" }, -- Siguiente elemento
+          ["<C-p>"] = { "select_prev", "fallback" }, -- Elemento anterior
+          ["<C-y>"] = { "accept" }, -- Aceptar sugerencia
+          ["<C-Space>"] = { "show" }, -- Mostrar menú manualmente
+          ["<C-e>"] = { "hide" }, -- Cerrar menú
+        },
+        completion = {
+          documentation = { auto_show = false }, -- Desactiva documentación automática para rapidez
+          ghost_text = { enabled = true }, -- Previsualización rápida
+        },
+        sources = {
+          default = { "lsp", "snippets", "buffer", "path" }, -- Fuentes prioritarias
+        },
+        fuzzy = {
+          implementation = "prefer_rust", -- Matcher de Rust para rendimiento
+        },
+      })
+      return new_opts
+    end,
+  },
+
+  -- Plugins de formateo y LSP
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre",
     config = function()
       require "configs.conform"
     end,
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -16,32 +46,30 @@ return {
     end,
   },
 
+  -- Plugin de Copilot
   {
     "github/copilot.vim",
     event = "InsertEnter",
     config = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
-      vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+      vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
     end,
   },
 
+  -- Plugin de CopilotChat
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     cmd = "CopilotChat",
-    opts = function()
-      local user = vim.env.USER or "User"
-      user = user:sub(1, 1):upper() .. user:sub(2)
-      return {
-        auto_insert_mode = true,
-        question_header = "  " .. user .. " ",
-        answer_header = "  Copilot ",
-        window = {
-          width = 0.4,
-        },
-      }
-    end,
+    opts = {
+      auto_insert_mode = false,
+      question_header = "  User ",
+      answer_header = "  Copilot ",
+      window = {
+        width = 0.4,
+      },
+    },
     keys = {
       { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
@@ -86,7 +114,6 @@ return {
     },
     config = function(_, opts)
       local chat = require "CopilotChat"
-
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-chat",
         callback = function()
@@ -94,11 +121,11 @@ return {
           vim.opt_local.number = false
         end,
       })
-
       chat.setup(opts)
     end,
   },
 
+  -- Plugin de Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -125,26 +152,24 @@ return {
     },
   },
 
-  -- PLUGINS NUEVOS
+  -- Plugin de Noice
   {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
       },
-      -- you can enable a preset theme here, or create your own theme in lua/custom/plugins/noice.lua
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
       },
     },
     dependencies = {
@@ -158,15 +183,17 @@ return {
     },
   },
 
+  -- Plugin de Harpoon
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
+  -- Plugin de Nvim Surround
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     keys = {
       { "ys", mode = "n" },
       { "ds", mode = "n" },
@@ -178,13 +205,13 @@ return {
     end,
   },
 
+  -- Plugin de Telescope File Browser
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
-      -- To load the extension
       require("telescope").load_extension "file_browser"
     end,
   },
-  { import = "nvchad.blink.lazyspec" }
 }
+
