@@ -10,7 +10,7 @@
   ],
   // Módulos en el centro
   "modules-center": [
-
+    "mpris"
   ],
   // Módulos a la derecha
   "modules-right": [
@@ -127,5 +127,24 @@
     "format": "󰣇",
     "tooltip": true,
     "tooltip-format": "btw"
+  },
+  "mpris": {
+    "format": "<span foreground='#ff0000'>󰗃</span> {title} - {artist}",
+    "format-paused": "<span foreground='#e89f71'>󰏤</span> {title} - {artist}",
+    "format-stopped": "<span foreground='#c5c8c6'>󰓦</span> Detenido",
+    "player-icons": {
+      "default": "󰋾",
+      "youtube-music-bin": "󰗃" // Icono específico para Youtube Music
+    },
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤"
+    },
+    "tooltip-format": "{player_name} | {album}",
+    "max-length": 35,
+    "truncation-symbol": "…",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next"
   }
 }
