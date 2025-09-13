@@ -30,16 +30,17 @@ local M = {
       "json-lsp",
       "vtsls",
       "djlint",
+      "astro-language-server"
     },
   },
 }
 
 M.base46 = {
 
-  theme = "material-deep-ocean",
+  theme = "tokyonight",
   transparency = true,
 }
-M.nvdash = { load_on_startup = true }
+M.nvdash = { load_on_startup = false }
 M.ui = {
   statusline = { theme = "vscode_colored" },
 
