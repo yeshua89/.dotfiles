@@ -22,7 +22,13 @@ zinit light sineto/web-search
 zinit light hlissner/zsh-autopair
 
 # Custom Aliases
+
+# Bat
 alias cat='bat'
+alias catn='bat --style=plain'
+alias catnp='bat --style=plain --paging=never'
+
+# Lsd 
 alias ll='lsd -lh --group-dirs=first'
 alias la='lsd -a --group-dirs=first'
 alias l='lsd --group-dirs=first'
@@ -52,6 +58,9 @@ alias gs='git status'
 
 # Lazy Git 
 alias lg='lazygit'
+
+# GitLab
+alias gl='glab'
 
 # Lazy Docker
 alias ld='lazydocker'
