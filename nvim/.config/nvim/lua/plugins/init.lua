@@ -213,5 +213,45 @@ return {
       require("telescope").load_extension "file_browser"
     end,
   },
+
+  -- Plugin de Spectre (buscador/reemplazo avanzado)
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Spectre",
+    keys = {
+      {
+        "<leader>S",
+        '<cmd>lua require("spectre").toggle()<CR>',
+        desc = "Toggle Spectre",
+      },
+      {
+        "<leader>sw",
+        '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+        desc = "Search current word",
+      },
+      {
+        "<leader>sp",
+        '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+        desc = "Search on current file",
+      },
+      {
+        mode = "v",
+        "<leader>sw",
+        '<esc><cmd>lua require("spectre").open_visual()<CR>',
+        desc = "Search selection",
+      },
+    },
+    config = function()
+      require("spectre").setup {
+        is_block_ui_break = true, -- evita glitches en la UI
+        default = {
+          replace = {
+            cmd = "sed", -- puedes cambiar a "oxi" si lo compilas con cargo
+          },
+        },
+      }
+    end,
+  },
 }
 
