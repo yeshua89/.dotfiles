@@ -3,43 +3,35 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
-local lspconfig = require "lspconfig"
-local servers = { "html", "cssls" }
+require("nvchad.configs.lspconfig").defaults()
 
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-    init_options = {
-      preferences = {
-        disableSuggestions = true,
-      },
+-- HTML y CSSLS con init_options
+vim.lsp.config("html", {
+  init_options = {
+    preferences = {
+      disableSuggestions = true,
     },
-  }
-end
+  },
+})
 
--- typescript
-lspconfig.ts_ls.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+vim.lsp.config("cssls", {
+  init_options = {
+    preferences = {
+      disableSuggestions = true,
+    },
+  },
+})
 
--- vtsls
-lspconfig.vtsls.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-}
+-- Typescript (sin opciones personalizadas)
+vim.lsp.config("ts_ls", {})
 
--- python
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- VTSLS (sin opciones personalizadas)
+vim.lsp.config("vtsls", {})
+
+-- Python con settings
+vim.lsp.config("pyright", {
   settings = {
-    pyright = { "python" },
+    pyright = { "python" }, -- Nota: Verifica si esto es un placeholder; podría ser un error en el original
     python = {
       analysis = {
         autoSearchPaths = true,
@@ -48,26 +40,20 @@ lspconfig.pyright.setup {
       },
     },
   },
-}
+})
 
--- php
-lspconfig.intelephense.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- PHP con filetypes
+vim.lsp.config("intelephense", {
   filetypes = { "php" },
-}
+})
 
--- rust
-lspconfig.rust_analyzer.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- Rust con filetypes
+vim.lsp.config("rust_analyzer", {
   filetypes = { "rust" },
-}
+})
 
--- go
-lspconfig.gopls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- Go con filetypes y settings
+vim.lsp.config("gopls", {
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   settings = {
     gopls = {
@@ -78,31 +64,40 @@ lspconfig.gopls.setup {
       },
     },
   },
-}
+})
 
--- docker
-lspconfig.dockerls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- Docker con filetypes
+vim.lsp.config("dockerls", {
   filetypes = { "dockerfile", "yml" },
-}
+})
 
-lspconfig.docker_compose_language_service.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+vim.lsp.config("docker_compose_language_service", {
   filetypes = { "yaml.docker-compose" },
-}
+})
 
--- yml
-lspconfig.yamlls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- YAML con filetypes
+vim.lsp.config("yamlls", {
   filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-}
+})
 
--- json
-lspconfig.jsonls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
+-- JSON con filetypes
+vim.lsp.config("jsonls", {
   filetypes = { "json", "jsonc" },
+})
+
+-- Habilita todos los servidores
+local servers = {
+  "html",
+  "cssls",
+  "ts_ls",
+  "vtsls",
+  "pyright",
+  "intelephense",
+  "rust_analyzer",
+  "gopls",
+  "dockerls",
+  "docker_compose_language_service",
+  "yamlls",
+  "jsonls",
 }
+vim.lsp.enable(servers)
