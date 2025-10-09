@@ -1,0 +1,150 @@
+{
+  // Capa y posición de la barra
+  "layer": "top",
+  "position": "top",
+  "height": 30, // Puedes ajustar la altura si lo necesitas
+  // Módulos a la izquierda
+  "modules-left": [
+    "niri/workspaces", // Asumo que usas Hyprland por la sintaxis común
+    "niri/window"
+  ],
+  // Módulos en el centro
+  "modules-center": [
+    "mpris"
+  ],
+  // Módulos a la derecha
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "bluetooth",
+    "backlight",
+    "idle_inhibitor",
+    "battery",
+    "clock",
+    "power-profiles-daemon"
+  ],
+  // --- CONFIGURACIÓN DETALLADA DE CADA MÓDULO ---
+  "niri/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate"
+  },
+  "niri/window": {
+    "format": "{}",
+    "max-length": 50 // Limita el largo del título para que no ocupe toda la barra
+  },
+  "clock": {
+    // Cambia H (24h) por I (12h).
+    "format": "{:%I:%M}", // Usamos un ícono de reloj (necesitas Nerd Fonts) y formato 12h
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "gnome-calendar" // O el calendario que uses
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 Mute",
+    "format-icons": {
+      "headphones": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-right-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "tooltip": true
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃠",
+      "󰃟"
+    ],
+    "on-scroll-up": "brightnessctl set 5%+",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "⚠ Desconectado",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "nm-connection-editor"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "", // F0E7 →  (rayo)
+      "performance": "",
+      "balanced": "", // F24E →  (balanza)
+      "power-saver": "" // F06C →  (bombillo)
+    }
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "", // No muestra nada si está apagado
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{device_alias}",
+    "tooltip-format-connected": "<b>{device_alias}</b>\n{device_address}",
+    "tooltip-format-enumerate-connected": "<b>{device_alias}</b>\n{device_address}",
+    "on-click": "blueman-manager"
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "", // candado cerrado (bloqueo activo)
+      "deactivated": "" // candado abierto (bloqueo desactivado)
+    },
+    "tooltip": true
+  },
+  "custom/power": {
+    "format": "⏻", // Ícono de apagado más común y visible
+    "tooltip": true,
+    "tooltip-format": "Menú de apagado",
+    "on-click": "wlogout" // Asegúrate de tener wlogout instalado
+  },
+  "custom/arch": {
+    "format": "󰣇",
+    "tooltip": true,
+    "tooltip-format": "btw"
+  },
+  "mpris": {
+    "format": "<span foreground='#ff0000'>󰗃</span> {title} - {artist}",
+    "format-paused": "<span foreground='#e89f71'>󰏤</span> {title} - {artist}",
+    "format-stopped": "<span foreground='#c5c8c6'>󰓦</span> Detenido",
+    "player-icons": {
+      "default": "󰋾",
+      "youtube-music-bin": "󰗃" // Icono específico para Youtube Music
+    },
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤"
+    },
+    "tooltip-format": "{player_name} | {album}",
+    "max-length": 35,
+    "truncation-symbol": "…",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next"
+  }
+}
