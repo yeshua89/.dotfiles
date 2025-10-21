@@ -37,7 +37,7 @@ local M = {
 
 M.base46 = {
 
-  theme = "default-dark",
+  theme = "kanagawa-dragon",
   transparency = true,
 }
 M.nvdash = { load_on_startup = false }
