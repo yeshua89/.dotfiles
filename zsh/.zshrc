@@ -36,10 +36,9 @@ alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
 # Vim and VsCode and Windsurf
-alias nv='nvim'
-alias code='code'
+alias v='nvim'
+alias code='codium'
 alias codin='code-insiders'
-alias surf='windsurf'
 
 # Web-Search
 alias ws='web_search'
