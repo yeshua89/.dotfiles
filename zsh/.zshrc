@@ -64,6 +64,12 @@ alias gl='glab'
 # Lazy Docker
 alias ld='lazydocker'
 
+# ProtonVpn
+alias vpn='protonvpn'
+
+# Claude
+alias cl='claude'
+
 # Use modern completion system
 autoload -Uz compinit;
 compinit
