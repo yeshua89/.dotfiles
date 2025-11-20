@@ -77,32 +77,35 @@ window#waybar.empty #window {
 }
 /* --- Workspaces --- */
 #workspaces {
-    padding: 0 6px;
+    padding: 0 4px;
 }
 
 #workspaces button {
-    padding: 0 8px;
-    border-radius: 6px;
+    padding: 0 6px;
+    margin: 0 2px;
+    border-radius: 0;
     color: @subtle;
     background: transparent;
+    border-bottom: 2px solid transparent;
     transition: all 0.3s ease;
+    min-width: 24px;
 }
 
 #workspaces button:hover {
-    background: @overlay;
     color: @text;
+    border-bottom: 2px solid @overlay;
 }
 
 #workspaces button.active {
     color: @foam;
-    background: @highlightMed;
+    background: transparent;
     border-bottom: 2px solid @foam;
-    padding-bottom: 2px;
 }
 
 #workspaces button.urgent {
     color: @love;
-    background: @highlightHigh;
+    border-bottom: 2px solid @love;
+    background: transparent;
 }
 
 /* --- Window --- */
