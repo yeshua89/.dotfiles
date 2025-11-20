@@ -1,174 +1,339 @@
-# Created by newuser for 5.9
-# Set the directory we want to share to store zinit and plugins
+# ============================================================================
+# ZSH Configuration - Optimized for performance and productivity
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Zinit Plugin Manager Setup
+# ----------------------------------------------------------------------------
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download Zinit, if it's not there yet
+# Download Zinit if not installed
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-# Source/load zinit
+# Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
-# source ~/.okta-completion.zsh
 
-# Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
+# ----------------------------------------------------------------------------
+# Zinit Plugins - Using turbo mode for faster startup
+# ----------------------------------------------------------------------------
+
+# Syntax highlighting - Load after other plugins for better performance
+zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# Autosuggestions - Load with turbo mode
+zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
-zinit light marlonrichert/zsh-autocomplete
+
+# Completions
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
+
+# History substring search - Navigate history with up/down arrows
+zinit ice wait lucid atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down"
+zinit light zsh-users/zsh-history-substring-search
+
+# FZF integration for better tab completion
+zinit ice wait lucid
 zinit light Aloxaf/fzf-tab
-zinit light sineto/web-search
+
+# Auto-close brackets and quotes
+zinit ice wait lucid
 zinit light hlissner/zsh-autopair
 
-# Custom Aliases
+# Remind you to use aliases you've defined
+zinit ice wait lucid
+zinit light MichaelAquilina/zsh-you-should-use
 
-# Bat
+# Colorize man pages
+zinit ice wait lucid
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+# Web search plugin
+zinit ice wait lucid
+zinit light sineto/web-search
+
+# OMZ library for better compatibility
+zinit snippet OMZ::lib/clipboard.zsh
+zinit snippet OMZ::lib/git.zsh
+
+# ----------------------------------------------------------------------------
+# History Configuration
+# ----------------------------------------------------------------------------
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+
+setopt appendhistory          # Append to history file
+setopt sharehistory           # Share history between sessions
+setopt hist_ignore_space      # Ignore commands starting with space
+setopt hist_ignore_all_dups   # Remove older duplicate entries
+setopt hist_save_no_dups      # Don't save duplicates
+setopt hist_ignore_dups       # Ignore consecutive duplicates
+setopt hist_find_no_dups      # Don't show duplicates when searching
+
+# ----------------------------------------------------------------------------
+# Completion System - Optimized for speed
+# ----------------------------------------------------------------------------
+# Note: compinit is handled by zinit on line 24
+# Completion styling
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
+zstyle ':completion:*' menu no
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' special-dirs true
+
+# Colorize completions using default `ls` colors
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# Process completion colors
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# FZF-Tab configuration
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'lsd --color=always $realpath'
+
+# ----------------------------------------------------------------------------
+# Aliases - Organized by category
+# ----------------------------------------------------------------------------
+
+# Bat (better cat)
 alias cat='bat'
 alias catn='bat --style=plain'
 alias catnp='bat --style=plain --paging=never'
 
-# Lsd 
+# Lsd (better ls)
+alias ls='lsd --group-dirs=first'
+alias l='lsd --group-dirs=first'
 alias ll='lsd -lh --group-dirs=first'
 alias la='lsd -a --group-dirs=first'
-alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
-alias ls='lsd --group-dirs=first'
+alias lt='lsd --tree --group-dirs=first'
 
-# Vim and VsCode and Windsurf
+# Editors
 alias v='nvim'
+alias vim='nvim'
+alias vi='nvim'
 alias code='codium'
 alias codin='code-insiders'
-
-# Web-Search
-alias ws='web_search'
-
-# Auth0
-alias auth='auth0'
 
 # Git
 alias gcl='git clone --depth 1'
 alias gi='git init'
 alias ga='git add'
+alias gaa='git add .'
 alias gc='git commit -m'
+alias gca='git commit -am'
 alias gp='git push origin main'
 alias gpl='git pull'
 alias gs='git status'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate'
+alias gco='git checkout'
+alias gb='git branch'
 
-# Lazy Git 
+# Lazy tools
 alias lg='lazygit'
-
-# GitLab
-alias gl='glab'
-
-# Lazy Docker
 alias ld='lazydocker'
 
-# ProtonVpn
+# GitLab
+alias glab='glab'
+
+# VPN
 alias vpn='protonvpn'
 
 # Claude
 alias cl='claude'
 
-# Use modern completion system
-autoload -Uz compinit;
-compinit
+# Auth0
+alias auth='auth0'
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-# zstyle ':completion:*' menu select=2
-zstyle ':completion:*' menu no
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]= r:|=* l:|=*'
-# zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath' 
+# Web search
+alias ws='web_search'
 
-# zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
+# System
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias -- -='cd -'
 
-zstyle ':completion:::kill::processes' list-colors '=(#b) #([0-9]#)=0=01;31'
-zstyle ':completion::kill:' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# Quick directory access (customize to your needs)
+alias dl='cd ~/Downloads'
+alias docs='cd ~/Documents'
+alias desk='cd ~/Desktop'
 
+# Safety aliases
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias mkdir='mkdir -pv'
+
+# Disk usage
+alias df='df -h'
+alias du='du -h'
+
+# Network
+alias myip='curl -s ifconfig.me'
+alias ports='netstat -tulanp'
+
+# Package manager shortcuts (Arch Linux)
+alias update='sudo pacman -Syu'
+alias install='sudo pacman -S'
+alias search='pacman -Ss'
+alias remove='sudo pacman -Rns'
+
+# ----------------------------------------------------------------------------
+# Functions
+# ----------------------------------------------------------------------------
+
+# Secure file deletion
+rmk() {
+    scrub -p dod "$1"
+    shred -zun 10 -v "$1"
+}
+
+# Extract various archive types
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"    ;;
+            *.tar.gz)    tar xzf "$1"    ;;
+            *.bz2)       bunzip2 "$1"    ;;
+            *.rar)       unrar x "$1"    ;;
+            *.gz)        gunzip "$1"     ;;
+            *.tar)       tar xf "$1"     ;;
+            *.tbz2)      tar xjf "$1"    ;;
+            *.tgz)       tar xzf "$1"    ;;
+            *.zip)       unzip "$1"      ;;
+            *.Z)         uncompress "$1" ;;
+            *.7z)        7z x "$1"       ;;
+            *)           echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# Create directory and cd into it
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Quick backup of a file
+backup() {
+    cp "$1"{,.bak-$(date +%Y%m%d-%H%M%S)}
+}
+
+# Search for a file and open with nvim
+vf() {
+    local file
+    file=$(fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+    [ -n "$file" ] && nvim "$file"
+}
+
+# Search directory and cd with fzf and zoxide
+zf() {
+    local dir
+    dir=$(zoxide query -l | fzf --preview 'lsd --color=always {}') && cd "$dir"
+}
+
+# ----------------------------------------------------------------------------
+# Environment Variables
+# ----------------------------------------------------------------------------
+
+# Load sensitive environment variables from .env file
+[ -f ~/.env ] && source ~/.env
+
+# LS_COLORS for better file colors
+export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+
+# Default editor
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# FZF default options
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --inline-info \
+  --color=fg:#c0caf5,bg:#1a1b26,hl:#7aa2f7 \
+  --color=fg+:#c0caf5,bg+:#1f2335,hl+:#7dcfff \
+  --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
+
+# Use fd for better fzf performance (if installed)
+if command -v fd &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+# ----------------------------------------------------------------------------
+# Key Bindings
+# ----------------------------------------------------------------------------
+
+# Better line navigation
+bindkey "^[[H" beginning-of-line      # Home
+bindkey "^[[F" end-of-line            # End
+bindkey "^[[3~" delete-char           # Delete
+bindkey "^[[1;3C" forward-word        # Alt+Right
+bindkey "^[[1;3D" backward-word       # Alt+Left
+
+# Ctrl+Z to foreground last suspended process
+foreground-current-job() { fg; }
+zle -N foreground-current-job
+bindkey '^Z' foreground-current-job
+
+# ----------------------------------------------------------------------------
+# Shell Options
+# ----------------------------------------------------------------------------
+
+setopt auto_cd              # Auto cd when typing just a path
+setopt auto_pushd           # Push directories onto stack
+setopt pushd_ignore_dups    # Don't push duplicates
+setopt pushdminus           # Swap +/- for pushd
+setopt correct              # Spelling correction
+setopt interactive_comments # Allow comments in interactive shell
+setopt multios              # Enable multiple redirections
+setopt prompt_subst         # Enable prompt substitution
+
+# ----------------------------------------------------------------------------
+# Tool Initializations - Load at the end for best performance
+# ----------------------------------------------------------------------------
+
+# FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
 
-# Función para usar fzf con zoxide
-# z() {
-#     local dir
-#     dir=$(zoxide query -l | fzf) && cd "$dir"
-# }
-
-# History 
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUO=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-
-function rmk(){
-	scrub -p dod $1
-	shred -zun 10 -v $1
-}
-
-# Crear carpetas para Hack
-# function mkt(){
-#     mkdir {nmap,content,exploits,scripts}
-# }
-
-# Funccion para listar y copiar puertos abiertos
-# Extract nmap information
-# function extractPorts(){
-#     ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
-#     ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
-#     echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
-#     echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
-#     echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
-#     echo $ports | tr -d '\n' | xclip -sel clip
-#     echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
-#     cat extractPorts.tmp; rm extractPorts.tmp
-# }
-
-# Set Victim Target
-# function settarget(){
-#     ip_address=$1
-#     machine_name=$2
-#     echo "$ip_address $machine_name" > /home/hacker/.config/bin/target
-# }
-
-# Clear Victim Target
-# function cleartarget(){
-#     echo '' > /home/hacker/.config/bin/target
-# }
-
-# Colors Lsd
-export LS_COLORS="rs=0:di=34:ln=36:mh=00:pi=33:so=35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=32"
-
-# Starship
+# Starship prompt
 eval "$(starship init zsh)"
 
-# Fnm
+# Fnm (Fast Node Manager)
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# Zoxide
+# Zoxide (better cd)
 eval "$(zoxide init zsh)"
 
-# Apis-keys
-export GEMINI_API_KEY="AIzaSyAhfOVtQQbZF5lj740n5V2eSnMqmEQqexw"
+# ----------------------------------------------------------------------------
+# Optional: Uncomment to enable
+# ----------------------------------------------------------------------------
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey "^[[3~" delete-char
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
+# Vi mode (uncomment if you prefer vi keybindings)
+# bindkey -v
+
+# Auto-update check reminder (runs once a week)
+# if [[ ! -f ~/.zsh_update_check ]] || [[ $(find ~/.zsh_update_check -mtime +7) ]]; then
+#     echo "Run 'zinit update' to update plugins"
+#     touch ~/.zsh_update_check
+# fi
+
+# ============================================================================
+# End of configuration
+# ============================================================================
