@@ -166,7 +166,7 @@ eval "$(zoxide init zsh)"
 
 # Apis-keys
 export GEMINI_API_KEY="AIzaSyAhfOVtQQbZF5lj740n5V2eSnMqmEQqexw"
- 
+
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char

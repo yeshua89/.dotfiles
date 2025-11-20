@@ -45,13 +45,8 @@ cursor_text_color #1a1b26
 selection_foreground #7aa2f7
 selection_background #28344a
 
-# Tab bar - Tokyo Night con colores vibrantes (estilo píldoras)
-active_tab_foreground #1a1b26
+# Tab bar (usa colores del tema)
+active_tab_foreground #0F111A
 active_tab_background #7aa2f7
-active_tab_font_style bold
 inactive_tab_foreground #a9b1d6
-inactive_tab_background #1f2335
-inactive_tab_font_style normal
-tab_bar_background #0F111A
-tab_bar_margin_width 0.0
-tab_bar_margin_height 6.0 2.0
+inactive_tab_background #414868

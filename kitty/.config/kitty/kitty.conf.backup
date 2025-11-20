@@ -1,18 +1,9 @@
 # === APARIENCIA ===
 include color.ini
 
-font_family FiraCode Nerd Font Mono
-bold_font FiraCode Nerd Font Mono Bold
-italic_font FiraCode Nerd Font Mono
-bold_italic_font FiraCode Nerd Font Mono Bold
+font_family FiraCodeNerdFont
 font_size 13
 disable_ligatures never
-
-# Fuente de respaldo para símbolos/iconos Nerd Font
-symbol_map U+E000-U+F8FF,U+F0000-U+10FFFF Symbols Nerd Font Mono
-
-# Fuente para emojis (instalar: sudo pacman -S noto-fonts-emoji)
-symbol_map U+1F300-U+1FAF8 Noto Color Emoji
 
 # Transparencia optimizada (0.95 consume menos que 0.90)
 background_opacity 0.95
@@ -26,13 +17,11 @@ detect_urls yes
 cursor_shape beam
 cursor_beam_thickness 1.8
 
-# === TABS (Tokyo Night style - Píldoras redondeadas) ===
-tab_bar_style powerline
+# === TABS (minimalista y eficiente) ===
+tab_bar_style fade
 tab_bar_edge top
 tab_bar_min_tabs 2
-tab_powerline_style round
-tab_title_max_length 20
-tab_title_template " {index}: {title[title.rfind('/')+1:]} "
+tab_fade 0.5 1
 
 # === VENTANAS ===
 window_padding_width 10
