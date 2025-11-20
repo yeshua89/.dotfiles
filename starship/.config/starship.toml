@@ -1,7 +1,7 @@
 ######################
 #Tokyo Night Dark#
 ######################
-# Enhanced version with better colors, more languages, and improved features
+# Final Version: Floating Pills for Tools & Time
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -9,12 +9,11 @@ format = """
 [](bg:#1a1b26)\
 $os\
 $username\
-[](bg:#2f3549 fg:#1a1b26)\
+[](bg:#24283b fg:#1a1b26)\
 $directory\
-[](fg:#2f3549 bg:#24283b)\
 $git_branch\
 $git_status\
-[](fg:#24283b bg:#1a1b26)\
+[](fg:#24283b)\
 $c\
 $cmake\
 $rust\
@@ -33,7 +32,6 @@ $terraform\
 $cmd_duration\
 $jobs\
 $status\
-[](fg:#2f3549)\
 \n$character"""
 
 palette = 'tokyo_night'
@@ -61,26 +59,26 @@ style = "bg:#1a1b26 fg:#7dcfff"
 format = "[$symbol](bg:#1a1b26 fg:#7dcfff)"
 
 [os.symbols]
-Alpine = " "
-Amazon = " "
-Android = " "
+Alpine = " "
+Amazon = " "
+Android = " "
 Arch = "󰣇 "
 Artix = "󰣇 "
-CentOS = " "
+CentOS = " "
 Debian = "󰣚 "
 Fedora = "󰣛 "
 Gentoo = "󰣨 "
 Linux = "󰌽 "
-Macos = " "
-Manjaro = " "
+Macos = " "
+Manjaro = " "
 Mint = "󰣭 "
-NixOS = " "
+NixOS = " "
 Raspbian = "󰐿 "
 Redhat = "󱄛 "
 RedHatEnterprise = "󱄛 "
-SUSE = " "
+SUSE = " "
 Ubuntu = "󰕈 "
-Unknown = " "
+Unknown = " "
 Windows = "󰍲 "
 
 [username]
@@ -90,35 +88,35 @@ style_root = "bg:#1a1b26 fg:#f7768e bold"
 format = '[$user ](bg:#1a1b26 $style)'
 
 [directory]
-style = "fg:#c0caf5 bg:#2f3549 bold"
-format = "[ $path ](bg:#2f3549 $style)"
+style = "fg:#c0caf5 bg:#24283b bold"
+format = "[ $path ]($style)"
 truncation_length = 4
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " 󰌾"
-read_only_style = "fg:#f7768e bg:#2f3549"
+read_only_style = "fg:#f7768e bg:#24283b"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
+"Downloads" = " "
 "Music" = "󰝚 "
-"Pictures" = " "
-"Videos" = " "
+"Pictures" = " "
+"Videos" = " "
 "Developer" = "󰲋 "
-"Projects" = " "
-".config" = " "
+"Projects" = "󰉖 "
+".config" = " "
 "Desktop" = "󰚝 "
 
 [git_branch]
-symbol = " "
+symbol = " "
 style = "bg:#24283b fg:#bb9af7 bold"
-format = '[[ $symbol$branch ](bg:#24283b fg:#bb9af7)]($style)'
+format = '[$symbol$branch ]($style)'
 truncation_length = 20
 truncation_symbol = "…"
 
 [git_status]
 style = "bg:#24283b fg:#e0af68"
-format = '[[($all_status$ahead_behind )](bg:#24283b fg:#e0af68)]($style)'
+format = '[$all_status$ahead_behind ]($style)'
 conflicted = "󰞇"
 ahead = "󰜷${count}"
 behind = "󰜮${count}"
@@ -130,99 +128,90 @@ staged = "󰄬${count}"
 renamed = "󰑕"
 deleted = "󰍵"
 
+# --- ESTILO DE BURBUJAS (FLOATING PILLS) ---
+# Usamos un fondo #2f3549 (bg_visual) para que resalten sobre la terminal
+
 [c]
-symbol = " "
-style = "bg:#1a1b26 fg:#7dcfff"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#7dcfff)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#7dcfff)[](fg:#2f3549)'
 
 [cmake]
 symbol = "△ "
-style = "bg:#1a1b26 fg:#7dcfff"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#7dcfff)]($style)'
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#7dcfff)[](fg:#2f3549)'
 
 [rust]
-symbol = " "
-style = "bg:#1a1b26 fg:#ff9e64"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#ff9e64)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#ff9e64)[](fg:#2f3549)'
 
 [golang]
-symbol = " "
-style = "bg:#1a1b26 fg:#7dcfff"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#7dcfff)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#7dcfff)[](fg:#2f3549)'
 
 [nodejs]
-symbol = " "
-style = "bg:#1a1b26 fg:#9ece6a"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#9ece6a)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#9ece6a)[](fg:#2f3549)'
 
 [php]
-symbol = " "
-style = "bg:#1a1b26 fg:#bb9af7"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#bb9af7)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#bb9af7)[](fg:#2f3549)'
 
+# --- PYTHON CONFIGURADO CON VENV ---
 [python]
-symbol = " "
-style = "bg:#1a1b26 fg:#e0af68"
-format = '[[ $symbol($version)( $virtualenv) ](bg:#1a1b26 fg:#e0af68)]($style)'
+symbol = " "
+# Aquí agregué (\($virtualenv\)) para que muestre el nombre del entorno
+format = ' [](fg:#2f3549)[ $symbol$version( \($virtualenv\)) ](bg:#2f3549 fg:#e0af68)[](fg:#2f3549)'
 detect_extensions = ['py']
 detect_files = ['.python-version', 'Pipfile', '__pycache__', 'pyproject.toml', 'requirements.txt', 'setup.py', 'tox.ini']
 
 [java]
-symbol = " "
-style = "bg:#1a1b26 fg:#f7768e"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#f7768e)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#f7768e)[](fg:#2f3549)'
 
 [kotlin]
-symbol = " "
-style = "bg:#1a1b26 fg:#bb9af7"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#bb9af7)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#bb9af7)[](fg:#2f3549)'
 
 [lua]
-symbol = " "
-style = "bg:#1a1b26 fg:#7aa2f7"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#7aa2f7)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#7aa2f7)[](fg:#2f3549)'
 
 [ruby]
-symbol = " "
-style = "bg:#1a1b26 fg:#f7768e"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#f7768e)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#f7768e)[](fg:#2f3549)'
 
 [zig]
-symbol = " "
-style = "bg:#1a1b26 fg:#ff9e64"
-format = '[[ $symbol($version) ](bg:#1a1b26 fg:#ff9e64)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol($version) ](bg:#2f3549 fg:#ff9e64)[](fg:#2f3549)'
 
 [docker_context]
-symbol = " "
-style = "bg:#1a1b26 fg:#7aa2f7"
-format = '[[ $symbol$context ](bg:#1a1b26 fg:#7aa2f7)]($style)'
+symbol = " "
+format = ' [](fg:#2f3549)[ $symbol$context ](bg:#2f3549 fg:#7aa2f7)[](fg:#2f3549)'
 only_with_files = true
 
 [kubernetes]
 symbol = "󱃾 "
-style = "bg:#1a1b26 fg:#7dcfff"
-format = '[[ $symbol$context( \($namespace\)) ](bg:#1a1b26 fg:#7dcfff)]($style)'
+format = ' [](fg:#2f3549)[ $symbol$context( \($namespace\)) ](bg:#2f3549 fg:#7dcfff)[](fg:#2f3549)'
 disabled = false
 
 [terraform]
 symbol = "󱁢 "
-style = "bg:#1a1b26 fg:#bb9af7"
-format = '[[ $symbol$workspace ](bg:#1a1b26 fg:#bb9af7)]($style)'
+format = ' [](fg:#2f3549)[ $symbol$workspace ](bg:#2f3549 fg:#bb9af7)[](fg:#2f3549)'
 
+# --- TIEMPO DE COMANDO (CMD DURATION) ---
 [cmd_duration]
 min_time = 500
-format = "[[ 󱦟 $duration ](bg:#1a1b26 fg:#e0af68)]($style)"
+# Fondo gris azulado, texto amarillo, bordes redondos
+format = " [](fg:#2f3549)[ 󱦟 $duration ](bg:#2f3549 fg:#e0af68)[](fg:#2f3549)"
 show_milliseconds = false
 
 [jobs]
-symbol = " "
-style = "bg:#1a1b26 fg:#7aa2f7 bold"
+symbol = " "
 number_threshold = 1
-format = "[[ $symbol$number ](bg:#1a1b26 fg:#7aa2f7)]($style)"
+format = " [](fg:#2f3549)[ $symbol$number ](bg:#2f3549 fg:#7aa2f7)[](fg:#2f3549)"
 
 [status]
 disabled = false
-format = '[[ $symbol$status ](bg:#1a1b26 fg:#f7768e bold)]($style)'
+format = ' [](fg:#2f3549)[ $symbol$status ](bg:#2f3549 fg:#f7768e bold)[](fg:#2f3549)'
 symbol = "✗ "
 success_symbol = ""
 not_executable_symbol = "󰌋 "
