@@ -18,6 +18,12 @@ window#waybar {
 }
 
 window#waybar.empty #window {
+    opacity: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
     background: transparent;
 }
 
@@ -117,8 +123,12 @@ window#waybar.empty #window {
 }
 
 #window.empty {
-    border-bottom: none;
-    background: transparent;
+    opacity: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 /* --- Bluetooth --- */
