@@ -24,9 +24,16 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# Autosuggestions - Load with turbo mode
+# Autosuggestions - Load with turbo mode and custom config
 zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
+
+# Autosuggestions configuration - Fixed for TAB completion
+ZSH_AUTOSUGGEST_STRATEGY=(history)  # Only history, completion interferes with TAB
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 # Completions
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
@@ -37,8 +44,9 @@ zinit ice wait lucid atload"bindkey '^[[A' history-substring-search-up; bindkey 
 zinit light zsh-users/zsh-history-substring-search
 
 # FZF integration for better tab completion
-zinit ice wait lucid
-zinit light Aloxaf/fzf-tab
+# DISABLED: Causes path corruption bugs with cd/z completion
+# zinit ice wait lucid
+# zinit light Aloxaf/fzf-tab
 
 # Auto-close brackets and quotes
 zinit ice wait lucid
@@ -99,9 +107,40 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# FZF-Tab configuration
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color=always $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'lsd --color=always $realpath'
+# FZF-Tab configuration - DISABLED to fix path completion bugs
+# NOTE: fzf-tab plugin is completely disabled above (line 48)
+# Keeping configurations commented for future reference
+
+# # General settings
+# zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# # IMPORTANT: Disable fzf-tab for cd and z to avoid path corruption bugs
+# # Use traditional completion for directory navigation (no bugs)
+# zstyle ':fzf-tab:complete:cd:*' disabled yes
+# zstyle ':fzf-tab:complete:__zoxide_z:*' disabled yes
+# zstyle ':fzf-tab:complete:z:*' disabled yes
+
+# # Preview for kill command
+# zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
+# zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
+
+# # Preview for systemctl
+# zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+
+# # Preview for git commands with delta
+# zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff --color=always $word | delta'
+# zstyle ':fzf-tab:complete:git-show:*' fzf-preview 'git show --color=always $word | delta'
+# zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always --oneline --graph --decorate $word'
+# zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview 'git log --color=always --oneline --graph --decorate $word'
+
+# # Preview for environment variables
+# zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+
+# # Preview for man pages
+# zstyle ':fzf-tab:complete:(\\|)man:*' fzf-preview 'man $word | bat --language=man --plain --color=always'
+
+# # Preview for packages
+# zstyle ':fzf-tab:complete:(pacman|yay|paru):*' fzf-preview 'pacman -Si $word 2>/dev/null || pacman -Qi $word 2>/dev/null'
 
 # ----------------------------------------------------------------------------
 # Aliases - Organized by category
@@ -112,20 +151,19 @@ alias cat='bat'
 alias catn='bat --style=plain'
 alias catnp='bat --style=plain --paging=never'
 
-# Lsd (better ls)
-alias ls='lsd --group-dirs=first'
-alias l='lsd --group-dirs=first'
-alias ll='lsd -lh --group-dirs=first'
-alias la='lsd -a --group-dirs=first'
-alias lla='lsd -lha --group-dirs=first'
-alias lt='lsd --tree --group-dirs=first'
+# Eza (better ls) - These are overridden below if eza is installed
+# alias ls='eza --icons --group-directories-first'
+# alias l='eza --icons --group-directories-first'
+# alias ll='eza -lh --icons --group-directories-first'
+# alias la='eza -a --icons --group-directories-first'
+# alias lla='eza -lha --icons --group-directories-first'
+# alias lt='eza --tree --icons --group-directories-first'
 
 # Editors
 alias v='nvim'
 alias vim='nvim'
 alias vi='nvim'
 alias code='codium'
-alias codin='code-insiders'
 
 # Git
 alias gcl='git clone --depth 1'
@@ -193,6 +231,36 @@ alias install='sudo pacman -S'
 alias search='pacman -Ss'
 alias remove='sudo pacman -Rns'
 
+# Modern tool aliases (if installed)
+command -v eza &>/dev/null && alias ls='eza --icons --group-directories-first' && alias ll='eza -lh --icons --group-directories-first' && alias la='eza -a --icons --group-directories-first' && alias lla='eza -lha --icons --group-directories-first' && alias lt='eza --tree --icons --group-directories-first'
+command -v dust &>/dev/null && alias du='dust'
+command -v duf &>/dev/null && alias df='duf'
+command -v procs &>/dev/null && alias ps='procs'
+command -v btm &>/dev/null && alias top='btm'
+command -v sd &>/dev/null && alias sed='sd'
+
+# Git aliases for new functions
+alias gch='gcof'          # git checkout fuzzy
+alias gchr='gcor'         # git checkout recent
+alias gst='gstash'        # git stash fuzzy
+
+# Utility aliases
+alias hf='fh'             # history fuzzy
+alias rf='rgf'            # ripgrep fuzzy
+alias pv='preview'        # preview file
+alias mon='monitor'       # system monitor
+
+# Docker shortcuts (if docker is installed)
+command -v docker &>/dev/null && alias dps='docker ps' && alias dpsa='docker ps -a' && alias di='docker images' && alias dc='dce'
+
+# Modern tools shortcuts
+alias du='diskusage'      # Better du with dust
+alias dsk='disks'         # Show disk info with duf
+alias bm='bench'          # Benchmark commands
+alias cs='codestats'      # Code statistics
+alias pf='psef'           # Process finder with fzf
+alias tree='dtree'        # Tree with eza
+
 # ----------------------------------------------------------------------------
 # Functions
 # ----------------------------------------------------------------------------
@@ -235,17 +303,327 @@ backup() {
     cp "$1"{,.bak-$(date +%Y%m%d-%H%M%S)}
 }
 
-# Search for a file and open with nvim
+# Search for a file and open with nvim (BRUTAL VERSION)
 vf() {
     local file
-    file=$(fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+    file=$(fzf --preview 'bat --color=always --style=full --line-range=:500 {}' \
+               --preview-window='right:60%:wrap' \
+               --header='📝 Select file to edit' \
+               --border=rounded \
+               --height=90%)
     [ -n "$file" ] && nvim "$file"
 }
 
-# Search directory and cd with fzf and zoxide
+# Search directory and cd with fzf and zoxide (BRUTAL VERSION)
 zf() {
     local dir
-    dir=$(zoxide query -l | fzf --preview 'lsd --color=always {}') && cd "$dir"
+    dir=$(zoxide query -l | fzf --preview 'eza --color=always --icons=always --tree --level=2 {}' \
+                                 --preview-window='right:60%:wrap' \
+                                 --header='📁 Jump to directory' \
+                                 --border=rounded \
+                                 --height=90%)
+    [ -n "$dir" ] && cd "$dir"
+}
+
+# Interactive git branch checkout (BRUTAL VERSION)
+gcof() {
+    local branch
+    branch=$(git branch --all | grep -v HEAD |
+             sed 's/^[* ]*//' | sed 's#remotes/origin/##' |
+             sort -u |
+             fzf --preview 'git log --oneline --graph --color=always --date=short --pretty="format:%C(auto)%h %C(blue)%an %C(green)%ar %C(auto)%s" {} | head -50' \
+                 --preview-window='right:70%:wrap' \
+                 --header='🌿 Checkout branch (Ctrl-Y to copy name)' \
+                 --border=rounded \
+                 --height=90% \
+                 --bind='ctrl-y:execute-silent(echo -n {} | xclip -selection clipboard)+abort')
+    [ -n "$branch" ] && git checkout "$branch"
+}
+
+# Interactive process killer (BRUTAL VERSION)
+kp() {
+    local pid signal=${1:-9}
+    pid=$(ps -ef | sed 1d | \
+          fzf -m --header="☠️  Select process to kill (Signal: $signal, TAB for multi)" \
+              --preview 'echo {}' \
+              --preview-window=down:3:wrap \
+              --border=rounded \
+              --height=50% | \
+          awk '{print $2}')
+    if [ -n "$pid" ]; then
+        echo "$pid" | xargs kill -${signal}
+        echo "✓ Killed process(es) with signal $signal: $pid"
+    fi
+}
+
+# Find and cd into directory (works with or without fd)
+fd-cd() {
+    local dir
+    if command -v fd &>/dev/null; then
+        dir=$(fd --type d --hidden --follow --exclude .git |
+              fzf --preview 'eza --color=always --icons=always --tree --level=2 {}' \
+                  --header='Find and cd to directory' \
+                  --border=rounded \
+                  --height=70%)
+    else
+        dir=$(find . -type d -name '.git' -prune -o -type d -print 2>/dev/null |
+              fzf --preview 'eza --color=always --icons=always --tree --level=2 {}' \
+                  --header='Find and cd to directory' \
+                  --border=rounded \
+                  --height=70%)
+    fi
+    [ -n "$dir" ] && cd "$dir"
+}
+
+# Git interactive add (BRUTAL VERSION)
+gaf() {
+    local files
+    files=$(git status --short | \
+            fzf -m --preview 'git diff --color=always {2} | delta' \
+                --preview-window='right:70%:wrap' \
+                --header='✨ Select files to stage (TAB for multi, Ctrl-A for all)' \
+                --border=rounded \
+                --height=90% \
+                --bind='ctrl-a:select-all' \
+                --bind='ctrl-d:deselect-all' \
+                --bind='ctrl-t:toggle-all' | \
+            awk '{print $2}')
+    if [ -n "$files" ]; then
+        echo "$files" | xargs git add
+        echo ""
+        echo "✓ Staged files:"
+        echo "$files" | sed 's/^/  ✓ /'
+        echo ""
+        git status --short
+    fi
+}
+
+# Search code with ripgrep + fzf (BRUTAL)
+rgf() {
+    local selected
+    selected=$(rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+               fzf --ansi \
+                   --delimiter : \
+                   --preview 'bat --color=always --highlight-line {2} {1}' \
+                   --preview-window 'up,60%,border-rounded,+{2}+3/3,~3' \
+                   --header='🔍 Search in code' \
+                   --border=rounded \
+                   --height=90%)
+    [ -n "$selected" ] && nvim "+$(echo $selected | cut -d: -f2)" "$(echo $selected | cut -d: -f1)"
+}
+
+# Interactive history search (BRUTAL)
+fh() {
+    local cmd
+    cmd=$(history | fzf --tac --no-sort \
+                        --preview 'echo {}' \
+                        --preview-window=down:3:wrap \
+                        --header='📜 Command history (Enter to execute, Ctrl-Y to copy)' \
+                        --border=rounded \
+                        --height=50% \
+                        --bind='ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort' | \
+          sed 's/^ *[0-9]* *//')
+    [ -n "$cmd" ] && print -z "$cmd"
+}
+
+# Git stash interactive (BRUTAL)
+gstash() {
+    local stash
+    stash=$(git stash list | \
+            fzf --preview 'git stash show -p $(echo {} | cut -d: -f1) | delta' \
+                --preview-window='right:70%:wrap' \
+                --header='📦 Select stash (Enter to apply, Ctrl-D to drop)' \
+                --border=rounded \
+                --height=90% \
+                --bind='ctrl-d:execute(git stash drop $(echo {} | cut -d: -f1))+reload(git stash list)')
+    [ -n "$stash" ] && git stash pop "$(echo $stash | cut -d: -f1)"
+}
+
+# Quick file preview (BRUTAL)
+preview() {
+    local file="$1"
+    if [ -z "$file" ]; then
+        file=$(fzf --preview 'bat --color=always --style=full {}' \
+                   --preview-window='right:70%:wrap' \
+                   --header='👁️  Preview file' \
+                   --border=rounded \
+                   --height=90%)
+    fi
+    [ -n "$file" ] && bat --paging=always "$file"
+}
+
+# Git checkout recent branches (BRUTAL)
+gcor() {
+    local branch
+    branch=$(git reflog | \
+             grep 'checkout:' | \
+             sed 's/.* to //' | \
+             awk '!seen[$0]++' | \
+             head -20 | \
+             fzf --preview 'git log --oneline --graph --color=always --date=short {} | head -50' \
+                 --preview-window='right:70%:wrap' \
+                 --header='🔄 Recent branches' \
+                 --border=rounded \
+                 --height=70%)
+    [ -n "$branch" ] && git checkout "$branch"
+}
+
+# Docker container selector (if docker is installed)
+dce() {
+    local container
+    container=$(docker ps -a --format '{{.Names}}\t{{.Status}}\t{{.Image}}' | \
+                fzf --header='🐳 Select container (Enter to exec bash)' \
+                    --preview 'docker logs --tail 100 $(echo {} | cut -f1)' \
+                    --preview-window='right:60%:wrap' \
+                    --border=rounded \
+                    --height=70%)
+    [ -n "$container" ] && docker exec -it "$(echo $container | cut -f1)" bash
+}
+
+# System resource monitor shortcut
+monitor() {
+    if command -v btm &>/dev/null; then
+        btm
+    elif command -v htop &>/dev/null; then
+        htop
+    else
+        top
+    fi
+}
+
+# Disk usage analyzer with dust
+diskusage() {
+    local dir="${1:-.}"
+    if command -v dust &>/dev/null; then
+        dust -r "$dir"
+    else
+        du -h "$dir" | sort -hr | head -20
+    fi
+}
+
+# Compare disk usage between directories
+diskcompare() {
+    if command -v dust &>/dev/null; then
+        echo "=== Directory 1: ${1:-.} ==="
+        dust -r -d 1 "${1:-.}"
+        echo ""
+        echo "=== Directory 2: ${2:-.} ==="
+        dust -r -d 1 "${2:-.}"
+    fi
+}
+
+# Quick benchmark with hyperfine
+bench() {
+    if command -v hyperfine &>/dev/null; then
+        hyperfine --warmup 3 "$@"
+    else
+        echo "Install hyperfine: sudo pacman -S hyperfine"
+    fi
+}
+
+# Code statistics with tokei
+codestats() {
+    if command -v tokei &>/dev/null; then
+        tokei "${1:-.}" --sort lines
+    else
+        echo "Install tokei: sudo pacman -S tokei"
+    fi
+}
+
+# Interactive process selector with procs + fzf
+psef() {
+    if command -v procs &>/dev/null; then
+        local pid
+        pid=$(procs | tail -n +2 | \
+              fzf --header='🔍 Select process (Enter to kill)' \
+                  --preview 'echo {}' \
+                  --preview-window=down:3:wrap \
+                  --border=rounded \
+                  --height=70% | \
+              awk '{print $1}')
+        if [ -n "$pid" ]; then
+            echo "Kill process $pid? (y/n)"
+            read -q && kill -15 "$pid" && echo "\n✓ Process $pid terminated"
+        fi
+    else
+        kp
+    fi
+}
+
+# Quick file find and preview
+ff() {
+    local file
+    if command -v fd &>/dev/null; then
+        file=$(fd --type f --hidden --follow --exclude .git |
+               fzf --preview 'bat --color=always --style=numbers --line-range=:100 {}' \
+                   --preview-window='right:60%:wrap' \
+                   --header='🔍 Find file' \
+                   --border=rounded \
+                   --height=80%)
+    else
+        file=$(find . -type f -not -path '*/\.git/*' 2>/dev/null |
+               fzf --preview 'bat --color=always --style=numbers --line-range=:100 {}' \
+                   --preview-window='right:60%:wrap' \
+                   --header='🔍 Find file' \
+                   --border=rounded \
+                   --height=80%)
+    fi
+    [ -n "$file" ] && echo "$file"
+}
+
+# Directory size with eza tree
+dtree() {
+    local depth="${1:-2}"
+    if command -v eza &>/dev/null; then
+        eza --tree --level="$depth" --icons --git-ignore
+    else
+        tree -L "$depth" -I '.git'
+    fi
+}
+
+# Advanced eza with git status
+lsg() {
+    if command -v eza &>/dev/null; then
+        eza --long --git --icons --group-directories-first --header
+    else
+        ls -lah
+    fi
+}
+
+# Show all files including hidden, sorted by size
+lss() {
+    if command -v eza &>/dev/null; then
+        eza --long --all --sort=size --reverse --icons --group-directories-first
+    else
+        ls -lhS
+    fi
+}
+
+# Show files sorted by modification time
+lst() {
+    if command -v eza &>/dev/null; then
+        eza --long --all --sort=modified --reverse --icons --group-directories-first
+    else
+        ls -lht
+    fi
+}
+
+# Disk info with duf
+disks() {
+    if command -v duf &>/dev/null; then
+        duf
+    else
+        df -h
+    fi
+}
+
+# Quick help with tldr
+help() {
+    if command -v tldr &>/dev/null; then
+        tldr "$@"
+    else
+        man "$@"
+    fi
 }
 
 # ----------------------------------------------------------------------------
@@ -262,16 +640,34 @@ export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-# FZF default options
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --inline-info \
+# FZF default options - ULTIMATE SETUP
+export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded --inline-info \
+  --preview-window=right:50%:wrap \
+  --bind='ctrl-/:toggle-preview' \
+  --bind='ctrl-u:preview-half-page-up' \
+  --bind='ctrl-d:preview-half-page-down' \
+  --bind='ctrl-f:preview-page-down' \
+  --bind='ctrl-b:preview-page-up' \
+  --bind='ctrl-a:select-all' \
+  --bind='ctrl-t:toggle-all' \
+  --bind='ctrl-y:execute-silent(echo -n {+} | xclip -selection clipboard)' \
+  --bind='alt-up:preview-up' \
+  --bind='alt-down:preview-down' \
   --color=fg:#c0caf5,bg:#1a1b26,hl:#7aa2f7 \
   --color=fg+:#c0caf5,bg+:#1f2335,hl+:#7dcfff \
   --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
-  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
+  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a \
+  --color=border:#565f89,preview-bg:#1a1b26 \
+  --pointer='▶' --marker='✓' --prompt='❯ ' \
+  --info=inline"
 
-# Use fd for better fzf performance (if installed)
+# Use fd or ripgrep for better fzf performance
 if command -v fd &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --color=never'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --color=never'
+elif command -v rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
@@ -290,6 +686,30 @@ bindkey "^[[1;3D" backward-word       # Alt+Left
 foreground-current-job() { fg; }
 zle -N foreground-current-job
 bindkey '^Z' foreground-current-job
+
+# Ctrl+F to open file finder (vf function)
+open-file-finder() {
+    zle -I
+    vf
+    zle reset-prompt
+}
+zle -N open-file-finder
+bindkey '^F' open-file-finder
+
+# Ctrl+G to open directory finder (zf function)
+open-dir-finder() {
+    zle -I
+    zf
+    zle reset-prompt
+}
+zle -N open-dir-finder
+bindkey '^G' open-dir-finder
+
+# Ctrl+R for fzf history search (built-in with fzf)
+# This is automatically configured by fzf --zsh
+
+# Alt+C for cd finder (built-in with fzf)
+# This is automatically configured by fzf --zsh
 
 # ----------------------------------------------------------------------------
 # Shell Options
