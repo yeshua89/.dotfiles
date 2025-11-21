@@ -6,31 +6,89 @@ local M = {
   mason = {
     cmd = true,
     pkgs = {
+      -- ======================
+      -- Lua
+      -- ======================
       "lua-language-server",
       "stylua",
+
+      -- ======================
+      -- Web Development
+      -- ======================
       "html-lsp",
       "css-lsp",
       "typescript-language-server",
-      "prettier",
-      "pyright",
+      "prettierd",
+      "eslint_d",
+
+      -- Frameworks
+      "astro-language-server",
+      "tailwindcss-language-server",
+      "graphql-language-service-cli",
+
+      -- ======================
+      -- Python (Backend/Red Team)
+      -- ======================
+      "pyright", -- Type checking
+      "ruff", -- Linter + Formatter ultra rápido
+
+      -- ======================
+      -- PHP
+      -- ======================
       "intelephense",
-      "black",
-      "mypy",
-      "ruff",
-      "debugpy",
+      "php-cs-fixer",
+
+      -- ======================
+      -- Go
+      -- ======================
+      "gopls",
+      "gofumpt",
+      "goimports",
+      "delve", -- Debugger
+
+      -- ======================
+      -- Rust
+      -- ======================
+      "rust-analyzer",
+
+      -- ======================
+      -- C/C++
+      -- ======================
+      "clangd",
+      "codelldb",
+
+      -- ======================
+      -- Shell/Bash (Red Team)
+      -- ======================
       "bash-language-server",
       "shfmt",
+      "shellcheck",
+
+      -- ======================
+      -- Config files
+      -- ======================
+      "json-lsp",
+      "yaml-language-server",
+      "taplo", -- TOML
+
+      -- ======================
+      -- Docker & K8s (DevOps)
+      -- ======================
       "dockerfile-language-server",
       "docker-compose-language-service",
-      "yaml-language-server",
+      "hadolint",
+      "helm-ls",
+
+      -- ======================
+      -- Database (Backend)
+      -- ======================
       "sqlls",
-      "phpcbf",
-      "eslint_d",
-      "gopls",
-      "json-lsp",
-      "vtsls",
-      "djlint",
-      "astro-language-server"
+      "sqlfmt",
+
+      -- ======================
+      -- Markdown
+      -- ======================
+      "marksman",
     },
   },
 }
