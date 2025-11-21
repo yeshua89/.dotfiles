@@ -81,7 +81,6 @@ window#waybar.empty #window {
     border-radius: 0 8px 8px 0;
     margin-right: 4px;
 }
-
 /* --- Workspaces --- */
 #workspaces {
     padding: 0 4px;
@@ -103,26 +102,11 @@ window#waybar.empty #window {
     border-bottom: 2px solid @overlay;
 }
 
-/* --- MODIFICACIÓN AQUÍ --- */
 #workspaces button.active {
     color: @foam;
-    background-color: transparent;
-    /* Quitamos el color del borde pero mantenemos el espacio para que no salte */
-    border-bottom: 2px solid transparent;
-    
-    /* Dibujamos la línea pequeña usando un gradiente */
-    background-image: linear-gradient(@foam, @foam);
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    
-    /* 
-       AQUÍ AJUSTAS EL TAMAÑO:
-       14px = ancho de la línea (hazlo más pequeño si quieres)
-       2px  = alto (grosor) de la línea 
-    */
-    background-size: 14px 2px; 
+    background: transparent;
+    border-bottom: 2px solid @foam;
 }
-/* ------------------------- */
 
 #workspaces button.urgent {
     color: @love;
