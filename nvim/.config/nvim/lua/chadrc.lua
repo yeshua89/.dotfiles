@@ -95,12 +95,12 @@ local M = {
 
 M.base46 = {
 
-  theme = "catppuccin",
+  theme = "kanagawa",
   transparency = true,
 }
 M.nvdash = { load_on_startup = false }
 M.ui = {
-  statusline = { theme = "default" },
+  statusline = { theme = "vscode_colored" },
 
   cmp = {
     style = "flat_dark",
