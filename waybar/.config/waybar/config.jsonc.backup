@@ -31,7 +31,7 @@
   ],
   // --- CONFIGURACIÓN DETALLADA DE CADA MÓDULO ---
   "hyprland/workspaces": {
-    "format": "{name}",
+    "format": "{icon}",
     "on-click": "activate",
     "format-icons": {
       "1": "I",
@@ -59,24 +59,30 @@
     "on-click": "gnome-calendar"
   },
   "pulseaudio": {
-    "format": "{icon} {volume}",
-    "format-muted": "󰝟",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 Mute",
     "format-icons": {
-      "headphone": "󰋋",
-      "headset": "󰋎",
-      "default": ["󰕿", "󰖀", "󰕾"]
+      "headphones": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
     },
-    "scroll-step": 5,
-    "on-click": "~/.config/waybar/scripts/volume-menu.sh",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "tooltip-format": "{desc} · {volume}"
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-right-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "tooltip": true
   },
   "backlight": {
-    "format": "{icon} {percent}",
-    "format-icons": ["󰃞", "󰃝", "󰃟", "󰃠"],
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃠",
+      "󰃟"
+    ],
     "on-scroll-up": "brightnessctl set 5%+",
-    "on-scroll-down": "brightnessctl set 5%-",
-    "tooltip-format": "Brillo · {percent}"
+    "on-scroll-down": "brightnessctl set 5%-"
   },
   "network": {
     "format-wifi": "  {essid}",
@@ -107,20 +113,21 @@
   },
   "battery": {
     "states": {
-      "good": 80,
+      "good": 95,
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon}",
-    "format-alt": "{icon} {capacity}",
-    "format-charging": "󰂄",
-    "format-charging-alt": "󰂄 {capacity}",
-    "format-plugged": "󰚥",
-    "format-plugged-alt": "󰚥 {capacity}",
-    "format-full": "󰂅",
-    "format-full-alt": "󰂅 {capacity}",
-    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "tooltip-format": "{timeTo} · {capacity}%"
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   },
   "idle_inhibitor": {
     "format": "{icon}",

@@ -1,0 +1,28 @@
+/*
+ * Absolute Black Theme - Elegant Grayscale
+ * Ultra-dark theme with beautiful grayscale progression
+ * Solo escala de grises para máxima elegancia
+ */
+
+/* --- Base Colors: Negro absoluto con profundidad --- */
+@define-color base            #000000; /* Negro absoluto */
+@define-color surface         #0d0d0d; /* Superficie de módulos */
+@define-color overlay         #1a1a1a; /* Estado hover */
+
+/* --- Text: Jerarquía de grises perfecta --- */
+@define-color muted           #404040; /* Gris muy oscuro - elementos sutiles */
+@define-color subtle          #707070; /* Gris medio oscuro - secundario */
+@define-color text            #d0d0d0; /* Gris claro - texto principal */
+
+/* --- Accents: Solo escala de grises elegante --- */
+@define-color love            #ff3333; /* Solo para crítico - rojo mínimo */
+@define-color gold            #c0c0c0; /* Gris plata - antes oro */
+@define-color rose            #e8e8e8; /* Gris casi blanco - destacado */
+@define-color pine            #909090; /* Gris medio */
+@define-color foam            #ffffff; /* Blanco puro - máximo contraste */
+@define-color iris            #a8a8a8; /* Gris medio claro */
+
+/* --- Highlights: Capas de profundidad sutiles --- */
+@define-color highlightLow    #121212; /* Separador casi invisible */
+@define-color highlightMed    #1f1f1f; /* Profundidad media */
+@define-color highlightHigh   #2a2a2a; /* Máximo contraste sin salir de negro */

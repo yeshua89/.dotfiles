@@ -1,12 +1,14 @@
-/* Importa la NUEVA paleta */
+/* Importa la paleta de colores */
+/* Cambia entre: tokyo-night.css, absolute-black.css, rose-pine.css */
 @import "tokyo-night.css";
+/* @import "tokyo-night.css"; */ /* Descomenta para tema ultra-dark */
 
 /* Estilos generales */
 * {
     border: none;
     border-radius: 0;
     font-family: "FiraCode Nerd Font", FontAwesome, sans-serif;
-    font-size: 16px;
+    font-size: 13px; /* Más compacto para más módulos */
     min-height: 0;
 }
 
@@ -16,6 +18,16 @@ window#waybar {
     transition-property: background-color;
     transition-duration: 0.5s;
 }
+
+/* Glassmorphism effect - descomenta para efecto de vidrio */
+/*
+window#waybar {
+    background: rgba(22, 22, 30, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+*/
 
 window#waybar.empty #window {
     opacity: 0;
@@ -41,6 +53,12 @@ window#waybar.empty #window {
 }
 
 /* Módulos del lado derecho - unidos en una barra continua */
+#tray,
+#custom-vpn,
+#custom-updates,
+#cpu,
+#memory,
+#temperature,
 #pulseaudio,
 #network,
 #bluetooth,
@@ -49,15 +67,21 @@ window#waybar.empty #window {
 #battery,
 #clock,
 #power-profiles-daemon {
-    padding: 4px 12px;
+    padding: 4px 10px; /* Más compacto */
     background-color: @surface;
     margin: 5px 0;
     border-radius: 0;
     border-left: 1px solid @highlightLow;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Easing suave */
 }
 
 /* Efectos hover para módulos interactivos del lado derecho */
+#tray:hover,
+#custom-vpn:hover,
+#custom-updates:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
 #pulseaudio:hover,
 #network:hover,
 #bluetooth:hover,
@@ -70,10 +94,18 @@ window#waybar.empty #window {
 }
 
 /* Primer módulo del grupo derecho - borde redondeado izquierdo */
-#pulseaudio {
+#tray,
+#custom-vpn {
     border-radius: 8px 0 0 8px;
     border-left: none;
     margin-left: 4px;
+}
+
+/* Si tray tiene items, VPN no debe tener border izquierdo redondeado */
+#tray:not(.empty) ~ #custom-vpn {
+    border-radius: 0;
+    margin-left: 0;
+    border-left: 1px solid @highlightLow;
 }
 
 /* Último módulo del grupo derecho - borde redondeado derecho */
@@ -85,6 +117,8 @@ window#waybar.empty #window {
 /* --- Workspaces --- */
 #workspaces {
     padding: 0 4px;
+    background-color: @surface;
+    border-radius: 8px;
 }
 
 #workspaces button {
@@ -94,35 +128,21 @@ window#waybar.empty #window {
     color: @subtle;
     background: transparent;
     border-bottom: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     min-width: 24px;
+    font-size: 14px;
 }
 
 #workspaces button:hover {
     color: @text;
-    border-bottom: 2px solid @overlay;
 }
 
-/* --- MODIFICACIÓN AQUÍ --- */
+/* Workspace activo - sutil pero visible */
 #workspaces button.active {
     color: @foam;
-    background-color: transparent;
-    /* Quitamos el color del borde pero mantenemos el espacio para que no salte */
-    border-bottom: 2px solid transparent;
-    
-    /* Dibujamos la línea pequeña usando un gradiente */
-    background-image: linear-gradient(@foam, @foam);
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    
-    /* 
-       AQUÍ AJUSTAS EL TAMAÑO:
-       14px = ancho de la línea (hazlo más pequeño si quieres)
-       2px  = alto (grosor) de la línea 
-    */
-    background-size: 14px 2px; 
+    background: transparent;
+    border-bottom: 1px solid @highlightMed;
 }
-/* ------------------------- */
 
 #workspaces button.urgent {
     color: @love;
@@ -134,8 +154,10 @@ window#waybar.empty #window {
 #window {
     color: @text;
     font-weight: 500;
-    border-bottom: 2px solid @highlightLow;
-    padding-bottom: 2px;
+    font-size: 13px;
+    border-left: 2px solid @highlightMed;
+    padding-left: 10px;
+    background-color: @surface;
 }
 
 #window.empty {
@@ -169,17 +191,7 @@ window#waybar.empty #window {
 }
 #battery.critical:not(.charging) {
     color: @love;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes blink {
-    to {
-        color: @highlightHigh;
-    }
+    font-weight: 700;
 }
 
 /* --- Pulseaudio --- */
@@ -189,9 +201,10 @@ window#waybar.empty #window {
 
 /* --- Reloj --- */
 #clock {
-    color: @rose;
+    color: @text;
     font-weight: 600;
-    background: linear-gradient(90deg, @surface 0%, @highlightLow 100%);
+    font-size: 14px;
+    background-color: @surface;
 }
 
 /* --- Idle Inhibitor --- */
@@ -239,6 +252,7 @@ window#waybar.empty #window {
     font-weight: 500;
     border-left: 3px solid @foam;
     padding-left: 15px;
+    transition: all 0.3s ease;
 }
 
 #mpris.paused {
@@ -248,4 +262,115 @@ window#waybar.empty #window {
 #mpris.stopped {
     border-left-color: @subtle;
     opacity: 0.6;
+}
+
+/* --- CPU --- */
+#cpu {
+    color: @foam;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#cpu.warning {
+    color: @gold;
+}
+
+#cpu.critical {
+    color: @love;
+}
+
+/* --- Memoria --- */
+#memory {
+    color: @rose;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#memory.warning {
+    color: @gold;
+}
+
+#memory.critical {
+    color: @love;
+}
+
+/* --- Temperatura --- */
+#temperature {
+    color: @gold;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#temperature.critical {
+    color: @love;
+}
+
+/* --- Tray --- */
+#tray {
+    padding: 4px 8px;
+}
+
+#tray > .passive {
+    opacity: 0.6;
+}
+
+#tray > .needs-attention {
+    color: @love;
+}
+
+/* --- Updates --- */
+#custom-updates {
+    color: @gold;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* --- VPN --- */
+#custom-vpn {
+    color: @foam;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#custom-vpn.disconnected {
+    color: @subtle;
+    opacity: 0.5;
+}
+
+/* --- Separadores Visuales Elegantes --- */
+/* Separador entre CPU/Memoria/Temp y el resto */
+#temperature {
+    border-right: 2px solid @highlightMed;
+    margin-right: 2px;
+    padding-right: 12px;
+}
+
+/* Separador sutil antes del reloj */
+#clock {
+    border-left: 2px solid @highlightMed;
+}
+
+/* --- Efectos Adicionales --- */
+/* Efecto de clic/active para módulos clickeables */
+#pulseaudio:active,
+#network:active,
+#bluetooth:active,
+#backlight:active,
+#custom-updates:active {
+    background-color: @highlightMed;
+}
+
+/* Glow effect para módulos con alertas */
+#battery.critical:not(.charging),
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+    box-shadow: 0 0 10px @love;
+}
+
+/* Transiciones suaves para módulos dinámicos */
+#mpris,
+#custom-updates,
+#idle_inhibitor {
+    transition: opacity 0.3s ease;
 }
