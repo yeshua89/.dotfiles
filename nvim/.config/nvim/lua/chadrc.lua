@@ -95,7 +95,7 @@ local M = {
 
 M.base46 = {
 
-  theme = "kanagawa",
+  theme = "tokyonight",
   transparency = true,
 }
 M.nvdash = { load_on_startup = false }
