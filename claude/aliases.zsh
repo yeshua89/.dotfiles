@@ -4,9 +4,15 @@
 # Búsqueda Web (SearXNG)
 # ============================================
 alias s='searxng-search'           # Búsqueda web: s "query"
-alias cve='s "!exploit-db"'        # Buscar CVEs
+
+# Búsquedas especializadas por motor
+alias cve='s "!exploit-db"'        # Buscar CVEs/exploits
 alias gh='s "!gh"'                 # Buscar en GitHub
-alias w='s "!wikipedia"'           # Wikipedia
+alias so='s "!so"'                 # Stack Overflow
+alias aw='s "!aw"'                 # Arch Wiki
+alias w='s "!wp"'                  # Wikipedia
+alias ddg='s "!ddg"'               # DuckDuckGo
+alias go='s "!go"'                 # Google
 
 # ============================================
 # Claude Management

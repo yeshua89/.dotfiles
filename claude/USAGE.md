@@ -25,10 +25,14 @@ vim src/auth.js
 
 ### Búsqueda Web Instantánea
 ```bash
-s "nginx exploit 2024"        # Búsqueda general
-cve "postgresql"              # Solo CVEs/exploits
+s "nginx exploit 2024"        # Búsqueda general (todos los motores)
+cve "postgresql"              # Solo CVEs/exploits (Exploit-DB)
 gh "neovim plugins"           # Solo GitHub
-w "arch linux"                # Wikipedia
+so "fastify vs express"       # Stack Overflow
+aw "pacman hooks"             # Arch Wiki
+w "linux kernel"              # Wikipedia
+ddg "privacy tools"           # DuckDuckGo
+go "specific technical query" # Google (para resultados técnicos profundos)
 ```
 
 ### Claude Management
