@@ -8,7 +8,8 @@ services:
     ports:
       - "8888:8080"
     volumes:
-      - ./searxng:/etc/searxng:rw
+      - /home/shaddai/.dotfiles/searxng/searxng:/etc/searxng:rw
+    user: "1000:1000"
     environment:
       - SEARXNG_BASE_URL=http://localhost:8888/
     networks:
