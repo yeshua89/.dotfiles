@@ -12,22 +12,22 @@
   "modules-center": [
     "mpris"
   ],
-  // Módulos a la derecha
+  // Módulos a la derecha - orden lógico
   "modules-right": [
     "tray",
-    "custom/vpn",
     "custom/updates",
+    "custom/vpn",
+    "idle_inhibitor",
     "cpu",
     "memory",
     "temperature",
+    "backlight",
     "pulseaudio",
     "network",
     "bluetooth",
-    "backlight",
-    "idle_inhibitor",
     "battery",
-    "clock",
-    "power-profiles-daemon"
+    "power-profiles-daemon",
+    "clock"
   ],
   // --- CONFIGURACIÓN DETALLADA DE CADA MÓDULO ---
   "hyprland/workspaces": {

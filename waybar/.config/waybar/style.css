@@ -75,7 +75,9 @@ window#waybar.empty #window {
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Easing suave */
 }
 
-/* Efectos hover para módulos interactivos del lado derecho */
+/* Efectos hover sutiles para todos los módulos interactivos */
+#workspaces:hover,
+#window:hover,
 #tray:hover,
 #custom-vpn:hover,
 #custom-updates:hover,
@@ -87,29 +89,36 @@ window#waybar.empty #window {
 #bluetooth:hover,
 #backlight:hover,
 #idle_inhibitor:hover,
-#power-profiles-daemon:hover {
+#battery:hover,
+#power-profiles-daemon:hover,
+#clock:hover {
     background-color: @overlay;
-    border-top: 2px solid @foam;
-    padding-top: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Primer módulo del grupo derecho - borde redondeado izquierdo */
-#tray,
-#custom-vpn {
+#tray {
     border-radius: 8px 0 0 8px;
     border-left: none;
     margin-left: 4px;
 }
 
-/* Si tray tiene items, VPN no debe tener border izquierdo redondeado */
-#tray:not(.empty) ~ #custom-vpn {
+/* Updates es el primer módulo visible si tray está vacío */
+#custom-updates {
+    border-radius: 8px 0 0 8px;
+    border-left: none;
+    margin-left: 4px;
+}
+
+/* Si tray tiene items, updates no debe tener border izquierdo redondeado */
+#tray:not(.empty) ~ #custom-updates {
     border-radius: 0;
     margin-left: 0;
     border-left: 1px solid @highlightLow;
 }
 
 /* Último módulo del grupo derecho - borde redondeado derecho */
-#power-profiles-daemon {
+#clock {
     border-radius: 0 8px 8px 0;
     margin-right: 4px;
 }
@@ -119,6 +128,8 @@ window#waybar.empty #window {
     padding: 0 4px;
     background-color: @surface;
     border-radius: 8px;
+    border-left: 2px solid @highlightMed;
+    padding-left: 8px;
 }
 
 #workspaces button {
@@ -243,7 +254,7 @@ window#waybar.empty #window {
 /* --- Power Profiles Daemon --- */
 #power-profiles-daemon {
     color: @pine;
-    min-width: 32px;
+    padding: 4px 10px 4px 6px;
 }
 
 /* --- MPRIS (Reproductor de Medios) --- */
@@ -323,6 +334,8 @@ window#waybar.empty #window {
     color: @gold;
     font-weight: 700;
     font-size: 14px;
+    border-left: 2px solid @highlightMed;
+    padding-left: 12px;
 }
 
 /* --- VPN --- */
@@ -337,18 +350,8 @@ window#waybar.empty #window {
     opacity: 0.5;
 }
 
-/* --- Separadores Visuales Elegantes --- */
-/* Separador entre CPU/Memoria/Temp y el resto */
-#temperature {
-    border-right: 2px solid @highlightMed;
-    margin-right: 2px;
-    padding-right: 12px;
-}
-
-/* Separador sutil antes del reloj */
-#clock {
-    border-left: 2px solid @highlightMed;
-}
+/* --- Separadores Visuales Sutiles --- */
+/* Sin separadores adicionales para mantener la continuidad visual */
 
 /* --- Efectos Adicionales --- */
 /* Efecto de clic/active para módulos clickeables */
