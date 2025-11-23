@@ -254,7 +254,7 @@ window#waybar.empty #window {
 /* --- Power Profiles Daemon --- */
 #power-profiles-daemon {
     color: @pine;
-    padding: 4px 10px 4px 6px;
+    padding: 4px 10px 4px 4px;
 }
 
 /* --- MPRIS (Reproductor de Medios) --- */
