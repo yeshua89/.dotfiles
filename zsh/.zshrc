@@ -28,8 +28,8 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
-# Autosuggestions configuration - Fixed for TAB completion
-ZSH_AUTOSUGGEST_STRATEGY=(history)  # Only history, completion interferes with TAB
+# Autosuggestions configuration
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
@@ -43,8 +43,7 @@ zinit light zsh-users/zsh-completions
 zinit ice wait lucid atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down"
 zinit light zsh-users/zsh-history-substring-search
 
-# FZF integration for better tab completion
-# DISABLED: Causes path corruption bugs with cd/z completion
+# FZF integration - Disabled due to path corruption bugs
 # zinit ice wait lucid
 # zinit light Aloxaf/fzf-tab
 
@@ -60,9 +59,9 @@ zinit light MichaelAquilina/zsh-you-should-use
 zinit ice wait lucid
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-# Web search plugin
-zinit ice wait lucid
-zinit light sineto/web-search
+# Web search plugin - Redundant with SearXNG
+# zinit ice wait lucid
+# zinit light sineto/web-search
 
 # OMZ library for better compatibility
 zinit snippet OMZ::lib/clipboard.zsh
@@ -87,8 +86,7 @@ setopt hist_find_no_dups      # Don't show duplicates when searching
 # ----------------------------------------------------------------------------
 # Completion System - Optimized for speed
 # ----------------------------------------------------------------------------
-# Note: compinit is handled by zinit on line 24
-# Completion styling
+# Completion styling (compinit handled by zinit)
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
@@ -107,18 +105,14 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# FZF-Tab configuration - DISABLED to fix path completion bugs
-# NOTE: fzf-tab plugin is completely disabled above (line 48)
-# Keeping configurations commented for future reference
-
+# FZF-Tab configuration - Disabled (plugin not loaded)
 # # General settings
 # zstyle ':fzf-tab:*' switch-group '<' '>'
 
-# # IMPORTANT: Disable fzf-tab for cd and z to avoid path corruption bugs
-# # Use traditional completion for directory navigation (no bugs)
-# zstyle ':fzf-tab:complete:cd:*' disabled yes
-# zstyle ':fzf-tab:complete:__zoxide_z:*' disabled yes
-# zstyle ':fzf-tab:complete:z:*' disabled yes
+# # Disable for cd and z to avoid bugs
+# # zstyle ':fzf-tab:complete:cd:*' disabled yes
+# # zstyle ':fzf-tab:complete:__zoxide_z:*' disabled yes
+# # zstyle ':fzf-tab:complete:z:*' disabled yes
 
 # # Preview for kill command
 # zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
@@ -151,9 +145,8 @@ alias cat='bat'
 alias catn='bat --style=plain'
 alias catnp='bat --style=plain --paging=never'
 
-# Eza (better ls) - These are overridden below if eza is installed
+# Eza (better ls) - Configured conditionally below
 # alias ls='eza --icons --group-directories-first'
-# alias l='eza --icons --group-directories-first'
 # alias ll='eza -lh --icons --group-directories-first'
 # alias la='eza -a --icons --group-directories-first'
 # alias lla='eza -lha --icons --group-directories-first'
@@ -196,8 +189,8 @@ alias cl='claude'
 # Auth0
 alias auth='auth0'
 
-# Web search
-alias ws='web_search'
+# Web search - Use SearXNG aliases instead
+# alias ws='web_search'
 
 # System
 alias ..='cd ..'
@@ -217,9 +210,9 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias mkdir='mkdir -pv'
 
-# Disk usage
-alias df='df -h'
-alias du='du -h'
+# Disk usage - Overridden by modern tools
+# alias df='df -h'
+# alias du='du -h'
 
 # Network
 alias myip='curl -s ifconfig.me'
@@ -239,27 +232,27 @@ command -v procs &>/dev/null && alias ps='procs'
 command -v btm &>/dev/null && alias top='btm'
 command -v sd &>/dev/null && alias sed='sd'
 
-# Git aliases for new functions
-alias gch='gcof'          # git checkout fuzzy
-alias gchr='gcor'         # git checkout recent
-alias gst='gstash'        # git stash fuzzy
+# Git function shortcuts
+alias gch='gcof'
+alias gchr='gcor'
+alias gst='gstash'
 
-# Utility aliases
-alias hf='fh'             # history fuzzy
-alias rf='rgf'            # ripgrep fuzzy
-alias pv='preview'        # preview file
-alias mon='monitor'       # system monitor
+# Utility function shortcuts
+alias hf='fh'
+alias rf='rgf'
+alias pv='preview'
+alias mon='monitor'
 
 # Docker shortcuts (if docker is installed)
 command -v docker &>/dev/null && alias dps='docker ps' && alias dpsa='docker ps -a' && alias di='docker images' && alias dc='dce'
 
 # Modern tools shortcuts
-alias du='diskusage'      # Better du with dust
-alias dsk='disks'         # Show disk info with duf
-alias bm='bench'          # Benchmark commands
-alias cs='codestats'      # Code statistics
-alias pf='psef'           # Process finder with fzf
-alias tree='dtree'        # Tree with eza
+alias du='diskusage'
+alias dsk='disks'
+alias bm='bench'
+alias cstat='codestats'
+alias pf='psef'
+alias tree='dtree'
 
 # ----------------------------------------------------------------------------
 # Functions
@@ -729,7 +722,6 @@ setopt prompt_subst         # Enable prompt substitution
 # ----------------------------------------------------------------------------
 
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
 
 # Starship prompt

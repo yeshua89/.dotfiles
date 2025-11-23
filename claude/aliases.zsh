@@ -34,15 +34,18 @@ alias xl='docker logs -f searxng'
 # Security & Hacking
 # ============================================
 
-# Nmap quick scan
-nq() {
-    sudo nmap -sV -sC "$1"
-}
+# NOTE: These require nmap (install: sudo pacman -S nmap)
+# Uncomment when nmap is installed:
 
-# Full port scan
-portscan() {
-    sudo nmap -p- --min-rate=1000 -T4 "$1"
-}
+# # Nmap quick scan
+# nq() {
+#     sudo nmap -sV -sC "$1"
+# }
+
+# # Full port scan
+# portscan() {
+#     sudo nmap -p- --min-rate=1000 -T4 "$1"
+# }
 
 # Reverse shell generator (ethical use only)
 revshell() {
