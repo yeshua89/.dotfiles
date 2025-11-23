@@ -261,17 +261,17 @@ window#waybar.empty #window {
 #mpris {
     color: @text;
     font-weight: 500;
-    border-left: 3px solid @foam;
-    padding-left: 15px;
+    border-left: 2px solid @highlightMed;
+    padding-left: 12px;
     transition: all 0.3s ease;
 }
 
 #mpris.paused {
-    border-left-color: @gold;
+    border-left-color: @highlightMed;
 }
 
 #mpris.stopped {
-    border-left-color: @subtle;
+    border-left-color: @highlightMed;
     opacity: 0.6;
 }
 
