@@ -1,5 +1,24 @@
 # Claude Code - Quick Reference
 
+## 🤖 Agentes Especializados
+
+Ver documentación completa: `cat ~/.config/claude/AGENTS.md`
+
+```bash
+# Auto-activación (detecta palabras clave)
+claude "optimiza mi docker-compose"     # → devops-expert
+claude "configura waybar"               # → hyprland-expert
+claude "ayuda con git rebase"           # → git-expert
+
+# Invocación manual
+claude "@arch-expert ¿cómo actualizar el kernel?"
+claude "@security-expert analiza este código para XSS"
+claude "@python-expert crea un script de backup"
+```
+
+**Agentes disponibles**: arch-expert, hyprland-expert, devops-expert, security-expert,
+web-dev-expert, shell-expert, python-expert, git-expert, neovim-expert, db-expert
+
 ## Búsqueda Web (SearXNG)
 
 ```bash

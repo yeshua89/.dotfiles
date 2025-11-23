@@ -1,18 +1,31 @@
 #!/bin/bash
 # SearXNG search wrapper
-# Uso: searxng-search "query" [format=json|html]
+# Uso: searxng-search "query" o searxng-search "!bang" "query"
 
-QUERY="$1"
-FORMAT="${2:-json}"
 SEARXNG_URL="http://localhost:8888"
 
+# Combine all arguments into a single query
+QUERY="$*"
+
 if [ -z "$QUERY" ]; then
-    echo "Uso: searxng-search \"query\" [format]"
+    echo "Uso: searxng-search \"query\""
     exit 1
 fi
 
-curl -s "${SEARXNG_URL}/search" \
-    -d "q=${QUERY}" \
-    -d "format=${FORMAT}" \
-    -d "language=es" \
-    -d "safesearch=0"
+# URL encode the query
+ENCODED_QUERY=$(echo -n "$QUERY" | jq -sRr @uri)
+
+# Construct search URL
+SEARCH_URL="${SEARXNG_URL}/search?q=${ENCODED_QUERY}&language=es&safesearch=0"
+
+# Detect available browser
+if command -v firefox-developer-edition &>/dev/null; then
+    firefox-developer-edition "$SEARCH_URL" &>/dev/null &
+elif command -v firefox &>/dev/null; then
+    firefox "$SEARCH_URL" &>/dev/null &
+elif command -v qutebrowser &>/dev/null; then
+    qutebrowser "$SEARCH_URL" &>/dev/null &
+else
+    # Fallback to xdg-open
+    xdg-open "$SEARCH_URL" &>/dev/null &
+fi

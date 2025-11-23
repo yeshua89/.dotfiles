@@ -3,6 +3,11 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
+# PATH Configuration
+# ----------------------------------------------------------------------------
+export PATH="$HOME/.local/bin:$PATH"
+
+# ----------------------------------------------------------------------------
 # Zinit Plugin Manager Setup
 # ----------------------------------------------------------------------------
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -336,7 +341,7 @@ gcof() {
 # Interactive process killer (BRUTAL VERSION)
 kp() {
     local pid signal=${1:-9}
-    pid=$(ps -ef | sed 1d | \
+    pid=$(\ps -ef | \sed 1d | \
           fzf -m --header="☠️  Select process to kill (Signal: $signal, TAB for multi)" \
               --preview 'echo {}' \
               --preview-window=down:3:wrap \

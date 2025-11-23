@@ -5,14 +5,41 @@
 # ============================================
 alias s='searxng-search'           # Búsqueda web general
 
-# Búsquedas especializadas por motor
-alias cve='s "!exploit-db"'        # Buscar CVEs/exploits
-alias gh='s "!gh"'                 # Buscar en GitHub
-alias so='s "!so"'                 # Stack Overflow
-alias aw='s "!aw"'                 # Arch Wiki
-alias w='s "!wp"'                  # Wikipedia
-alias ddg='s "!ddg"'               # DuckDuckGo
-alias go='s "!go"'                 # Google
+# Búsquedas especializadas por motor (abren directamente en el motor)
+ddg() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://duckduckgo.com/?q=${query}" &>/dev/null &
+}
+
+gh() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://github.com/search?q=${query}" &>/dev/null &
+}
+
+so() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://stackoverflow.com/search?q=${query}" &>/dev/null &
+}
+
+aw() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://wiki.archlinux.org/index.php?search=${query}" &>/dev/null &
+}
+
+w() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://es.wikipedia.org/wiki/Special:Search?search=${query}" &>/dev/null &
+}
+
+go() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://www.google.com/search?q=${query}" &>/dev/null &
+}
+
+cve() {
+    local query=$(echo -n "$*" | jq -sRr @uri)
+    firefox-developer-edition "https://www.exploit-db.com/search?q=${query}" &>/dev/null &
+}
 
 # ============================================
 # Claude Management
