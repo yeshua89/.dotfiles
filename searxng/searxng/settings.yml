@@ -1,0 +1,83 @@
+use_default_settings: true
+
+general:
+  instance_name: "SearXNG Local"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: false
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  default_lang: "es"
+  formats:
+    - html
+    - json
+
+server:
+  secret_key: "changeme_random_secret_key_here_12345678"
+  limiter: false
+  image_proxy: true
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  theme_args:
+    simple_style: dark
+
+engines:
+  # DuckDuckGo - Motor principal (privacidad)
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+
+  # Google - Ocasional (mejores resultados técnicos)
+  - name: google
+    engine: google
+    shortcut: go
+    disabled: false
+
+  # GitHub (importante para backend dev)
+  - name: github
+    engine: github
+    shortcut: gh
+    disabled: false
+
+  # Stack Overflow
+  - name: stackoverflow
+    engine: stackoverflow
+    shortcut: so
+    disabled: false
+
+  # Exploit DB (seguridad/hacking)
+  - name: exploit-db
+    engine: json_engine
+    search_url: https://www.exploit-db.com/search?q={query}
+    shortcut: exploit
+    disabled: false
+
+  # Arch Wiki
+  - name: arch wiki
+    engine: archlinux
+    shortcut: aw
+    disabled: false
+
+  # Wikipedia
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    disabled: false
+
+  # Startpage (proxy de Google con privacidad)
+  - name: startpage
+    engine: startpage
+    shortcut: sp
+    disabled: false
+
+# Desactivar engines innecesarios
+  - name: bing
+    disabled: true
+  - name: yahoo
+    disabled: true

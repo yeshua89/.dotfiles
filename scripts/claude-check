@@ -1,0 +1,117 @@
+#!/bin/bash
+# Claude Code System Check
+# Verifica que toda la configuración esté correcta
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo "========================================="
+echo "  Claude Code Configuration Check"
+echo "========================================="
+echo ""
+
+check_status=0
+
+# Función para verificar
+check() {
+    if eval "$2" &>/dev/null; then
+        echo -e "${GREEN}[✓]${NC} $1"
+    else
+        echo -e "${RED}[✗]${NC} $1"
+        check_status=1
+    fi
+}
+
+# Función para verificar y mostrar valor
+check_value() {
+    local result
+    result=$(eval "$2" 2>/dev/null)
+    if [ -n "$result" ]; then
+        echo -e "${GREEN}[✓]${NC} $1: $result"
+    else
+        echo -e "${YELLOW}[!]${NC} $1: Not found"
+    fi
+}
+
+echo "Core Components:"
+check "Claude Code config directory" "[ -d ~/.config/claude ]"
+check "Claude config.json" "[ -f ~/.config/claude/config.json ]"
+check "Claude settings.json" "[ -f ~/.config/claude/settings.json ]"
+check "Claude aliases.zsh" "[ -f ~/.config/claude/aliases.zsh ]"
+check "Aliases loaded in .zshrc" "grep -q 'claude/aliases.zsh' ~/.zshrc || grep -q 'claude/aliases.zsh' ~/.dotfiles/zsh/.zshrc"
+
+echo ""
+echo "SearXNG:"
+check "SearXNG directory" "[ -d ~/searxng ]"
+check "SearXNG docker-compose.yml" "[ -f ~/searxng/docker-compose.yml ]"
+check "SearXNG settings.yml" "[ -f ~/searxng/searxng/settings.yml ]"
+check "SearXNG container running" "docker ps | grep -q searxng"
+check "SearXNG responding" "curl -s http://localhost:8888 | grep -q 'SearXNG'"
+check "SearXNG systemd service" "[ -f ~/.config/systemd/user/searxng.service ]"
+check "SearXNG service enabled" "systemctl --user is-enabled searxng.service"
+
+echo ""
+echo "Scripts:"
+check "searxng-search script" "[ -x ~/.local/bin/searxng-search ]"
+check "claude-backup script" "[ -x ~/.local/bin/claude-backup ]"
+check "claude-check script" "[ -x ~/.local/bin/claude-check ]"
+
+echo ""
+echo "Backups:"
+check_value "Latest backup" "ls -1t ~/cloud-backup/claude/claude-config-*.tar.gz 2>/dev/null | head -1"
+check_value "Total backups" "ls -1 ~/cloud-backup/claude/claude-config-*.tar.gz 2>/dev/null | wc -l"
+
+echo ""
+echo "Dependencies:"
+check "Docker installed" "command -v docker"
+check "Docker Compose installed" "command -v docker-compose"
+check "Node.js installed" "command -v node"
+check "npm installed" "command -v npm"
+check "curl installed" "command -v curl"
+check "jq installed" "command -v jq"
+
+echo ""
+echo "MCP Servers (require Claude Code running):"
+echo -e "${YELLOW}[i]${NC} MCP servers are loaded when Claude Code starts"
+echo -e "${YELLOW}[i]${NC} Configured: fetch, filesystem"
+
+echo ""
+echo "Quick Tests:"
+
+# Test SearXNG search
+echo -n "Testing SearXNG search... "
+if ~/.local/bin/searxng-search "test" json 2>/dev/null | jq -e '.results' &>/dev/null; then
+    echo -e "${GREEN}OK${NC}"
+else
+    echo -e "${RED}FAILED${NC}"
+    check_status=1
+fi
+
+# Test backup script
+echo -n "Testing backup script... "
+if ~/.local/bin/claude-backup backup &>/dev/null; then
+    echo -e "${GREEN}OK${NC}"
+else
+    echo -e "${RED}FAILED${NC}"
+    check_status=1
+fi
+
+echo ""
+echo "========================================="
+if [ $check_status -eq 0 ]; then
+    echo -e "${GREEN}✓ All checks passed!${NC}"
+    echo ""
+    echo "Quick Start:"
+    echo "  - Search web: s \"your query\""
+    echo "  - Create backup: cbackup"
+    echo "  - SearXNG logs: searxng-logs"
+    echo "  - Full documentation: cat ~/.config/claude/README.md"
+else
+    echo -e "${YELLOW}! Some checks failed${NC}"
+    echo "Please review the errors above"
+fi
+echo "========================================="
+
+exit $check_status

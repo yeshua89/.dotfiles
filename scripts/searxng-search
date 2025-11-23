@@ -1,0 +1,18 @@
+#!/bin/bash
+# SearXNG search wrapper
+# Uso: searxng-search "query" [format=json|html]
+
+QUERY="$1"
+FORMAT="${2:-json}"
+SEARXNG_URL="http://localhost:8888"
+
+if [ -z "$QUERY" ]; then
+    echo "Uso: searxng-search \"query\" [format]"
+    exit 1
+fi
+
+curl -s "${SEARXNG_URL}/search" \
+    -d "q=${QUERY}" \
+    -d "format=${FORMAT}" \
+    -d "language=es" \
+    -d "safesearch=0"

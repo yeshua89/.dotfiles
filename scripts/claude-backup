@@ -1,0 +1,78 @@
+#!/bin/bash
+# Claude Code Configuration Backup Script (Dotfiles version)
+# Ahora que todo está en dotfiles, este script simplifica el proceso
+
+set -e
+
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+backup() {
+    echo -e "${GREEN}[+]${NC} Claude config está en dotfiles, usa git para backup:"
+    echo ""
+    echo "  cd ~/.dotfiles"
+    echo "  git add claude/ searxng/ scripts/"
+    echo "  git commit -m 'Update Claude Code config'"
+    echo "  git push"
+    echo ""
+    echo -e "${YELLOW}[i]${NC} Tip: Usa 'claude-sync' para hacer esto automáticamente"
+}
+
+restore() {
+    echo -e "${GREEN}[+]${NC} Para restaurar en máquina nueva:"
+    echo ""
+    echo "  1. Clonar dotfiles:"
+    echo "     git clone <tu-repo> ~/.dotfiles"
+    echo ""
+    echo "  2. Ejecutar instalador:"
+    echo "     ~/.dotfiles/scripts/install-claude"
+    echo ""
+}
+
+sync() {
+    cd "$DOTFILES_DIR" || exit 1
+
+    # Verificar si hay cambios
+    if [[ -z $(git status --porcelain claude/ searxng/ scripts/) ]]; then
+        echo -e "${GREEN}[✓]${NC} No hay cambios en Claude config"
+        exit 0
+    fi
+
+    echo -e "${GREEN}[+]${NC} Sincronizando Claude config con git..."
+
+    git add claude/ searxng/ scripts/
+    git commit -m "Update Claude Code config - $(date +'%Y-%m-%d %H:%M')"
+
+    # Intentar push si hay remote
+    if git remote get-url origin &>/dev/null; then
+        git push && echo -e "${GREEN}[✓]${NC} Config sincronizada con remote" || echo -e "${YELLOW}[!]${NC} No se pudo hacer push (verifica conexión)"
+    else
+        echo -e "${GREEN}[✓]${NC} Config guardada localmente (no hay remote configurado)"
+    fi
+}
+
+case "${1:-help}" in
+    backup)
+        backup
+        ;;
+    restore)
+        restore
+        ;;
+    sync)
+        sync
+        ;;
+    *)
+        echo "Uso: claude-backup [backup|restore|sync]"
+        echo ""
+        echo "Comandos:"
+        echo "  backup   - Mostrar cómo hacer backup con git"
+        echo "  restore  - Mostrar cómo restaurar en nueva máquina"
+        echo "  sync     - Sincronizar cambios con git automáticamente"
+        echo ""
+        echo "Ahora que Claude está en dotfiles, usa git para versionado:"
+        echo "  claude-backup sync   # Commit y push automático"
+        ;;
+esac
