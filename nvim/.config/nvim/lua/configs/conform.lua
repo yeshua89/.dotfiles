@@ -86,20 +86,20 @@ local options = {
     },
   },
 
-  -- Format on save
-  format_on_save = function(bufnr)
-    -- Deshabilita en archivos grandes
-    local max_filesize = 100 * 1024 -- 100 KB
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-    if ok and stats and stats.size > max_filesize then
-      return
-    end
-
-    return {
-      timeout_ms = 1000,
-      lsp_format = "fallback", -- Usa LSP si no hay formatter configurado
-    }
-  end,
+  -- Format on save (DESACTIVADO)
+  -- format_on_save = function(bufnr)
+  --   -- Deshabilita en archivos grandes
+  --   local max_filesize = 100 * 1024 -- 100 KB
+  --   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  --   if ok and stats and stats.size > max_filesize then
+  --     return
+  --   end
+  --
+  --   return {
+  --     timeout_ms = 1000,
+  --     lsp_format = "fallback", -- Usa LSP si no hay formatter configurado
+  --   }
+  -- end,
 }
 
 require("conform").setup(options)
