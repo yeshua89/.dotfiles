@@ -176,3 +176,21 @@ map("n", "<leader>pr", "<cmd>!python3 %<cr>", { desc = "Run Python file" })
 
 -- Ejecutar selección en Python
 map("v", "<leader>pr", [[:!python3<cr>]], { desc = "Run Python selection" })
+
+-- ============================================
+-- TERMINAL TOGGLEABLE
+-- ============================================
+
+-- Desactivar mapping por defecto si existe
+pcall(vim.keymap.del, "n", "<A-h>")
+pcall(vim.keymap.del, "t", "<A-h>")
+
+-- Terminal horizontal (Alt + h) - igual que la flotante
+map({ "n", "t" }, "<A-h>", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "Toggle horizontal terminal" })
+
+-- Terminal flotante (Alt + i)
+map({ "n", "t" }, "<A-i>", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "Toggle floating terminal" })
