@@ -197,6 +197,9 @@ alias cl='claude'
 # Auth0
 alias auth='auth0'
 
+# Yazi
+alias y='yazi'
+
 # Web search - Use SearXNG aliases instead
 # alias ws='web_search'
 
