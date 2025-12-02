@@ -1,7 +1,7 @@
 /* Importa la paleta de colores */
-/* Cambia entre: tokyo-night.css, absolute-black.css, rose-pine.css */
-@import "tokyo-night.css";
-/* @import "tokyo-night.css"; */ /* Descomenta para tema ultra-dark */
+/* Cambia entre: tokyo-night.css, absolute-black.css, rose-pine.css, catppuccin-mocha.css */
+@import "catppuccin-mocha.css";
+/* @import "absolute-black.css"; */ /* Tema ultra-dark */
 
 /* Estilos generales */
 * {

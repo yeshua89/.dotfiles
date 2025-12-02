@@ -185,8 +185,11 @@ alias ld='lazydocker'
 # GitLab
 alias glab='glab'
 
-# VPN
+# Proton VPN
 alias vpn='protonvpn'
+
+# Proton Pass-cli
+alias pass='pass-cli'
 
 # Claude
 alias cl='claude'

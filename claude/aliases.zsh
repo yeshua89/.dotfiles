@@ -11,7 +11,7 @@ ddg() {
     firefox-developer-edition "https://duckduckgo.com/?q=${query}" &>/dev/null &
 }
 
-gh() {
+ghs() {
     local query=$(echo -n "$*" | jq -sRr @uri)
     firefox-developer-edition "https://github.com/search?q=${query}" &>/dev/null &
 }

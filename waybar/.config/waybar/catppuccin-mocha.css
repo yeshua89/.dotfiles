@@ -1,0 +1,28 @@
+/*
+ * Catppuccin Mocha Theme - Dark Edition
+ * Soothing pastel theme for cozy night-time coding
+ * https://github.com/catppuccin/catppuccin
+ */
+
+/* --- Base Colors: Capas más oscuras --- */
+@define-color base            #11111b; /* Crust - el más oscuro */
+@define-color surface         #181825; /* Mantle - superficie de módulos */
+@define-color overlay         #1e1e2e; /* Base - estado hover */
+
+/* --- Text: Jerarquía de texto --- */
+@define-color muted           #585b70; /* Overlay0 - elementos sutiles */
+@define-color subtle          #6c7086; /* Overlay1 - texto secundario */
+@define-color text            #cdd6f4; /* Text - texto principal */
+
+/* --- Accents: Colores pastel Catppuccin --- */
+@define-color love            #f38ba8; /* Red - alertas y crítico */
+@define-color gold            #f9e2af; /* Yellow - advertencias */
+@define-color rose            #f5c2e7; /* Pink - destacado suave */
+@define-color pine            #a6e3a1; /* Green - éxito y batería */
+@define-color foam            #94e2d5; /* Teal - agua, audio */
+@define-color iris            #cba6f7; /* Mauve - bluetooth, especial */
+
+/* --- Highlights: Capas de profundidad --- */
+@define-color highlightLow    #11111b; /* Crust - separador sutil */
+@define-color highlightMed    #181825; /* Mantle - profundidad media */
+@define-color highlightHigh   #313244; /* Surface0 - máximo contraste */
