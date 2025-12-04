@@ -6,9 +6,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](bg:#1a1b26)\
+[](fg:#1a1b26)\
 $os\
-$username\
 [](bg:#24283b fg:#1a1b26)\
 $directory\
 $git_branch\
