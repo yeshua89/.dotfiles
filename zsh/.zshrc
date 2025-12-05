@@ -12,8 +12,12 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Suppress Zinit output
+ZINIT[COMPINIT_OPTS]=-C
+ZINIT[OPTIMIZE_OUT_DISK_ACCESSES]=1
+
 # Zinit Plugins
-zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" silent
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 export ZSH_AUTOSUGGEST_STRATEGY=history
@@ -21,25 +25,28 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit ice wait lucid atload"_zsh_autosuggest_start" silent
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit ice wait lucid blockf atpull'zinit creinstall -q .' silent
 zinit light zsh-users/zsh-completions
 
-zinit ice wait lucid atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down"
+zinit ice wait lucid atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down" silent
 zinit light zsh-users/zsh-history-substring-search
 
-zinit ice wait lucid
+zinit ice wait lucid silent
 zinit light hlissner/zsh-autopair
 
-zinit ice wait lucid
+zinit ice wait lucid silent
 zinit light MichaelAquilina/zsh-you-should-use
 
-zinit ice wait lucid
+zinit ice wait lucid silent
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
+zinit ice silent
 zinit snippet OMZ::lib/clipboard.zsh
+
+zinit ice silent
 zinit snippet OMZ::lib/git.zsh
 
 # History Configuration
@@ -205,7 +212,7 @@ zf() {
 gcof() {
     local branch
     branch=$(git branch --all | grep -v HEAD |
-             sed 's/^[* ]*//' | sed 's#remotes/origin/##' |
+             \sed 's/^[* ]*//' | \sed 's#remotes/origin/##' |
              sort -u |
              fzf --preview 'git log --oneline --graph --color=always --date=short --pretty="format:%C(auto)%h %C(blue)%an %C(green)%ar %C(auto)%s" {} | head -50' \
                  --preview-window='right:70%:wrap' \
@@ -264,7 +271,7 @@ gaf() {
     if [ -n "$files" ]; then
         echo "$files" | xargs git add
         echo "\nStaged files:"
-        echo "$files" | sed 's/^/  /'
+        echo "$files" | \sed 's/^/  /'
         echo ""
         git status --short
     fi
@@ -292,7 +299,7 @@ fh() {
                         --border=rounded \
                         --height=50% \
                         --bind='ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort' | \
-          sed 's/^ *[0-9]* *//')
+          \sed 's/^ *[0-9]* *//')
     [ -n "$cmd" ] && print -z "$cmd"
 }
 
@@ -324,7 +331,7 @@ gcor() {
     local branch
     branch=$(git reflog | \
              grep 'checkout:' | \
-             sed 's/.* to //' | \
+             \sed 's/.* to //' | \
              awk '!seen[$0]++' | \
              head -20 | \
              fzf --preview 'git log --oneline --graph --color=always --date=short {} | head -50' \
