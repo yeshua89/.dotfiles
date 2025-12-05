@@ -192,7 +192,7 @@ alias vpn='protonvpn'
 alias pass='pass-cli'
 
 # Claude
-alias cl='claude'
+alias clc='claude'
 
 # Auth0
 alias auth='auth0'
