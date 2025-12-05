@@ -570,3 +570,6 @@ eval "$(zoxide init zsh)"
 
 # Claude Code Integration
 [ -f ~/.config/claude/aliases.zsh ] && source ~/.config/claude/aliases.zsh
+
+# Ensure we always start in home directory
+cd ~

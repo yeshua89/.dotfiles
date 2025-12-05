@@ -196,10 +196,10 @@
   // --- Custom Updates Module ---
   "custom/updates": {
     "format": "󰮯 {}",
-    "interval": 3600,
+    "interval": 300,
     "exec": "~/.config/waybar/scripts/check-updates.sh",
     "exec-if": "exit 0",
-    "on-click": "kitty -e sudo pacman -Syu",
+    "on-click": "kitty -e bash -c 'sudo pacman -Syu && pkill -RTMIN+8 waybar'",
     "signal": 8,
     "tooltip": true,
     "return-type": "json"
