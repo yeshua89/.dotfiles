@@ -131,6 +131,7 @@ alias search='pacman -Ss'
 alias remove='sudo pacman -Rns'
 
 alias clc='claude'
+alias pass='pass-cli'
 
 # Conditional modern tool aliases
 command -v eza &>/dev/null && alias ls='eza --icons --group-directories-first' && alias ll='eza -lh --icons --group-directories-first' && alias la='eza -a --icons --group-directories-first' && alias lla='eza -lha --icons --group-directories-first' && alias lt='eza --tree --icons --group-directories-first'
