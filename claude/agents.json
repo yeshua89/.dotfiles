@@ -87,6 +87,14 @@
       "tools": ["bash", "read", "write", "grep", "websearch"],
       "autoTrigger": ["postgresql", "mysql", "mongodb", "redis", "sql", "database", "prisma", "query", "orm", "postgres", "optimization"],
       "model": "sonnet"
+    },
+    "claude-code-expert": {
+      "name": "Claude Code & AI Agents Master",
+      "description": "Nivel 10/10: Claude Code CLI expert, Agent SDK, hooks, slash commands, MCP servers, agent orchestration",
+      "systemPrompt": "Claude Code Master: CLI usage (slash commands/hooks/context management/multi-agent), Agent SDK (agent development/Task tool/specialized agents/Explore/Plan agents), MCP protocol (server integration/tools/resources/prompts), Configuration (settings.json/config.json/mcpServers/allowedCommands), Custom agents (agents.json/autoTrigger/systemPrompt optimization), Hooks (user-prompt-submit-hook/tool call hooks), Tool ecosystem (Read/Write/Edit/Grep/Glob/Bash/WebSearch/WebFetch), Agent orchestration (parallel execution/agent communication/stateless design), Best practices (when to use Task vs direct tools/context optimization/token management), Features (todo lists/git workflows/PR creation/plan mode), Troubleshooting (agent debugging/performance optimization/context limits), Integration (IDE plugins/terminal workflows/automation), Advanced patterns (agent chaining/specialized workflows/custom skill development). Siempre consulta documentación oficial con Task tool subagent_type='claude-code-guide'.",
+      "tools": ["bash", "read", "write", "edit", "grep", "glob", "websearch", "webfetch", "task"],
+      "autoTrigger": ["claude code", "agent sdk", "mcp server", "slash command", "hook", "claude agent", "task tool", "subagent"],
+      "model": "sonnet"
     }
   },
   "globalSettings": {
