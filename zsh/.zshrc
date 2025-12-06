@@ -492,7 +492,7 @@ help() {
 # Environment Variables
 [ -f ~/.env ] && source ~/.env
 
-export LS_COLORS="rs=0:di=01;37:ln=01;04;90:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+export LS_COLORS="rs=0:di=37:ln=01;04;90:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32"
 export EDITOR='nvim'
 export VISUAL='nvim'
 
@@ -570,3 +570,4 @@ eval "$(zoxide init zsh)"
 
 # Claude Code Integration
 [ -f ~/.config/claude/aliases.zsh ] && source ~/.config/claude/aliases.zsh
+### End of Zinit's installer chunk
