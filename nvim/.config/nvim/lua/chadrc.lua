@@ -96,7 +96,7 @@ local M = {
 M.base46 = {
 
   theme = "catppuccin",
-  transparency = true,
+  transparency = false
 }
 M.nvdash = { load_on_startup = false }
 M.ui = {

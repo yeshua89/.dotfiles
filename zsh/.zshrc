@@ -131,6 +131,7 @@ alias search='pacman -Ss'
 alias remove='sudo pacman -Rns'
 
 alias clc='claude'
+alias opc='opencode'
 alias pass='pass-cli'
 
 # Conditional modern tool aliases
@@ -570,4 +571,6 @@ eval "$(zoxide init zsh)"
 
 # Claude Code Integration
 [ -f ~/.config/claude/aliases.zsh ] && source ~/.config/claude/aliases.zsh
-### End of Zinit's installer chunk
+
+# opencode
+export PATH=/home/shaddai/.opencode/bin:$PATH

@@ -885,5 +885,105 @@ return {
       },
     },
   },
+
+  -- ============================================
+  -- ASISTENTE DE IA - OPENCODE
+  -- ============================================
+
+  -- Snacks.nvim - Dependencia de opencode.nvim
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      bigfile = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+      input = { enabled = true },
+      picker = { enabled = true },
+      terminal = { enabled = true },
+    },
+  },
+
+  -- OpenCode.nvim - Asistente de IA integrado
+  {
+    "NickvanDyke/opencode.nvim",
+    dependencies = {
+      { "folke/snacks.nvim" },
+    },
+    config = function()
+      -- Configuración de opencode
+      vim.g.opencode_opts = {
+        -- Opciones personalizadas si las necesitas
+      }
+      -- Habilitar autoread para recargar archivos editados por opencode
+      vim.o.autoread = true
+
+      -- Keymaps para opencode
+      local opencode = require "opencode"
+
+      -- Atajo principal para hacer preguntas al asistente
+      vim.keymap.set({ "n", "v" }, "<leader>ai", function()
+        opencode.ask()
+      end, { desc = "OpenCode: Ask AI" })
+
+      -- Selector de acciones (muestra menú de opciones)
+      vim.keymap.set({ "n", "v" }, "<leader>as", function()
+        opencode.select()
+      end, { desc = "OpenCode: Select Action" })
+
+      -- Prompts específicos
+      vim.keymap.set({ "n", "v" }, "<leader>ar", function()
+        opencode.prompt "review"
+      end, { desc = "OpenCode: Review Code" })
+
+      vim.keymap.set({ "n", "v" }, "<leader>ae", function()
+        opencode.prompt "explain"
+      end, { desc = "OpenCode: Explain Code" })
+
+      vim.keymap.set({ "n", "v" }, "<leader>af", function()
+        opencode.prompt "fix"
+      end, { desc = "OpenCode: Fix Code" })
+
+      vim.keymap.set({ "n", "v" }, "<leader>ao", function()
+        opencode.prompt "optimize"
+      end, { desc = "OpenCode: Optimize Code" })
+
+      vim.keymap.set({ "n", "v" }, "<leader>at", function()
+        opencode.prompt "test"
+      end, { desc = "OpenCode: Generate Tests" })
+
+      vim.keymap.set({ "n", "v" }, "<leader>ad", function()
+        opencode.prompt "document"
+      end, { desc = "OpenCode: Document Code" })
+
+      -- Toggle visibility del terminal de opencode
+      vim.keymap.set("n", "<leader>aT", function()
+        opencode.toggle()
+      end, { desc = "OpenCode: Toggle Terminal" })
+
+      -- Autocomandos para eventos de opencode
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OpencodeEvent:*",
+        callback = function(ev)
+          -- Aquí puedes agregar lógica personalizada cuando opencode hace algo
+          -- Por ejemplo, recargar archivos automáticamente
+        end,
+      })
+    end,
+    keys = {
+      { "<leader>ai", mode = { "n", "v" }, desc = "OpenCode: Ask AI" },
+      { "<leader>as", mode = { "n", "v" }, desc = "OpenCode: Select Action" },
+      { "<leader>ar", mode = { "n", "v" }, desc = "OpenCode: Review Code" },
+      { "<leader>ae", mode = { "n", "v" }, desc = "OpenCode: Explain Code" },
+      { "<leader>af", mode = { "n", "v" }, desc = "OpenCode: Fix Code" },
+      { "<leader>ao", mode = { "n", "v" }, desc = "OpenCode: Optimize Code" },
+      { "<leader>at", mode = { "n", "v" }, desc = "OpenCode: Generate Tests" },
+      { "<leader>ad", mode = { "n", "v" }, desc = "OpenCode: Document Code" },
+      { "<leader>aT", desc = "OpenCode: Toggle Terminal" },
+    },
+  },
 }
 
