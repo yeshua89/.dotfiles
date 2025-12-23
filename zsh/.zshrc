@@ -795,7 +795,8 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd _ensure_correct_directory
 
 # Explicitly ensure we're in home before initializing prompt tools
-builtin cd "$HOME" 2>/dev/null || true
+# DISABLED: This line was preventing Kitty from maintaining the current directory
+# builtin cd "$HOME" 2>/dev/null || true
 
 # ============================================================================
 # Tool Initializations
@@ -816,6 +817,17 @@ command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 # ============================================================================
 # External Integrations
 # ============================================================================
+
+# Kitty terminal integration - keeps working directory when opening new windows
+if [[ "$TERM" == "xterm-kitty" ]]; then
+    _kitty_set_working_directory() {
+        printf '\e]7;kitty-shell-cwd://%s%s\a' "$HOSTNAME" "$PWD"
+    }
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd _kitty_set_working_directory
+    # Also set it immediately
+    _kitty_set_working_directory
+fi
 
 # Claude Code Integration
 [ -f ~/.config/claude/aliases.zsh ] && source ~/.config/claude/aliases.zsh
