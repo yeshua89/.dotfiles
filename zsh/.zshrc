@@ -135,6 +135,7 @@ alias gb='git branch'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias y='yazi'
+alias neofetch='fastfetch -c examples/8'
 
 # Navigation aliases
 alias ..='cd ..'
