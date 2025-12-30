@@ -95,7 +95,7 @@ local M = {
 
 M.base46 = {
 
-  theme = "tokyodark",
+  theme = "chadracula-evondev",
   transparency = false
 }
 M.nvdash = { load_on_startup = false }

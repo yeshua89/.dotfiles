@@ -64,7 +64,7 @@ opt.clipboard = "unnamedplus" -- Usa clipboard del sistema
 opt.completeopt = "menu,menuone,noselect" -- Mejor experiencia de completado
 opt.pumheight = 10 -- Altura máxima del popup de completado
 opt.showmode = false -- No mostrar modo (ya lo hace lualine/statusline)
-opt.conceallevel = 2 -- Oculta markup en markdown/latex (pero muestra al editar)
+opt.conceallevel = 0 -- No oculta caracteres (muestra comillas, etc.)
 
 -- Folding (con Treesitter)
 opt.foldmethod = "expr"

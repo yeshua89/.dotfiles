@@ -1,0 +1,12 @@
+#!/bin/bash
+# Start Hyprland with proper environment setup
+
+# Export environment variables
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=Hyprland
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM=wayland
+export GDK_BACKEND=wayland,x11
+
+# Start Hyprland
+exec Hyprland
