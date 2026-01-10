@@ -185,12 +185,21 @@ map("v", "<leader>pr", [[:!python3<cr>]], { desc = "Run Python selection" })
 pcall(vim.keymap.del, "n", "<A-h>")
 pcall(vim.keymap.del, "t", "<A-h>")
 
--- Terminal horizontal (Alt + h) - igual que la flotante
-map({ "n", "t" }, "<A-h>", function()
+-- Terminal horizontal (Ctrl + \)
+map({ "n", "t" }, "<C-\\>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "Toggle horizontal terminal" })
 
--- Terminal flotante (Alt + i)
+-- Terminal flotante (Alt + i o leader + t)
 map({ "n", "t" }, "<A-i>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Toggle floating terminal" })
+
+map({ "n", "t" }, "<leader>t", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "Toggle floating terminal" })
+
+-- Terminal vertical (leader + tv)
+map("n", "<leader>tv", function()
+  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+end, { desc = "Toggle vertical terminal" })
