@@ -10,7 +10,9 @@ settings:
     https://lumo.proton.me: access-paste
   content.media.audio_capture:
     https://meet.google.com: true
+  statusbar.show:
+    global: always
   tabs.position:
     global: top
   tabs.show:
-    global: multiple
+    global: never

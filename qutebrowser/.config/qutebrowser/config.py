@@ -180,6 +180,10 @@ config.bind(",r", "config-cycle content.user_stylesheets '' '~/.config/qutebrows
 # Limpieza rápida de datos privados
 config.bind(",C", "clear-cookies ;; clear-keychain ;; message-info 'Cookies y cache limpiados'")
 
+# Abrir video actual en mpv (usando yt-dlp)
+config.bind(",m", "spawn ~/.config/qutebrowser/script-ytdl/ytdl.sh")
+config.bind(",M", "hint links spawn ~/.config/qutebrowser/script-ytdl/ytdl.sh {hint-url}")
+
 # Hints más eficientes
 config.bind("f", "hint all")
 config.bind("F", "hint all tab")
@@ -260,28 +264,16 @@ c.content.blocking.adblock.lists = [
     "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
     "https://secure.fanboy.co.nz/fanboy-social.txt",
 
-    # uBlock Origin filters - máxima protección
+    # uBlock Origin filters - solo las esenciales (consolidadas)
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2020.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2021.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2022.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2023.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2024.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/badware.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances-cookies.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances-others.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/quick-fixes.txt",
-    "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt",
     "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt",
 
-    # Anti-tracking agresivo
+    # Anti-tracking
     "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
-
-    # YouTube específico - bloqueo máximo de anuncios
-    "https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/youtubelist.txt",
-    "https://raw.githubusercontent.com/llacb47/miscfilters/master/antipopads.txt",
 ]
 
 # Habilita stylesheets de usuario para YouTube
