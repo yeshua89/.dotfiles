@@ -686,6 +686,30 @@ help() {
     fi
 }
 
+# ProtonPass: buscar y ver item en cualquier vault
+pfind() {
+    local personal="aaaaJKuNGskroU_Bzd1jNgoO6VTJKeAAQqt6xJvRobw6xFRRcFsHn9FlaB_xxRAhfoIMIHYkDux-CjFKWHqa2Q=="
+    local work="QKoCH-eGTNJ0m2EW1Mvoxkx6xlhiNZxkOYHf1a6TFvVQxYz1FP2kwx-zFCCRV-IHzykWe6SR_UKeEBNgKaST9Q=="
+
+    # Buscar en Personal
+    local item_id=$(pass item list "Personal" 2>/dev/null | grep -i "$1" | head -1 | awk -F'[][]' '{print $2}')
+
+    if [ -n "$item_id" ]; then
+        pass item view "pass://${personal}/${item_id}"
+        return
+    fi
+
+    # Buscar en Work
+    item_id=$(pass item list "Work" 2>/dev/null | grep -i "$1" | head -1 | awk -F'[][]' '{print $2}')
+
+    if [ -n "$item_id" ]; then
+        pass item view "pass://${work}/${item_id}"
+        return
+    fi
+
+    echo "No se encontró item con: $1"
+}
+
 # ============================================================================
 # Environment Variables
 # ============================================================================
