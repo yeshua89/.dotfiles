@@ -49,21 +49,21 @@ alias dprune='docker system prune -af --volumes'
 # ============================================
 # Git Shortcuts
 # ============================================
-alias gs='git status -sb'
-alias gl='git log --oneline --graph -20'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias ga='git add'
-alias gc='git commit'
-alias gp='git push'
-alias gpf='git push --force-with-lease'    # Safe force push
-alias gpl='git pull --rebase'
-alias gsw='git switch'
-alias gsc='git switch -c'
-alias gst='git stash'
-alias gstp='git stash pop'
-alias gb='git branch -vv'
-alias gcp='git cherry-pick'
+# alias gs='git status -sb'
+# alias gl='git log --oneline --graph -20'
+# alias gd='git diff'
+# alias gds='git diff --staged'
+# alias ga='git add'
+# alias gc='git commit'
+# alias gp='git push'
+# alias gpf='git push --force-with-lease'    # Safe force push
+# alias gpl='git pull --rebase'
+# alias gsw='git switch'
+# alias gsc='git switch -c'
+# alias gst='git stash'
+# alias gstp='git stash pop'
+# alias gb='git branch -vv'
+# alias gcp='git cherry-pick'
 
 # ============================================
 # System Monitoring
