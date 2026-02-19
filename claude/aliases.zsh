@@ -118,7 +118,7 @@ alias myip='curl -s ifconfig.me'           # Public IP
 alias weather='curl -s wttr.in/?format=3'  # Quick weather
 alias epoch='date +%s'                     # Unix timestamp
 alias path='echo $PATH | tr ":" "\n"'      # Pretty print PATH
-alias sizeof='du -sh'                      # Size of dir/file
+alias sizeof='command du -sh'              # Size of dir/file
 
 # Clipboard helpers (Wayland)
 alias clip='wl-copy'
