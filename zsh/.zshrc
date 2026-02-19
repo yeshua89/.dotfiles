@@ -1,51 +1,58 @@
 # ============================================================================
 # ZSH Configuration File
 # ============================================================================
-# 
+#
 # Dependencies Required:
 #   Core: zsh, git
-#   Essential: fzf, starship, zoxide
+#   Essential: fzf, starship, zoxide, wl-clipboard
 #   Optional: bat, eza, delta, fd, rg, dust, duf, procs, btm, hyperfine, tokei
 #   Tools: nvim, lazygit, lazydocker, yazi, docker
 #
 # ============================================================================
 
 # PATH Configuration
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PATH"
 
+# ============================================================================
 # Zinit Plugin Manager Setup
+# ============================================================================
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download Zinit if not installed
 if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Suppress Zinit output
 ZINIT[COMPINIT_OPTS]=-C
 ZINIT[OPTIMIZE_OUT_DISK_ACCESSES]=1
 
-# Zinit Plugins
-# FIXED: Added 'nocd' to prevent directory changes that confuse Starship prompt
+# Annexes must load before plugins
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+# ============================================================================
+# Zinit Plugins (Turbo mode - deferred load)
+# ============================================================================
+
 zinit ice wait lucid nocd atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" silent
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 export ZSH_AUTOSUGGEST_STRATEGY=history
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# FIXED: Added 'nocd' to prevent Starship from showing zsh-autosuggestions directory
 zinit ice wait lucid nocd atload"_zsh_autosuggest_start" silent
 zinit light zsh-users/zsh-autosuggestions
 
 zinit ice wait lucid blockf atpull'zinit creinstall -q .' silent
 zinit light zsh-users/zsh-completions
 
-# FIXED: Added 'nocd' for consistency
 zinit ice wait lucid nocd atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down" silent
 zinit light zsh-users/zsh-history-substring-search
 
@@ -58,17 +65,19 @@ zinit light MichaelAquilina/zsh-you-should-use
 zinit ice wait lucid silent
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-zinit ice silent
+zinit ice wait lucid silent
 zinit snippet OMZ::lib/clipboard.zsh
 
-zinit ice silent
+zinit ice wait lucid silent
 zinit snippet OMZ::lib/git.zsh
 
+# ============================================================================
 # History Configuration
-HISTSIZE=10000
+# ============================================================================
+
+HISTSIZE=50000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
-HISTDUP=erase
 
 setopt appendhistory
 setopt sharehistory
@@ -77,8 +86,12 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_reduce_blanks
 
+# ============================================================================
 # Completion System
+# ============================================================================
+
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
@@ -89,10 +102,8 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' special-dirs true
 
-# Create cache directory if it doesn't exist
 [ ! -d "$HOME/.zsh/cache" ] && mkdir -p "$HOME/.zsh/cache"
 
-# Configure dircolors if available
 if command -v dircolors &>/dev/null; then
     eval "$(dircolors -b)"
     zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -100,6 +111,20 @@ fi
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# ============================================================================
+# Shell Options
+# ============================================================================
+
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+setopt correct
+setopt interactive_comments
+setopt multios
+setopt prompt_subst
+setopt no_beep
 
 # ============================================================================
 # Aliases
@@ -110,20 +135,20 @@ alias cat='bat'
 alias catn='bat --style=plain'
 alias catnp='bat --style=plain --paging=never'
 
-# Editor aliases
+# Editor
 alias v='nvim'
 alias vim='nvim'
 alias vi='nvim'
 alias code='codium'
 
-# Git aliases
+# Git
 alias gcl='git clone --depth 1'
 alias gi='git init'
 alias ga='git add'
 alias gaa='git add .'
 alias gc='git commit -m'
 alias gca='git commit -am'
-alias gp='git push origin main'
+alias gp='git push origin $(git branch --show-current)'
 alias gpl='git pull'
 alias gs='git status'
 alias gd='git diff'
@@ -137,7 +162,7 @@ alias ld='lazydocker'
 alias y='yazi'
 alias neofetch='fastfetch -c examples/8'
 
-# Navigation aliases
+# Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -155,10 +180,6 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias mkdir='mkdir -pv'
 
-# Network utilities
-alias myip='curl -s ifconfig.me'
-alias ports='netstat -tulanp'
-
 # Package manager (Arch Linux)
 alias update='sudo pacman -Syu'
 alias install='sudo pacman -S'
@@ -166,18 +187,25 @@ alias search='pacman -Ss'
 alias remove='sudo pacman -Rns'
 
 # AI assistants
-alias clc='claude'
 alias opc='opencode'
 alias pass='pass-cli'
 
-# Conditional modern tool aliases
-command -v eza &>/dev/null && alias ls='eza --icons --group-directories-first' && alias ll='eza -lh --icons --group-directories-first' && alias la='eza -a --icons --group-directories-first' && alias lla='eza -lha --icons --group-directories-first' && alias lt='eza --tree --icons --group-directories-first'
-command -v dust &>/dev/null && alias dust='dust'
-command -v duf &>/dev/null && alias df='duf'
+# Modern tool replacements (conditional)
+if command -v eza &>/dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -lh --icons --group-directories-first'
+    alias la='eza -a --icons --group-directories-first'
+    alias lla='eza -lha --icons --group-directories-first'
+    alias lt='eza --tree --icons --group-directories-first'
+fi
+command -v duf   &>/dev/null && alias df='duf'
 command -v procs &>/dev/null && alias ps='procs'
-command -v btm &>/dev/null && alias top='btm'
-command -v sd &>/dev/null && alias sed='sd'
-command -v docker &>/dev/null && alias dps='docker ps' && alias dpsa='docker ps -a' && alias di='docker images' && alias dc='dce'  # dc calls the dce function defined below
+command -v btm   &>/dev/null && alias top='btm'
+if command -v docker &>/dev/null; then
+    alias dpsa='docker ps -a'
+    alias di='docker images'
+    alias dfe='dce'  # fuzzy interactive exec (fzf)
+fi
 
 # Function shortcuts
 alias gch='gcof'
@@ -218,17 +246,19 @@ extract() {
     fi
     if [ -f "$1" ]; then
         case "$1" in
-            *.tar.bz2)   tar xjf "$1"    ;;
-            *.tar.gz)    tar xzf "$1"    ;;
-            *.bz2)       bunzip2 "$1"    ;;
-            *.rar)       unrar x "$1"    ;;
-            *.gz)        gunzip "$1"     ;;
-            *.tar)       tar xf "$1"     ;;
-            *.tbz2)      tar xjf "$1"    ;;
-            *.tgz)       tar xzf "$1"    ;;
-            *.zip)       unzip "$1"      ;;
-            *.Z)         uncompress "$1" ;;
-            *.7z)        7z x "$1"       ;;
+            *.tar.bz2)   tar xjf "$1"         ;;
+            *.tar.gz)    tar xzf "$1"         ;;
+            *.tar.xz)    tar xJf "$1"         ;;
+            *.tar.zst)   tar --zstd -xf "$1"  ;;
+            *.bz2)       bunzip2 "$1"         ;;
+            *.rar)       unrar x "$1"         ;;
+            *.gz)        gunzip "$1"          ;;
+            *.tar)       tar xf "$1"          ;;
+            *.tbz2)      tar xjf "$1"         ;;
+            *.tgz)       tar xzf "$1"         ;;
+            *.zip)       unzip "$1"           ;;
+            *.Z)         uncompress "$1"      ;;
+            *.7z)        7z x "$1"            ;;
             *)           echo "'$1' cannot be extracted via extract()" ;;
         esac
     else
@@ -280,20 +310,17 @@ zf() {
         return 1
     fi
     local dir
-    dir=$(zoxide query -l | fzf --preview 'eza --color=always --icons=always --tree --level=2 {} 2>/dev/null || ls -la {}' \
-                                 --preview-window='right:60%:wrap' \
-                                 --header='Jump to directory' \
-                                 --border=rounded \
-                                 --height=90%)
+    dir=$(zoxide query -l | fzf \
+        --preview 'eza --color=always --icons=always --tree --level=2 {} 2>/dev/null || ls -la {}' \
+        --preview-window='right:60%:wrap' \
+        --header='Jump to directory' \
+        --border=rounded \
+        --height=90%)
     [ -n "$dir" ] && cd "$dir"
 }
 
 # Fuzzy git branch checkout
 gcof() {
-    if ! command -v git &>/dev/null; then
-        echo "Error: git is required"
-        return 1
-    fi
     if ! command -v fzf &>/dev/null; then
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
@@ -307,7 +334,7 @@ gcof() {
                  --header='Checkout branch (Ctrl-Y to copy)' \
                  --border=rounded \
                  --height=90% \
-                 --bind='ctrl-y:execute-silent(echo -n {} | xclip -selection clipboard)+abort')
+                 --bind='ctrl-y:execute-silent(echo -n {} | wl-copy)+abort')
     [ -n "$branch" ] && git checkout "$branch"
 }
 
@@ -317,17 +344,18 @@ kp() {
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
     fi
-    local pid signal=${1:-9}
-    pid=$(ps -ef | sed 1d | \
-          fzf -m --header="Select process to kill (Signal: $signal, TAB for multi)" \
-              --preview 'echo {}' \
-              --preview-window=down:3:wrap \
-              --border=rounded \
-              --height=50% | \
-          awk '{print $2}')
-    if [ -n "$pid" ]; then
-        echo "$pid" | xargs kill -${signal}
-        echo "Killed process(es): $pid"
+    local signal=${1:-9}
+    local pids
+    pids=$(ps -ef | sed 1d |
+           fzf -m --header="Select process to kill (Signal: $signal, TAB for multi)" \
+               --preview 'echo {}' \
+               --preview-window=down:3:wrap \
+               --border=rounded \
+               --height=50% |
+           awk '{print $2}')
+    if [ -n "$pids" ]; then
+        echo "$pids" | xargs -r kill -"${signal}"
+        echo "Killed process(es): $pids"
     fi
 }
 
@@ -356,10 +384,6 @@ fd-cd() {
 
 # Fuzzy git add files
 gaf() {
-    if ! command -v git &>/dev/null; then
-        echo "Error: git is required"
-        return 1
-    fi
     if ! command -v fzf &>/dev/null; then
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
@@ -369,7 +393,7 @@ gaf() {
     if command -v delta &>/dev/null; then
         preview_cmd='git diff --color=always {2} | delta'
     fi
-    files=$(git status --short | \
+    files=$(git status --short |
             fzf -m --preview "$preview_cmd" \
                 --preview-window='right:70%:wrap' \
                 --header='Select files to stage (TAB for multi)' \
@@ -377,7 +401,7 @@ gaf() {
                 --height=90% \
                 --bind='ctrl-a:select-all' \
                 --bind='ctrl-d:deselect-all' \
-                --bind='ctrl-t:toggle-all' | \
+                --bind='ctrl-t:toggle-all' |
             awk '{print $2}')
     if [ -n "$files" ]; then
         echo "$files" | xargs git add
@@ -398,11 +422,11 @@ rgf() {
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
     fi
-    local selected
     local preview_cmd='bat --color=always --highlight-line {2} {1}'
     if ! command -v bat &>/dev/null; then
         preview_cmd='cat {1}'
     fi
+    local selected
     selected=$(rg --color=always --line-number --no-heading --smart-case "${*:-}" |
                fzf --ansi \
                    --delimiter : \
@@ -411,7 +435,12 @@ rgf() {
                    --header='Search in code' \
                    --border=rounded \
                    --height=90%)
-    [ -n "$selected" ] && nvim "+$(echo "$selected" | cut -d: -f2)" "$(echo "$selected" | cut -d: -f1)"
+    if [ -n "$selected" ]; then
+        local file line
+        file=$(echo "$selected" | cut -d: -f1)
+        line=$(echo "$selected" | cut -d: -f2)
+        nvim "+$line" "$file"
+    fi
 }
 
 # Fuzzy command history
@@ -421,33 +450,29 @@ fh() {
         return 1
     fi
     local cmd
-    cmd=$(history | fzf --tac --no-sort \
+    cmd=$(fc -l 1 | fzf --tac --no-sort \
                         --preview 'echo {}' \
                         --preview-window=down:3:wrap \
                         --header='Command history (Enter to execute, Ctrl-Y to copy)' \
                         --border=rounded \
                         --height=50% \
-                        --bind='ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort' | \
+                        --bind='ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort' |
           sed 's/^ *[0-9]* *//')
     [ -n "$cmd" ] && print -z "$cmd"
 }
 
 # Git stash manager
 gstash() {
-    if ! command -v git &>/dev/null; then
-        echo "Error: git is required"
-        return 1
-    fi
     if ! command -v fzf &>/dev/null; then
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
     fi
-    local stash
     local preview_cmd='git stash show -p $(echo {} | cut -d: -f1)'
     if command -v delta &>/dev/null; then
         preview_cmd='git stash show -p $(echo {} | cut -d: -f1) | delta'
     fi
-    stash=$(git stash list | \
+    local stash
+    stash=$(git stash list |
             fzf --preview "$preview_cmd" \
                 --preview-window='right:70%:wrap' \
                 --header='Select stash (Enter to apply, Ctrl-D to drop)' \
@@ -480,20 +505,16 @@ preview() {
 
 # Git checkout recent branches
 gcor() {
-    if ! command -v git &>/dev/null; then
-        echo "Error: git is required"
-        return 1
-    fi
     if ! command -v fzf &>/dev/null; then
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
     fi
     local branch
-    branch=$(git reflog | \
-             grep 'checkout:' | \
-             sed 's/.* to //' | \
-             awk '!seen[$0]++' | \
-             head -20 | \
+    branch=$(git reflog |
+             grep 'checkout:' |
+             sed 's/.* to //' |
+             awk '!seen[$0]++' |
+             head -20 |
              fzf --preview 'git log --oneline --graph --color=always --date=short {} | head -50' \
                  --preview-window='right:70%:wrap' \
                  --header='Recent branches' \
@@ -513,7 +534,7 @@ dce() {
         return 1
     fi
     local container
-    container=$(docker ps -a --format '{{.Names}}\t{{.Status}}\t{{.Image}}' | \
+    container=$(docker ps -a --format '{{.Names}}\t{{.Status}}\t{{.Image}}' |
                 fzf --header='Select container (Enter to exec bash)' \
                     --preview 'docker logs --tail 100 $(echo {} | cut -f1)' \
                     --preview-window='right:60%:wrap' \
@@ -582,12 +603,12 @@ psef() {
             return 1
         fi
         local pid
-        pid=$(procs | tail -n +2 | \
+        pid=$(procs | tail -n +2 |
               fzf --header='Select process (Enter to kill)' \
                   --preview 'echo {}' \
                   --preview-window=down:3:wrap \
                   --border=rounded \
-                  --height=70% | \
+                  --height=70% |
               awk '{print $1}')
         if [ -n "$pid" ]; then
             echo "Kill process $pid? (y/n)"
@@ -604,11 +625,11 @@ ff() {
         echo "Error: fzf is required. Install with: sudo pacman -S fzf"
         return 1
     fi
-    local file
     local preview_cmd='bat --color=always --style=numbers --line-range=:100 {}'
     if ! command -v bat &>/dev/null; then
         preview_cmd='head -100 {}'
     fi
+    local file
     if command -v fd &>/dev/null; then
         file=$(fd --type f --hidden --follow --exclude .git |
                fzf --preview "$preview_cmd" \
@@ -632,12 +653,10 @@ dtree() {
     local depth="${1:-2}"
     if command -v eza &>/dev/null; then
         eza --tree --level="$depth" --icons --git-ignore
+    elif command -v tree &>/dev/null; then
+        tree -L "$depth" -I '.git'
     else
-        if command -v tree &>/dev/null; then
-            tree -L "$depth" -I '.git'
-        else
-            echo "Error: Install eza or tree. Recommended: sudo pacman -S eza"
-        fi
+        echo "Error: Install eza or tree. Recommended: sudo pacman -S eza"
     fi
 }
 
@@ -686,24 +705,26 @@ help() {
     fi
 }
 
-# ProtonPass: buscar y ver item en cualquier vault
+# ProtonPass: search and view item across vaults
+# Required in ~/.env: PROTONPASS_PERSONAL and PROTONPASS_WORK (vault IDs)
 pfind() {
-    local personal="aaaaJKuNGskroU_Bzd1jNgoO6VTJKeAAQqt6xJvRobw6xFRRcFsHn9FlaB_xxRAhfoIMIHYkDux-CjFKWHqa2Q=="
-    local work="QKoCH-eGTNJ0m2EW1Mvoxkx6xlhiNZxkOYHf1a6TFvVQxYz1FP2kwx-zFCCRV-IHzykWe6SR_UKeEBNgKaST9Q=="
+    if [ -z "$PROTONPASS_PERSONAL" ] || [ -z "$PROTONPASS_WORK" ]; then
+        echo "Error: Set PROTONPASS_PERSONAL and PROTONPASS_WORK in ~/.env"
+        return 1
+    fi
 
-    # Buscar en Personal
-    local item_id=$(pass item list "Personal" 2>/dev/null | grep -i "$1" | head -1 | awk -F'[][]' '{print $2}')
+    local item_id
+    item_id=$(pass item list "Personal" 2>/dev/null | grep -i "$1" | head -1 | awk -F'[][]' '{print $2}')
 
     if [ -n "$item_id" ]; then
-        pass item view "pass://${personal}/${item_id}"
+        pass item view "pass://${PROTONPASS_PERSONAL}/${item_id}"
         return
     fi
 
-    # Buscar en Work
     item_id=$(pass item list "Work" 2>/dev/null | grep -i "$1" | head -1 | awk -F'[][]' '{print $2}')
 
     if [ -n "$item_id" ]; then
-        pass item view "pass://${work}/${item_id}"
+        pass item view "pass://${PROTONPASS_WORK}/${item_id}"
         return
     fi
 
@@ -714,18 +735,15 @@ pfind() {
 # Environment Variables
 # ============================================================================
 
-# Source user environment variables
 [ -f ~/.env ] && source ~/.env
 
-# LS Colors
 export LS_COLORS="rs=0:di=37:ln=01;04;90:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32"
 
-# Default editor
 export EDITOR='nvim'
 export VISUAL='nvim'
 
 # FZF Configuration
-export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded --inline-info \
+export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded \
   --preview-window=right:50%:wrap \
   --bind='ctrl-/:toggle-preview' \
   --bind='ctrl-u:preview-half-page-up' \
@@ -734,7 +752,7 @@ export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded --inline
   --bind='ctrl-b:preview-page-up' \
   --bind='ctrl-a:select-all' \
   --bind='ctrl-t:toggle-all' \
-  --bind='ctrl-y:execute-silent(echo -n {+} | xclip -selection clipboard)' \
+  --bind='ctrl-y:execute-silent(echo -n {+} | wl-copy)' \
   --bind='alt-up:preview-up' \
   --bind='alt-down:preview-down' \
   --color=fg:#c0caf5,bg:#1a1b26,hl:#7aa2f7 \
@@ -745,12 +763,11 @@ export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded --inline
   --pointer='▶' --marker='✓' --prompt='❯ ' \
   --info=inline"
 
-# FZF file search commands
-if command -v fd &> /dev/null; then
+if command -v fd &>/dev/null; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --color=never'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --color=never'
-elif command -v rg &> /dev/null; then
+elif command -v rg &>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
@@ -765,49 +782,25 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
-# Ctrl-Z to foreground current job
 foreground-current-job() { fg; }
 zle -N foreground-current-job
 bindkey '^Z' foreground-current-job
 
-# Ctrl-F to open file finder
-open-file-finder() {
-    zle -I
-    vf
-    zle reset-prompt
-}
+open-file-finder() { zle -I; vf; zle reset-prompt; }
 zle -N open-file-finder
 bindkey '^F' open-file-finder
 
-# Ctrl-G to open directory finder
-open-dir-finder() {
-    zle -I
-    zf
-    zle reset-prompt
-}
+open-dir-finder() { zle -I; zf; zle reset-prompt; }
 zle -N open-dir-finder
 bindkey '^G' open-dir-finder
-
-# ============================================================================
-# Shell Options
-# ============================================================================
-
-setopt auto_cd
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushdminus
-setopt correct
-setopt interactive_comments
-setopt multios
-setopt prompt_subst
 
 # ============================================================================
 # Safety Hook: Prevent Starship from capturing Zinit plugin directories
 # ============================================================================
 
-# Function to ensure we're never stuck in a Zinit directory
+autoload -Uz add-zsh-hook
+
 _ensure_correct_directory() {
-    # If we're in a Zinit plugin/snippet directory, return to home
     case "$PWD" in
         */.local/share/zinit/plugins/*|*/.local/share/zinit/snippets/*)
             builtin cd "$HOME" 2>/dev/null || true
@@ -815,61 +808,31 @@ _ensure_correct_directory() {
     esac
 }
 
-# Add the hook to run before every prompt
-autoload -Uz add-zsh-hook
 add-zsh-hook precmd _ensure_correct_directory
-
-# Explicitly ensure we're in home before initializing prompt tools
-# DISABLED: This line was preventing Kitty from maintaining the current directory
-# builtin cd "$HOME" 2>/dev/null || true
 
 # ============================================================================
 # Tool Initializations
 # ============================================================================
 
-# FZF key bindings and completion
-command -v fzf &>/dev/null && source <(fzf --zsh)
-
-# Starship prompt
+command -v fzf      &>/dev/null && source <(fzf --zsh)
 command -v starship &>/dev/null && eval "$(starship init zsh)"
-
-# Fast Node Manager
-command -v fnm &>/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
-
-# Zoxide (smarter cd)
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+command -v fnm      &>/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
+command -v zoxide   &>/dev/null && eval "$(zoxide init zsh)"
 
 # ============================================================================
 # External Integrations
 # ============================================================================
 
-# Kitty terminal integration - keeps working directory when opening new windows
+# Kitty: maintain working directory across new windows/tabs
 if [[ "$TERM" == "xterm-kitty" ]]; then
     _kitty_set_working_directory() {
         printf '\e]7;kitty-shell-cwd://%s%s\a' "$HOSTNAME" "$PWD"
     }
-    autoload -Uz add-zsh-hook
     add-zsh-hook precmd _kitty_set_working_directory
-    # Also set it immediately
     _kitty_set_working_directory
 fi
 
-# Claude Code Integration
 [ -f ~/.config/claude/aliases.zsh ] && source ~/.config/claude/aliases.zsh
-
-# OpenCode
-export PATH=/home/shaddai/.opencode/bin:$PATH
-
-# ============================================================================
-# Zinit Annexes
-# ============================================================================
-
-# Load a few important annexes, without Turbo
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
 
 # ============================================================================
 # End of ZSH Configuration
