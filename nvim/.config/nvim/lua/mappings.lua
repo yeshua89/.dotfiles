@@ -10,7 +10,6 @@ local map = vim.keymap.set
 
 -- Comandos más rápidos
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
 
 -- Guardar archivo
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })

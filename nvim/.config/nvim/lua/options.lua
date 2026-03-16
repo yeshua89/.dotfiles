@@ -68,7 +68,7 @@ opt.conceallevel = 0 -- No oculta caracteres (muestra comillas, etc.)
 
 -- Folding (con Treesitter)
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldenable = false -- No cerrar folds al abrir archivo
 opt.foldlevel = 99
 

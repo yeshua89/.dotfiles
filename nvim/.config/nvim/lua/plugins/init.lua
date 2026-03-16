@@ -882,13 +882,243 @@ return {
     event = { "BufRead Cargo.toml" },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
-      null_ls = {
-        enabled = true,
-        name = "crates.nvim",
-      },
       popup = {
         border = "rounded",
       },
+    },
+  },
+
+  {
+    "b0o/schemastore.nvim",
+    lazy = true,
+    version = false,
+  },
+
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    ft = {
+      "html",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "astro",
+      "xml",
+    },
+    opts = {
+      opts = {
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = true,
+      },
+    },
+  },
+
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPost",
+    opts = {
+      user_default_options = {
+        names = false,
+        RGB = true,
+        RRGGBB = true,
+        RRGGBBAA = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true,
+        mode = "virtualtext",
+      },
+    },
+  },
+
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      { "<leader>re", function() require("refactoring").refactor "Extract Function" end, mode = { "x" }, desc = "Extract Function" },
+      { "<leader>rf", function() require("refactoring").refactor "Extract Function To File" end, mode = { "x" }, desc = "Extract Function To File" },
+      { "<leader>rv", function() require("refactoring").refactor "Extract Variable" end, mode = { "x" }, desc = "Extract Variable" },
+      { "<leader>ri", function() require("refactoring").refactor "Inline Variable" end, mode = { "n", "x" }, desc = "Inline Variable" },
+      { "<leader>rI", function() require("refactoring").refactor "Inline Function" end, mode = { "n" }, desc = "Inline Function" },
+      { "<leader>rb", function() require("refactoring").refactor "Extract Block" end, mode = { "n" }, desc = "Extract Block" },
+      { "<leader>rr", function() require("refactoring").select_refactor() end, mode = { "n", "x" }, desc = "Select Refactor" },
+    },
+    opts = {},
+  },
+
+  {
+    "echasnovski/mini.move",
+    event = "VeryLazy",
+    opts = {
+      mappings = {
+        left = "<M-h>",
+        right = "<M-l>",
+        down = "<M-j>",
+        up = "<M-k>",
+        line_left = "<M-h>",
+        line_right = "<M-l>",
+        line_down = "<M-j>",
+        line_up = "<M-k>",
+      },
+    },
+  },
+
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = "Neogen",
+    keys = {
+      { "<leader>nf", function() require("neogen").generate() end, desc = "Generate Annotation" },
+      { "<leader>nc", function() require("neogen").generate { type = "class" } end, desc = "Generate Class Annotation" },
+      { "<leader>nt", function() require("neogen").generate { type = "type" } end, desc = "Generate Type Annotation" },
+    },
+    opts = {
+      snippet_engine = "nvim",
+      languages = {
+        python = {
+          template = {
+            annotation_convention = "google_docstrings",
+          },
+        },
+      },
+    },
+  },
+
+  {
+    "vuki656/package-info.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    ft = "json",
+    opts = {},
+    keys = {
+      { "<leader>ns", function() require("package-info").show() end, desc = "Show package info" },
+      { "<leader>nH", function() require("package-info").hide() end, desc = "Hide package info" },
+      { "<leader>nT", function() require("package-info").toggle() end, desc = "Toggle package info" },
+      { "<leader>nu", function() require("package-info").update() end, desc = "Update package" },
+      { "<leader>nd", function() require("package-info").delete() end, desc = "Delete package" },
+      { "<leader>ni", function() require("package-info").install() end, desc = "Install package" },
+      { "<leader>np", function() require("package-info").change_version() end, desc = "Change package version" },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+        opts = {
+          layouts = {
+            {
+              elements = {
+                { id = "scopes", size = 0.25 },
+                { id = "breakpoints", size = 0.25 },
+                { id = "stacks", size = 0.25 },
+                { id = "watches", size = 0.25 },
+              },
+              size = 40,
+              position = "left",
+            },
+            {
+              elements = {
+                { id = "repl", size = 0.5 },
+                { id = "console", size = 0.5 },
+              },
+              size = 10,
+              position = "bottom",
+            },
+          },
+        },
+        config = function(_, opts)
+          local dap = require "dap"
+          local dapui = require "dapui"
+          dapui.setup(opts)
+          dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+          dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+          dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
+        end,
+      },
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        opts = { virt_text_pos = "eol" },
+      },
+      {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+          local debugpy_path = vim.fn.exepath "python3"
+          if debugpy_path ~= "" then
+            require("dap-python").setup(debugpy_path)
+          end
+          table.insert(require("dap").configurations.python, {
+            type = "python",
+            request = "launch",
+            name = "Launch file with arguments",
+            program = "${file}",
+            args = function()
+              local args_string = vim.fn.input "Arguments: "
+              return vim.split(args_string, " +")
+            end,
+          })
+        end,
+      },
+    },
+    keys = {
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ") end, desc = "Breakpoint Condition" },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+      { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
+      { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    },
+  },
+
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-go",
+    },
+    config = function()
+      require("neotest").setup {
+        adapters = {
+          require "neotest-python" {
+            dap = { justMyCode = false },
+            args = { "--log-level", "DEBUG", "--verbose" },
+            runner = "pytest",
+          },
+          require "neotest-go" {},
+        },
+        status = { virtual_text = true },
+        output = { open_on_run = true },
+        quickfix = {
+          open = function()
+            vim.cmd "Trouble qflist"
+          end,
+        },
+      }
+    end,
+    keys = {
+      { "<leader>tt", function() require("neotest").run.run(vim.fn.expand "%") end, desc = "Run File" },
+      { "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
+      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<leader>tl", function() require("neotest").run.run_last() end, desc = "Run Last" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<leader>to", function() require("neotest").output.open { enter = true, auto_close = true } end, desc = "Show Output" },
+      { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+      { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<leader>td", function() require("neotest").run.run { strategy = "dap" } end, desc = "Debug Nearest" },
     },
   },
 
