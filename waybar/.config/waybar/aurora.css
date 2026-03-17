@@ -1,0 +1,21 @@
+/*
+ * Aurora - Northern lights over midnight ocean
+ * Deep space blue base, electric neon accents
+ * Electric green, cyan, and violet like actual aurora borealis
+ */
+
+@define-color base            #080d1a;
+@define-color surface         #101528;
+@define-color overlay         #182136;
+@define-color muted           #304060;
+@define-color subtle          #486080;
+@define-color text            #c8e0f8;
+@define-color love            #e84080;
+@define-color gold            #f8c040;
+@define-color rose            #c060e8;
+@define-color pine            #00d878;
+@define-color foam            #00c8f0;
+@define-color iris            #6050f0;
+@define-color highlightLow    #0a1020;
+@define-color highlightMed    #121828;
+@define-color highlightHigh   #203050;

@@ -1,28 +1,24 @@
 /*
- * Absolute Black Theme - Elegant Grayscale
- * Ultra-dark theme with beautiful grayscale progression
- * Solo escala de grises para máxima elegancia
+ * Void — Near-black with electric cyan
+ * Single accent color: #00d4ff (electric cyan)
+ * Concept: hacker terminal, elegant and sober
  */
 
-/* --- Base Colors: Negro absoluto con profundidad --- */
-@define-color base            #000000; /* Negro absoluto */
-@define-color surface         #0d0d0d; /* Superficie de módulos */
-@define-color overlay         #1a1a1a; /* Estado hover */
+@define-color base            #080808;
+@define-color surface         #101010;
+@define-color overlay         #1c1c1c;
 
-/* --- Text: Jerarquía de grises perfecta --- */
-@define-color muted           #404040; /* Gris muy oscuro - elementos sutiles */
-@define-color subtle          #707070; /* Gris medio oscuro - secundario */
-@define-color text            #d0d0d0; /* Gris claro - texto principal */
+@define-color muted           #383838;
+@define-color subtle          #505050;
+@define-color text            #e2e2e2;
 
-/* --- Accents: Solo escala de grises elegante --- */
-@define-color love            #ff3333; /* Solo para crítico - rojo mínimo */
-@define-color gold            #c0c0c0; /* Gris plata - antes oro */
-@define-color rose            #e8e8e8; /* Gris casi blanco - destacado */
-@define-color pine            #909090; /* Gris medio */
-@define-color foam            #ffffff; /* Blanco puro - máximo contraste */
-@define-color iris            #a8a8a8; /* Gris medio claro */
+@define-color love            #ff4455;
+@define-color gold            #00d4ff;
+@define-color rose            #80e8ff;
+@define-color pine            #00aad4;
+@define-color foam            #00d4ff;
+@define-color iris            #5588cc;
 
-/* --- Highlights: Capas de profundidad sutiles --- */
-@define-color highlightLow    #121212; /* Separador casi invisible */
-@define-color highlightMed    #1f1f1f; /* Profundidad media */
-@define-color highlightHigh   #2a2a2a; /* Máximo contraste sin salir de negro */
+@define-color highlightLow    #0c0c0c;
+@define-color highlightMed    #141414;
+@define-color highlightHigh   #242424;

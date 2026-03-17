@@ -1,0 +1,20 @@
+/*
+ * Gruvbox Dark - Retro groove color scheme
+ * Warm earthy tones with high contrast
+ */
+
+@define-color base            #282828;
+@define-color surface         #3c3836;
+@define-color overlay         #32302f;
+@define-color muted           #665c54;
+@define-color subtle          #928374;
+@define-color text            #ebdbb2;
+@define-color love            #fb4934;
+@define-color gold            #fabd2f;
+@define-color rose            #d3869b;
+@define-color pine            #b8bb26;
+@define-color foam            #8ec07c;
+@define-color iris            #d3869b;
+@define-color highlightLow    #1d2021;
+@define-color highlightMed    #282828;
+@define-color highlightHigh   #504945;

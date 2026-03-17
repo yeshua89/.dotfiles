@@ -47,32 +47,13 @@ alias dex='docker exec -it'
 alias dprune='docker system prune -af --volumes'
 
 # ============================================
-# Git Shortcuts
-# ============================================
-# alias gs='git status -sb'
-# alias gl='git log --oneline --graph -20'
-# alias gd='git diff'
-# alias gds='git diff --staged'
-# alias ga='git add'
-# alias gc='git commit'
-# alias gp='git push'
-# alias gpf='git push --force-with-lease'    # Safe force push
-# alias gpl='git pull --rebase'
-# alias gsw='git switch'
-# alias gsc='git switch -c'
-# alias gst='git stash'
-# alias gstp='git stash pop'
-# alias gb='git branch -vv'
-# alias gcp='git cherry-pick'
-
-# ============================================
 # System Monitoring
 # ============================================
 alias cpu='ps aux --sort=-%cpu | head -11'
 alias mem='ps aux --sort=-%mem | head -11'
 alias listening='ss -tulpn | grep LISTEN'  # ss > netstat
 alias ports='ss -tulpn'
-alias disk='df -h -x tmpfs -x devtmpfs'
+alias disk='command df -h -x tmpfs -x devtmpfs'
 alias io='iostat -xz 1 3 2>/dev/null || echo "Install sysstat: pacman -S sysstat"'
 
 # ============================================

@@ -1,7 +1,6 @@
 /* Importa la paleta de colores */
-/* Cambia entre: tokyo-night.css, absolute-black.css, rose-pine.css, catppuccin-mocha.css */
-@import "tokyo-night.css";
-/* @import "tokyo-night.css"; */ /* Tema ultra-dark */
+/* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
+@import "absolute-black.css";
 
 /* Estilos generales */
 * {
@@ -18,16 +17,6 @@ window#waybar {
     transition-property: background-color;
     transition-duration: 0.5s;
 }
-
-/* Glassmorphism effect - descomenta para efecto de vidrio */
-/*
-window#waybar {
-    background: rgba(22, 22, 30, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-*/
 
 window#waybar.empty #window {
     opacity: 0;
@@ -56,6 +45,7 @@ window#waybar.empty #window {
 #tray,
 #custom-vpn,
 #custom-updates,
+#custom-theme,
 #cpu,
 #memory,
 #temperature,
@@ -81,6 +71,7 @@ window#waybar.empty #window {
 #tray:hover,
 #custom-vpn:hover,
 #custom-updates:hover,
+#custom-theme:hover,
 #cpu:hover,
 #memory:hover,
 #temperature:hover,
@@ -255,6 +246,17 @@ window#waybar.empty #window {
 #power-profiles-daemon {
     color: @pine;
     padding: 4px 10px 4px 4px;
+}
+
+/* --- Theme Switcher --- */
+#custom-theme {
+    color: @iris;
+    font-size: 16px;
+    padding: 4px 10px;
+}
+
+#custom-theme:active {
+    background-color: @highlightMed;
 }
 
 /* --- MPRIS (Reproductor de Medios) --- */

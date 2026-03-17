@@ -1,0 +1,21 @@
+/*
+ * Obsidian - Volcanic glass with antique gold accents
+ * Near-black indigo base, warm gold highlights, amethyst tones
+ * Elegant, minimal, timeless
+ */
+
+@define-color base            #0e0e16;
+@define-color surface         #16162a;
+@define-color overlay         #1e1e36;
+@define-color muted           #4a4a6a;
+@define-color subtle          #7070a8;
+@define-color text            #e8e2f8;
+@define-color love            #d06080;
+@define-color gold            #c9a040;
+@define-color rose            #c08888;
+@define-color pine            #7aab8a;
+@define-color foam            #7aaab8;
+@define-color iris            #9878c8;
+@define-color highlightLow    #111120;
+@define-color highlightMed    #18182e;
+@define-color highlightHigh   #28285a;

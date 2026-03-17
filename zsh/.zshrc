@@ -84,7 +84,6 @@ setopt sharehistory
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
-setopt hist_ignore_dups
 setopt hist_find_no_dups
 setopt hist_reduce_blanks
 
@@ -405,7 +404,7 @@ gaf() {
             awk '{print $2}')
     if [ -n "$files" ]; then
         echo "$files" | xargs git add
-        echo "\nStaged files:"
+        print "\nStaged files:"
         echo "$files" | sed 's/^/  /'
         echo ""
         git status --short
@@ -612,7 +611,7 @@ psef() {
               awk '{print $1}')
         if [ -n "$pid" ]; then
             echo "Kill process $pid? (y/n)"
-            read -q && kill -15 "$pid" && echo "\nProcess $pid terminated"
+            read -q && kill -15 "$pid" && print "\nProcess $pid terminated"
         fi
     else
         kp
@@ -654,7 +653,7 @@ dtree() {
     if command -v eza &>/dev/null; then
         eza --tree --level="$depth" --icons --git-ignore
     elif command -v tree &>/dev/null; then
-        tree -L "$depth" -I '.git'
+        command tree -L "$depth" -I '.git'
     else
         echo "Error: Install eza or tree. Recommended: sudo pacman -S eza"
     fi

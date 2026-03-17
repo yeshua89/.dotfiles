@@ -1,0 +1,21 @@
+/*
+ * Ember - Dark charcoal warming into fire
+ * Very dark warm base, amber/orange fire tones
+ * Like glowing coals in a dark forge
+ */
+
+@define-color base            #181008;
+@define-color surface         #221810;
+@define-color overlay         #140c04;
+@define-color muted           #604030;
+@define-color subtle          #907060;
+@define-color text            #f0dcc8;
+@define-color love            #e04830;
+@define-color gold            #e0940c;
+@define-color rose            #d08070;
+@define-color pine            #80a850;
+@define-color foam            #60a890;
+@define-color iris            #b878a8;
+@define-color highlightLow    #100c04;
+@define-color highlightMed    #201808;
+@define-color highlightHigh   #382818;
