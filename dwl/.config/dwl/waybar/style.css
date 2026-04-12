@@ -1,13 +1,16 @@
-/* Importa la paleta de colores */
-/* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "dracula.css";
+/* Waybar style para DWL
+ * Basado en el style.css de Hyprland — solo se cambia #workspaces → #tags
+ * El resto de módulos es idéntico.
+ */
 
-/* Estilos generales */
+/* Misma paleta de colores que en Hyprland */
+@import "~/.config/waybar/absolute-black.css";
+
 * {
     border: none;
     border-radius: 0;
     font-family: "FiraCode Nerd Font", FontAwesome, sans-serif;
-    font-size: 13px; /* Más compacto para más módulos */
+    font-size: 13px;
     min-height: 0;
 }
 
@@ -28,13 +31,11 @@ window#waybar.empty #window {
     background: transparent;
 }
 
-/* Fondo, padding y radio comunes a todos los módulos */
-#workspaces,
+/* Módulos izquierda */
+#tags,
+#layout,
 #window,
-#mpris,
-#custom-arch,
-#custom-power,
-#custom-logo {
+#mpris {
     padding: 4px 12px;
     border-radius: 8px;
     background-color: rgba(16, 16, 16, 0.65);
@@ -42,7 +43,7 @@ window#waybar.empty #window {
     margin: 5px 4px;
 }
 
-/* Módulos del lado derecho - unidos en una barra continua */
+/* Módulos derecha — bloque continuo */
 #tray,
 #custom-vpn,
 #custom-updates,
@@ -58,16 +59,17 @@ window#waybar.empty #window {
 #battery,
 #clock,
 #power-profiles-daemon {
-    padding: 4px 10px; /* Más compacto */
+    padding: 4px 10px;
     background-color: rgba(16, 16, 16, 0.65);
     margin: 5px 0;
     border-radius: 0;
     border-left: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Easing suave */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-/* Efectos hover sutiles para todos los módulos interactivos */
-#workspaces:hover,
+/* Hover */
+#tags:hover,
+#layout:hover,
 #window:hover,
 #tray:hover,
 #custom-vpn:hover,
@@ -88,35 +90,32 @@ window#waybar.empty #window {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Primer módulo del grupo derecho - borde redondeado izquierdo */
+/* Primer/último módulo derecha */
 #tray {
     border-radius: 8px 0 0 8px;
     border-left: none;
     margin-left: 4px;
 }
 
-/* Updates es el primer módulo visible si tray está vacío */
 #custom-updates {
     border-radius: 8px 0 0 8px;
     border-left: none;
     margin-left: 4px;
 }
 
-/* Si tray tiene items, updates no debe tener border izquierdo redondeado */
 #tray:not(.empty) ~ #custom-updates {
     border-radius: 0;
     margin-left: 0;
     border-left: 1px solid @highlightLow;
 }
 
-/* Último módulo del grupo derecho - borde redondeado derecho */
 #clock {
     border-radius: 0 8px 8px 0;
     margin-right: 4px;
 }
 
-/* --- Workspaces --- */
-#workspaces {
+/* --- Tags (dwl/tags = equivalente a workspaces) --- */
+#tags {
     padding: 0 4px;
     background-color: rgba(16, 16, 16, 0.65);
     border-radius: 8px;
@@ -124,7 +123,8 @@ window#waybar.empty #window {
     padding-left: 8px;
 }
 
-#workspaces button {
+/* Botón de cada tag */
+#tags button {
     padding: 0 6px;
     margin: 0 2px;
     border-radius: 0;
@@ -136,21 +136,38 @@ window#waybar.empty #window {
     font-size: 14px;
 }
 
-#workspaces button:hover {
+#tags button:hover {
     color: @text;
 }
 
-/* Workspace activo - sutil pero visible */
-#workspaces button.active {
+/* Tag activo */
+#tags button.focused {
     color: @foam;
     background: transparent;
     border-bottom: 1px solid @highlightMed;
 }
 
-#workspaces button.urgent {
+/* Tag ocupado (tiene ventanas) */
+#tags button.occupied {
+    color: @text;
+}
+
+/* Tag urgente */
+#tags button.urgent {
     color: @love;
     border-bottom: 2px solid @love;
     background: transparent;
+}
+
+/* --- Layout (muestra []=, [M], ><>) --- */
+#layout {
+    color: @subtle;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-left: none;
+    margin-left: 0;
+    border-radius: 0 8px 8px 0;
+    margin-right: 2px;
 }
 
 /* --- Window --- */
@@ -172,95 +189,7 @@ window#waybar.empty #window {
     border: none;
 }
 
-/* --- Bluetooth --- */
-#bluetooth {
-    color: @iris;
-}
-
-/* --- Network --- */
-#network {
-    color: @gold;
-}
-
-/* --- Battery --- */
-#battery {
-    color: @pine;
-}
-#battery.charging,
-#battery.plugged {
-    color: @foam;
-    border-bottom: 2px solid @foam;
-    padding-bottom: 2px;
-}
-#battery.critical:not(.charging) {
-    color: @love;
-    font-weight: 700;
-}
-
-/* --- Pulseaudio --- */
-#pulseaudio {
-    color: @foam;
-}
-
-/* --- Reloj --- */
-#clock {
-    color: @text;
-    font-weight: 600;
-    font-size: 14px;
-    background-color: rgba(16, 16, 16, 0.65);
-}
-
-/* --- Idle Inhibitor --- */
-#idle_inhibitor {
-    color: @subtle;
-}
-#idle_inhibitor.activated {
-    color: @love;
-}
-
-/* --- Backlight --- */
-#backlight {
-    color: @gold;
-}
-
-/* --- Power --- */
-#custom-power {
-    color: @love;
-    min-width: 28px;
-    font-size: 18px;
-}
-
-/*-- arch logo --*/
-#custom-arch {
-    color: @love;
-    min-width: 28px;
-    font-size: 18px;
-}
-
-/* --- Módulo de la Balanza (Logo) --- */
-#custom-logo {
-    color: @foam;
-    font-size: 18px;
-}
-
-/* --- Power Profiles Daemon --- */
-#power-profiles-daemon {
-    color: @pine;
-    padding: 4px 10px 4px 4px;
-}
-
-/* --- Theme Switcher --- */
-#custom-theme {
-    color: @iris;
-    font-size: 16px;
-    padding: 4px 10px;
-}
-
-#custom-theme:active {
-    background-color: @highlightMed;
-}
-
-/* --- MPRIS (Reproductor de Medios) --- */
+/* --- MPRIS --- */
 #mpris {
     color: @text;
     font-weight: 500;
@@ -269,70 +198,78 @@ window#waybar.empty #window {
     transition: all 0.3s ease;
 }
 
-#mpris.paused {
-    border-left-color: @highlightMed;
+#mpris.paused { border-left-color: @highlightMed; }
+#mpris.stopped { border-left-color: @highlightMed; opacity: 0.6; }
+
+/* --- Módulos de estado (sin cambios respecto a Hyprland) --- */
+#bluetooth  { color: @iris; }
+#network    { color: @gold; }
+#battery    { color: @pine; }
+#pulseaudio { color: @foam; }
+#backlight  { color: @gold; }
+
+#battery.charging,
+#battery.plugged {
+    color: @foam;
+    border-bottom: 2px solid @foam;
+    padding-bottom: 2px;
 }
 
-#mpris.stopped {
-    border-left-color: @highlightMed;
-    opacity: 0.6;
+#battery.critical:not(.charging) {
+    color: @love;
+    font-weight: 700;
 }
 
-/* --- CPU --- */
+#clock {
+    color: @text;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: rgba(16, 16, 16, 0.65);
+}
+
+#idle_inhibitor         { color: @subtle; }
+#idle_inhibitor.activated { color: @love; }
+
+#power-profiles-daemon {
+    color: @pine;
+    padding: 4px 10px 4px 4px;
+}
+
+#custom-theme {
+    color: @iris;
+    font-size: 16px;
+    padding: 4px 10px;
+}
+
+#custom-theme:active { background-color: @highlightMed; }
+
 #cpu {
     color: @foam;
     font-weight: 700;
     font-size: 14px;
 }
+#cpu.warning  { color: @gold; }
+#cpu.critical { color: @love; }
 
-#cpu.warning {
-    color: @gold;
-}
-
-#cpu.critical {
-    color: @love;
-}
-
-/* --- Memoria --- */
 #memory {
     color: @rose;
     font-weight: 700;
     font-size: 14px;
 }
+#memory.warning  { color: @gold; }
+#memory.critical { color: @love; }
 
-#memory.warning {
-    color: @gold;
-}
-
-#memory.critical {
-    color: @love;
-}
-
-/* --- Temperatura --- */
 #temperature {
     color: @gold;
     font-weight: 700;
     font-size: 14px;
 }
+#temperature.critical { color: @love; }
 
-#temperature.critical {
-    color: @love;
-}
+#tray { padding: 4px 8px; }
+#tray > .passive      { opacity: 0.6; }
+#tray > .needs-attention { color: @love; }
 
-/* --- Tray --- */
-#tray {
-    padding: 4px 8px;
-}
-
-#tray > .passive {
-    opacity: 0.6;
-}
-
-#tray > .needs-attention {
-    color: @love;
-}
-
-/* --- Updates --- */
 #custom-updates {
     color: @gold;
     font-weight: 700;
@@ -341,32 +278,10 @@ window#waybar.empty #window {
     padding-left: 12px;
 }
 
-/* --- VPN --- */
-#custom-vpn {
-    color: @foam;
-    font-weight: 700;
-    font-size: 14px;
-}
+#custom-vpn { color: @foam; font-weight: 700; font-size: 14px; }
+#custom-vpn.disconnected { color: @subtle; opacity: 0.5; }
 
-#custom-vpn.disconnected {
-    color: @subtle;
-    opacity: 0.5;
-}
-
-/* --- Separadores Visuales Sutiles --- */
-/* Sin separadores adicionales para mantener la continuidad visual */
-
-/* --- Efectos Adicionales --- */
-/* Efecto de clic/active para módulos clickeables */
-#pulseaudio:active,
-#network:active,
-#bluetooth:active,
-#backlight:active,
-#custom-updates:active {
-    background-color: @highlightMed;
-}
-
-/* Glow effect para módulos con alertas */
+/* Efectos de alerta */
 #battery.critical:not(.charging),
 #cpu.critical,
 #memory.critical,
@@ -374,9 +289,10 @@ window#waybar.empty #window {
     box-shadow: 0 0 10px @love;
 }
 
-/* Transiciones suaves para módulos dinámicos */
-#mpris,
-#custom-updates,
-#idle_inhibitor {
-    transition: opacity 0.3s ease;
+#pulseaudio:active,
+#network:active,
+#bluetooth:active,
+#backlight:active,
+#custom-updates:active {
+    background-color: @highlightMed;
 }

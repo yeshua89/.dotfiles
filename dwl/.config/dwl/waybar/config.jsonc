@@ -1,0 +1,231 @@
+{
+  // Waybar config para DWL
+  // Diferencias vs Hyprland:
+  //   - hyprland/workspaces → dwl/tags   (requiere patch dwl-ipc)
+  //   - hyprland/window     → dwl/window (requiere patch dwl-ipc)
+  //   - hyprland/scratchpad → eliminado (no existe en dwl)
+  //   - hyprland/submap     → eliminado (no existe en dwl)
+  //
+  // Patch dwl-ipc: https://github.com/djpohly/dwl-ipc
+  //
+  // Lanzar con:
+  //   waybar --config ~/.config/dwl/waybar/config.jsonc \
+  //          --style ~/.config/dwl/waybar/style.css
+
+  "layer": "top",
+  "position": "top",
+  "height": 38,
+
+  "modules-left": [
+    "dwl/tags",
+    "dwl/layout",
+    "dwl/window"
+  ],
+
+  "modules-center": [
+    "mpris"
+  ],
+
+  "modules-right": [
+    "tray",
+    "custom/updates",
+    "custom/vpn",
+    "idle_inhibitor",
+    "cpu",
+    "memory",
+    "temperature",
+    "backlight",
+    "pulseaudio",
+    "network",
+    "bluetooth",
+    "battery",
+    "power-profiles-daemon",
+    "custom/theme",
+    "clock"
+  ],
+
+  // --- Módulos DWL ---
+
+  "dwl/tags": {
+    "num-tags": 9,
+    "tag-labels": ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+    "disable-click": false
+  },
+
+  "dwl/layout": {
+    "format": "{}",
+    "tooltip": false
+  },
+
+  "dwl/window": {
+    "format": "{}",
+    "max-length": 50
+  },
+
+  // --- Resto de módulos (igual que en Hyprland) ---
+
+  "clock": {
+    "format": "󰥔 {:%H:%M}",
+    "format-alt": "󰃭 {:%d/%m/%Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "gnome-calendar"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "󰋋",
+      "headset": "󰋎",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "scroll-step": 5,
+    "on-click": "~/.config/waybar/scripts/volume-menu.sh",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "tooltip-format": "{desc} · {volume}"
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}",
+    "format-icons": ["󰃞", "󰃝", "󰃟", "󰃠"],
+    "on-scroll-up": "brightnessctl set 5%+",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "tooltip-format": "Brillo · {percent}"
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "⚠ Desconectado",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{device_alias}",
+    "tooltip-format-connected": "<b>{device_alias}</b>\n{device_address}",
+    "on-click": "blueman-manager"
+  },
+
+  "battery": {
+    "states": {
+      "good": 80,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-alt": "{icon} {capacity}",
+    "format-charging": "󰂄",
+    "format-charging-alt": "󰂄 {capacity}",
+    "format-plugged": "󰚥",
+    "format-plugged-alt": "󰚥 {capacity}",
+    "format-full": "󰂅",
+    "format-full-alt": "󰂅 {capacity}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo} · {capacity}%"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "tooltip": true
+  },
+
+  "mpris": {
+    "format": "<span foreground='#ff0000'>󰗃</span> {title} - {artist}",
+    "format-paused": "<span foreground='#e89f71'>󰏤</span> {title} - {artist}",
+    "format-stopped": "<span foreground='#c5c8c6'>󰓦</span> Detenido",
+    "player-icons": {
+      "default": "󰋾"
+    },
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤"
+    },
+    "tooltip-format": "{player_name} | {album}",
+    "max-length": 35,
+    "truncation-symbol": "…",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next"
+  },
+
+  "cpu": {
+    "interval": 3,
+    "format": "󰻠 {usage}%",
+    "max-length": 15,
+    "tooltip": true,
+    "tooltip-format": "CPU: {usage}%\nFreq: {avg_frequency}GHz"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "󰍛 {}%",
+    "max-length": 15,
+    "tooltip": true,
+    "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G"
+  },
+
+  "temperature": {
+    "interval": 4,
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°",
+    "format-critical": "{icon} {temperatureC}°",
+    "format-icons": ["󰜗", "󱃃", "󰔏", "󱃂", "󰸁"],
+    "max-length": 15,
+    "tooltip": true
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8,
+    "show-passive-items": false
+  },
+
+  "custom/updates": {
+    "format": "󰮯 {}",
+    "interval": 300,
+    "exec": "~/.config/waybar/scripts/check-updates.sh",
+    "exec-if": "exit 0",
+    "on-click": "kitty -e bash -c 'sudo pacman -Syu && pkill -RTMIN+8 waybar'",
+    "signal": 8,
+    "tooltip": true,
+    "return-type": "json"
+  },
+
+  "custom/vpn": {
+    "format": "{}",
+    "interval": 5,
+    "exec": "~/.config/waybar/scripts/vpn-status.sh",
+    "return-type": "json",
+    "tooltip": true
+  },
+
+  "custom/theme": {
+    "format": "󰏘",
+    "exec": "cat ~/.config/current-theme 2>/dev/null || echo 'catppuccin-mocha'",
+    "interval": "once",
+    "signal": 8,
+    "on-click": "~/.dotfiles/scripts/theme-switch.sh --menu",
+    "tooltip": true,
+    "tooltip-format": "Tema activo: {}"
+  }
+}
