@@ -52,7 +52,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects", -- Text objects mejorados
-      "nvim-treesitter/nvim-treesitter-context", -- Muestra contexto actual
     },
     opts = {
       ensure_installed = {
@@ -96,7 +95,6 @@ return {
       },
       highlight = {
         enable = true,
-        use_languagetree = true,
         additional_vim_regex_highlighting = false,
       },
       auto_install = true,
@@ -170,7 +168,6 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       presets = {
@@ -907,11 +904,9 @@ return {
       "xml",
     },
     opts = {
-      opts = {
-        enable_close = true,
-        enable_rename = true,
-        enable_close_on_slash = true,
-      },
+      enable_close = true,
+      enable_rename = true,
+      enable_close_on_slash = true,
     },
   },
 

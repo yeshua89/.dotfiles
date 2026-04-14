@@ -66,11 +66,11 @@ opt.pumheight = 10 -- Altura máxima del popup de completado
 opt.showmode = false -- No mostrar modo (ya lo hace lualine/statusline)
 opt.conceallevel = 0 -- No oculta caracteres (muestra comillas, etc.)
 
--- Folding (con Treesitter)
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldenable = false -- No cerrar folds al abrir archivo
+-- Folding (manejado por nvim-ufo)
+opt.foldmethod = "manual"
+opt.foldenable = true
 opt.foldlevel = 99
+opt.foldlevelstart = 99
 
 -- Formato de archivos
 vim.scriptencoding = "utf-8" -- Encoding del script
