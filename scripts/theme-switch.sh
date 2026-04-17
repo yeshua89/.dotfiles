@@ -13,6 +13,7 @@ FUZZEL_CONF="$DOTFILES/fuzzel/.config/fuzzel/fuzzel.ini"
 KITTY_CONF="$DOTFILES/kitty/.config/kitty/color.ini"
 SWAYNC_CSS="$DOTFILES/swaync/.config/swaync/style.css"
 WAYBAR_CSS="$DOTFILES/waybar/.config/waybar/style.css"
+WAYBAR_MANGO_CSS="$DOTFILES/waybar-mango/.config/waybar-mango/style.css"
 STARSHIP_CONF="$DOTFILES/starship/.config/starship.toml"
 
 THEMES=(catppuccin-mocha tokyo-night rose-pine gruvbox-dark dracula nord obsidian aurora ember absolute-black)
@@ -534,8 +535,11 @@ get_current_starship_colors() {
 
 apply_waybar() {
     sed -i "s|@import \".*\.css\";|@import \"$WAYBAR_FILE\";|" "$WAYBAR_CSS"
-    # Update comment too
     sed -i "s|@define-color\|/\* Cambia entre.*\*/||g" "$WAYBAR_CSS" 2>/dev/null || true
+}
+
+apply_waybar_mango() {
+    sed -i "s|@import \".*\.css\";|@import \"$WAYBAR_FILE\";|" "$WAYBAR_MANGO_CSS"
 }
 
 apply_hyprland() {
@@ -941,6 +945,7 @@ get_current_starship_colors
 
 # Apply to all apps
 apply_waybar
+apply_waybar_mango
 apply_hyprland
 apply_fuzzel
 apply_kitty
