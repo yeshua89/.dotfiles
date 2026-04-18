@@ -96,7 +96,7 @@ local M = {
 M.base46 = {
 
   theme = "mytheme",
-  transparency = false
+  transparency = true
 }
 M.nvdash = { load_on_startup = false }
 M.ui = {
