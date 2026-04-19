@@ -1,13 +1,13 @@
 /* Importa la paleta de colores */
 /* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "catppuccin-mocha.css";
+@import "tokyo-night.css";
 
 /* Estilos generales */
 * {
     border: none;
     border-radius: 0;
     font-family: "FiraCode Nerd Font", FontAwesome, sans-serif;
-    font-size: 13px; /* Más compacto para más módulos */
+    font-size: 13px;
     min-height: 0;
 }
 
@@ -28,21 +28,98 @@ window#waybar.empty #window {
     background: transparent;
 }
 
-/* Fondo, padding y radio comunes a todos los módulos */
-#workspaces,
-#window,
-#mpris,
-#custom-arch,
-#custom-power,
-#custom-logo {
-    padding: 4px 12px;
-    border-radius: 8px;
-    background-color: rgba(16, 16, 16, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+/* ===================== PILLS: contenedores ===================== */
+/* El pill izquierdo y derecho se aplican al BOX contenedor, no a módulos individuales */
+
+.modules-left {
+    background: transparent;
+}
+
+.modules-right {
+    background-color: rgba(16, 16, 16, 0.80);
+
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 5px 8px 5px 0;
+    padding: 0 4px;
+}
+
+/* ===================== WORKSPACES (pill propio) ===================== */
+#workspaces {
+    background-color: rgba(16, 16, 16, 0.80);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0 6px;
+    margin: 5px 4px 5px 8px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    margin: 0 1px;
+    border-radius: 0;
+    color: @subtle;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    min-width: 22px;
+    font-size: 14px;
+}
+
+#workspaces button:hover { color: @text; }
+
+#workspaces button.active {
+    color: @foam;
+    background: transparent;
+    border-bottom: 2px solid @foam;
+}
+
+#workspaces button.urgent {
+    color: @love;
+    border-bottom: 2px solid @love;
+}
+
+/* ===================== WINDOW (pill propio) ===================== */
+#window {
+    background-color: rgba(16, 16, 16, 0.80);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: @text;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 4px 14px;
     margin: 5px 4px;
 }
 
-/* Módulos del lado derecho - unidos en una barra continua */
+#window.empty {
+    opacity: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+}
+
+/* ===================== MPRIS (pill centrado) ===================== */
+#mpris {
+    background-color: rgba(16, 16, 16, 0.80);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: @text;
+    font-weight: 500;
+    padding: 4px 14px;
+    margin: 5px 4px;
+    transition: all 0.3s ease;
+}
+
+#mpris.paused { opacity: 0.7; }
+#mpris.stopped { opacity: 0.4; }
+
+/* ===================== MÓDULOS DERECHO: todos transparentes ===================== */
+/* El fondo viene del contenedor .modules-right */
 #tray,
 #custom-vpn,
 #custom-updates,
@@ -58,17 +135,46 @@ window#waybar.empty #window {
 #battery,
 #clock,
 #power-profiles-daemon {
-    padding: 4px 10px; /* Más compacto */
-    background-color: rgba(16, 16, 16, 0.65);
-    margin: 5px 0;
+    background: transparent;
+    padding: 4px 8px;
+    margin: 0;
     border-radius: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Easing suave */
+    transition: all 0.2s ease;
 }
 
-/* Efectos hover sutiles para todos los módulos interactivos */
-#workspaces:hover,
-#window:hover,
+/* ===================== COLORES ===================== */
+#bluetooth      { color: @iris; }
+#network        { color: @gold; }
+#battery        { color: @pine; }
+#pulseaudio     { color: @foam; }
+#backlight      { color: @gold; }
+#idle_inhibitor { color: @subtle; }
+#idle_inhibitor.activated { color: @love; }
+#cpu            { color: @foam; font-weight: 700; font-size: 14px; }
+#memory         { color: @rose; font-weight: 700; font-size: 14px; }
+#temperature    { color: @gold; font-weight: 700; font-size: 14px; }
+#custom-updates { color: @gold; font-weight: 700; font-size: 14px; }
+#custom-vpn     { color: @foam; font-weight: 700; font-size: 14px; }
+#custom-theme   { color: @iris; font-size: 16px; padding: 4px 10px; }
+#power-profiles-daemon { color: @pine; }
+#clock          { color: @text; font-weight: 600; font-size: 14px; }
+
+#custom-vpn.disconnected  { color: @subtle; opacity: 0.5; }
+#cpu.warning    { color: @gold; }
+#cpu.critical   { color: @love; }
+#memory.warning { color: @gold; }
+#memory.critical { color: @love; }
+#temperature.critical { color: @love; }
+
+#battery.charging, #battery.plugged { color: @foam; }
+#battery.critical:not(.charging)    { color: @love; font-weight: 700; }
+
+/* ===================== TRAY ===================== */
+#tray           { padding: 4px 8px; }
+#tray > .passive      { opacity: 0.6; }
+#tray > .needs-attention { color: @love; }
+
+/* ===================== HOVER ===================== */
 #tray:hover,
 #custom-vpn:hover,
 #custom-updates:hover,
@@ -84,299 +190,18 @@ window#waybar.empty #window {
 #battery:hover,
 #power-profiles-daemon:hover,
 #clock:hover {
-    background-color: rgba(28, 28, 28, 0.75);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    opacity: 0.7;
 }
 
-/* Primer módulo del grupo derecho - borde redondeado izquierdo */
-#tray {
-    border-radius: 8px 0 0 8px;
-    border-left: none;
-    margin-left: 4px;
-}
-
-/* Updates es el primer módulo visible si tray está vacío */
-#custom-updates {
-    border-radius: 8px 0 0 8px;
-    border-left: none;
-    margin-left: 4px;
-}
-
-/* Si tray tiene items, updates no debe tener border izquierdo redondeado */
-#tray:not(.empty) ~ #custom-updates {
-    border-radius: 0;
-    margin-left: 0;
-    border-left: 1px solid @highlightLow;
-}
-
-/* Último módulo del grupo derecho - borde redondeado derecho */
-#clock {
-    border-radius: 0 8px 8px 0;
-    margin-right: 4px;
-}
-
-/* --- Workspaces --- */
-#workspaces {
-    padding: 0 4px;
-    background-color: rgba(16, 16, 16, 0.65);
-    border-radius: 8px;
-    border-left: 2px solid @highlightMed;
-    padding-left: 8px;
-}
-
-#workspaces button {
-    padding: 0 6px;
-    margin: 0 2px;
-    border-radius: 0;
-    color: @subtle;
-    background: transparent;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
-    min-width: 24px;
-    font-size: 14px;
-}
-
-#workspaces button:hover {
-    color: @text;
-}
-
-/* Workspace activo - sutil pero visible */
-#workspaces button.active {
-    color: @foam;
-    background: transparent;
-    border-bottom: 1px solid @highlightMed;
-}
-
-#workspaces button.urgent {
-    color: @love;
-    border-bottom: 2px solid @love;
-    background: transparent;
-}
-
-/* --- Window --- */
-#window {
-    color: @text;
-    font-weight: 500;
-    font-size: 13px;
-    border-left: 2px solid @highlightMed;
-    padding-left: 10px;
-    background-color: rgba(16, 16, 16, 0.65);
-}
-
-#window.empty {
-    opacity: 0;
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-    margin: 0;
-    border: none;
-}
-
-/* --- Bluetooth --- */
-#bluetooth {
-    color: @iris;
-}
-
-/* --- Network --- */
-#network {
-    color: @gold;
-}
-
-/* --- Battery --- */
-#battery {
-    color: @pine;
-}
-#battery.charging,
-#battery.plugged {
-    color: @foam;
-    border-bottom: 2px solid @foam;
-    padding-bottom: 2px;
-}
-#battery.critical:not(.charging) {
-    color: @love;
-    font-weight: 700;
-}
-
-/* --- Pulseaudio --- */
-#pulseaudio {
-    color: @foam;
-}
-
-/* --- Reloj --- */
-#clock {
-    color: @text;
-    font-weight: 600;
-    font-size: 14px;
-    background-color: rgba(16, 16, 16, 0.65);
-}
-
-/* --- Idle Inhibitor --- */
-#idle_inhibitor {
-    color: @subtle;
-}
-#idle_inhibitor.activated {
-    color: @love;
-}
-
-/* --- Backlight --- */
-#backlight {
-    color: @gold;
-}
-
-/* --- Power --- */
-#custom-power {
-    color: @love;
-    min-width: 28px;
-    font-size: 18px;
-}
-
-/*-- arch logo --*/
-#custom-arch {
-    color: @love;
-    min-width: 28px;
-    font-size: 18px;
-}
-
-/* --- Módulo de la Balanza (Logo) --- */
-#custom-logo {
-    color: @foam;
-    font-size: 18px;
-}
-
-/* --- Power Profiles Daemon --- */
-#power-profiles-daemon {
-    color: @pine;
-    padding: 4px 10px 4px 4px;
-}
-
-/* --- Theme Switcher --- */
-#custom-theme {
-    color: @iris;
-    font-size: 16px;
-    padding: 4px 10px;
-}
-
-#custom-theme:active {
-    background-color: @highlightMed;
-}
-
-/* --- MPRIS (Reproductor de Medios) --- */
-#mpris {
-    color: @text;
-    font-weight: 500;
-    border-left: 2px solid @highlightMed;
-    padding-left: 12px;
-    transition: all 0.3s ease;
-}
-
-#mpris.paused {
-    border-left-color: @highlightMed;
-}
-
-#mpris.stopped {
-    border-left-color: @highlightMed;
-    opacity: 0.6;
-}
-
-/* --- CPU --- */
-#cpu {
-    color: @foam;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-#cpu.warning {
-    color: @gold;
-}
-
-#cpu.critical {
-    color: @love;
-}
-
-/* --- Memoria --- */
-#memory {
-    color: @rose;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-#memory.warning {
-    color: @gold;
-}
-
-#memory.critical {
-    color: @love;
-}
-
-/* --- Temperatura --- */
-#temperature {
-    color: @gold;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-#temperature.critical {
-    color: @love;
-}
-
-/* --- Tray --- */
-#tray {
-    padding: 4px 8px;
-}
-
-#tray > .passive {
-    opacity: 0.6;
-}
-
-#tray > .needs-attention {
-    color: @love;
-}
-
-/* --- Updates --- */
-#custom-updates {
-    color: @gold;
-    font-weight: 700;
-    font-size: 14px;
-    border-left: 2px solid @highlightMed;
-    padding-left: 12px;
-}
-
-/* --- VPN --- */
-#custom-vpn {
-    color: @foam;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-#custom-vpn.disconnected {
-    color: @subtle;
-    opacity: 0.5;
-}
-
-/* --- Separadores Visuales Sutiles --- */
-/* Sin separadores adicionales para mantener la continuidad visual */
-
-/* --- Efectos Adicionales --- */
-/* Efecto de clic/active para módulos clickeables */
-#pulseaudio:active,
-#network:active,
-#bluetooth:active,
-#backlight:active,
-#custom-updates:active {
-    background-color: @highlightMed;
-}
-
-/* Glow effect para módulos con alertas */
+/* ===================== ALERTAS ===================== */
 #battery.critical:not(.charging),
 #cpu.critical,
 #memory.critical,
 #temperature.critical {
-    box-shadow: 0 0 10px @love;
+    box-shadow: 0 0 8px @love;
 }
 
-/* Transiciones suaves para módulos dinámicos */
-#mpris,
-#custom-updates,
-#idle_inhibitor {
-    transition: opacity 0.3s ease;
-}
+/* ===================== MISC ===================== */
+#custom-power { color: @love; min-width: 28px; font-size: 18px; }
+#custom-arch  { color: @love; min-width: 28px; font-size: 18px; }
+#custom-logo  { color: @foam; font-size: 18px; }
