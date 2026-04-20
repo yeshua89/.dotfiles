@@ -109,10 +109,12 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "",
-      "deactivated": ""
+      "activated": "󰌾",
+      "deactivated": "󰌿"
     },
-    "tooltip": true
+    "tooltip": true,
+    "tooltip-format-activated": "Inhibidor activo",
+    "tooltip-format-deactivated": "Inhibidor inactivo"
   },
   "mpris": {
     "format": "<span foreground='#ff0000'>󰗃</span> {title} - {artist}",
