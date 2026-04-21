@@ -1,10 +1,9 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 38,
+  "height": 40,
   "modules-left": [
-    "ext/workspaces",
-    "wlr/window"
+    "ext/workspaces"
   ],
   "modules-center": [
     "mpris"
@@ -31,10 +30,6 @@
     "on-click": "activate",
     "sort-by-id": true,
     "ignore-hidden": true
-  },
-  "wlr/window": {
-    "format": "{}",
-    "max-length": 50
   },
   "clock": {
     "format": "󰥔 {:%H:%M}",

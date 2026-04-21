@@ -13,7 +13,7 @@ FUZZEL_CONF="$DOTFILES/fuzzel/.config/fuzzel/fuzzel.ini"
 KITTY_CONF="$DOTFILES/kitty/.config/kitty/color.ini"
 SWAYNC_CSS="$DOTFILES/swaync/.config/swaync/style.css"
 WAYBAR_CSS="$DOTFILES/waybar/.config/waybar/style.css"
-WAYBAR_MANGO_CSS="$DOTFILES/waybar-mango/.config/waybar-mango/style.css"
+WAYBAR_MANGO_CSS="$DOTFILES/waybar-mango/.config/waybar/style.css"
 STARSHIP_CONF="$DOTFILES/starship/.config/starship.toml"
 SWAYLOCK_CONF="$DOTFILES/swaylock/.config/swaylock/config"
 
