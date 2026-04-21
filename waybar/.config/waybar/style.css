@@ -1,6 +1,6 @@
 /* Importa la paleta de colores */
 /* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "absolute-black.css";
+@import "dracula.css";
 
 /* Estilos generales */
 * {
@@ -36,19 +36,19 @@ window#waybar.empty #window {
 }
 
 .modules-right {
-    background-color: rgba(16, 16, 16, 0.80);
+    background-color: alpha(@surface, 0.80);
 
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid alpha(@text, 0.08);
     margin: 5px 8px 5px 0;
     padding: 0 4px;
 }
 
 /* ===================== WORKSPACES (pill propio) ===================== */
 #workspaces {
-    background-color: rgba(16, 16, 16, 0.80);
+    background-color: alpha(@surface, 0.80);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid alpha(@text, 0.08);
     border-radius: 10px;
     padding: 0 6px;
     margin: 5px 4px 5px 8px;
@@ -81,9 +81,9 @@ window#waybar.empty #window {
 
 /* ===================== WINDOW (pill propio) ===================== */
 #window {
-    background-color: rgba(16, 16, 16, 0.80);
+    background-color: alpha(@surface, 0.80);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid alpha(@text, 0.08);
     border-radius: 10px;
     color: @text;
     font-weight: 500;
@@ -104,9 +104,9 @@ window#waybar.empty #window {
 
 /* ===================== MPRIS (pill centrado) ===================== */
 #mpris {
-    background-color: rgba(16, 16, 16, 0.80);
+    background-color: alpha(@surface, 0.80);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid alpha(@text, 0.08);
     border-radius: 10px;
     color: @text;
     font-weight: 500;
