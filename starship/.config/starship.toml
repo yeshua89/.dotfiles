@@ -6,13 +6,13 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](fg:#0e0e16)\
+[](fg:#1e1e2e)\
 $os\
-[](bg:#16162a fg:#0e0e16)\
+[](bg:#313244 fg:#1e1e2e)\
 $directory\
 $git_branch\
 $git_status\
-[](fg:#16162a)\
+[](fg:#313244)\
 $c\
 $cmake\
 $rust\
@@ -33,29 +33,29 @@ $jobs\
 $status\
 \n$character"""
 
-palette = 'obsidian'
+palette = 'catppuccin_mocha'
 
-[palettes.obsidian]
-bg_dark   = '#0e0e16'
-bg        = '#0e0e16'
-bg_light  = '#16162a'
-bg_visual = '#28285a'
-fg        = '#e8e2f8'
-fg_dim    = '#4a4a6a'
-fg_reverse = '#0e0e16'
-red       = '#d06080'
-orange    = '#c9a040'
-yellow    = '#c9a040'
-green     = '#7aab8a'
-cyan      = '#7aaab8'
-blue      = '#7aaab8'
-violet    = '#9878c8'
-magenta   = '#c08888'
+[palettes.catppuccin_mocha]
+bg_dark   = '#1e1e2e'
+bg        = '#1e1e2e'
+bg_light  = '#313244'
+bg_visual = '#45475a'
+fg        = '#cdd6f4'
+fg_dim    = '#6c7086'
+fg_reverse = '#1e1e2e'
+red       = '#f38ba8'
+orange    = '#fab387'
+yellow    = '#f9e2af'
+green     = '#a6e3a1'
+cyan      = '#89dceb'
+blue      = '#89b4fa'
+violet    = '#cba6f7'
+magenta   = '#f5c2e7'
 
 [os]
 disabled = false
-style = "bg:#0e0e16 fg:#c9a040"
-format = "[$symbol](bg:#0e0e16 fg:#c9a040)"
+style = "bg:#1e1e2e fg:#fab387"
+format = "[$symbol](bg:#1e1e2e fg:#fab387)"
 
 [os.symbols]
 Alpine = " "
@@ -82,18 +82,18 @@ Windows = "󰍲 "
 
 [username]
 show_always = true
-style_user = "bg:#0e0e16 fg:#7aab8a"
-style_root = "bg:#0e0e16 fg:#d06080 bold"
-format = '[$user ](bg:#0e0e16 $style)'
+style_user = "bg:#1e1e2e fg:#a6e3a1"
+style_root = "bg:#1e1e2e fg:#f38ba8 bold"
+format = '[$user ](bg:#1e1e2e $style)'
 
 [directory]
-style = "fg:#e8e2f8 bg:#16162a bold"
+style = "fg:#cdd6f4 bg:#313244 bold"
 format = "[ $path ]($style)"
 truncation_length = 4
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " 󰌾"
-read_only_style = "fg:#d06080 bg:#16162a"
+read_only_style = "fg:#f38ba8 bg:#313244"
 
 [directory.substitutions]
 "/home/yeshua" = "󰇴"
@@ -109,13 +109,13 @@ read_only_style = "fg:#d06080 bg:#16162a"
 
 [git_branch]
 symbol = " "
-style = "bg:#16162a fg:#9878c8 bold"
+style = "bg:#313244 fg:#cba6f7 bold"
 format = '[$symbol$branch ]($style)'
 truncation_length = 20
 truncation_symbol = "…"
 
 [git_status]
-style = "bg:#16162a fg:#c9a040"
+style = "bg:#313244 fg:#fab387"
 format = '[$all_status$ahead_behind ]($style)'
 conflicted = "󰞇"
 ahead = "󰜷${count}"
@@ -129,89 +129,89 @@ renamed = "󰑕"
 deleted = "󰍵"
 
 # --- ESTILO DE BURBUJAS (FLOATING PILLS) ---
-# Usamos un fondo #28285a (bg_visual) para que resalten sobre la terminal
+# Usamos un fondo #45475a (bg_visual) para que resalten sobre la terminal
 
 [c]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 
 [cmake]
 symbol = "△ "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 
 [rust]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 
 [golang]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 
 [nodejs]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#7aab8a)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#a6e3a1)[](fg:#45475a)'
 
 [php]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#9878c8)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#cba6f7)[](fg:#45475a)'
 
 # --- PYTHON CONFIGURADO CON VENV ---
 [python]
 symbol = " "
 # Aquí agregué (\($virtualenv\)) para que muestre el nombre del entorno
-format = ' [](fg:#28285a)[ $symbol$version( \($virtualenv\)) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol$version( \($virtualenv\)) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 detect_extensions = ['py']
 detect_files = ['.python-version', 'Pipfile', '__pycache__', 'pyproject.toml', 'requirements.txt', 'setup.py', 'tox.ini']
 
 [java]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#d06080)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#f38ba8)[](fg:#45475a)'
 
 [kotlin]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#9878c8)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#cba6f7)[](fg:#45475a)'
 
 [lua]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#7aab8a)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#a6e3a1)[](fg:#45475a)'
 
 [ruby]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#d06080)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#f38ba8)[](fg:#45475a)'
 
 [zig]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol($version) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol($version) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 
 [docker_context]
 symbol = " "
-format = ' [](fg:#28285a)[ $symbol$context ](bg:#28285a fg:#7aab8a)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol$context ](bg:#45475a fg:#a6e3a1)[](fg:#45475a)'
 only_with_files = true
 
 [kubernetes]
 symbol = "󱃾 "
-format = ' [](fg:#28285a)[ $symbol$context( \($namespace\)) ](bg:#28285a fg:#c9a040)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol$context( \($namespace\)) ](bg:#45475a fg:#fab387)[](fg:#45475a)'
 disabled = false
 
 [terraform]
 symbol = "󱁢 "
-format = ' [](fg:#28285a)[ $symbol$workspace ](bg:#28285a fg:#9878c8)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol$workspace ](bg:#45475a fg:#cba6f7)[](fg:#45475a)'
 
 # --- TIEMPO DE COMANDO (CMD DURATION) ---
 [cmd_duration]
 min_time = 500
 # Fondo gris azulado, texto amarillo, bordes redondos
-format = " [](fg:#28285a)[ 󱦟 $duration ](bg:#28285a fg:#c9a040)[](fg:#28285a)"
+format = " [](fg:#45475a)[ 󱦟 $duration ](bg:#45475a fg:#fab387)[](fg:#45475a)"
 show_milliseconds = false
 
 [jobs]
 symbol = " "
 number_threshold = 1
-format = " [](fg:#28285a)[ $symbol$number ](bg:#28285a fg:#7aab8a)[](fg:#28285a)"
+format = " [](fg:#45475a)[ $symbol$number ](bg:#45475a fg:#a6e3a1)[](fg:#45475a)"
 
 [status]
 disabled = false
-format = ' [](fg:#28285a)[ $symbol$status ](bg:#28285a fg:#d06080 bold)[](fg:#28285a)'
+format = ' [](fg:#45475a)[ $symbol$status ](bg:#45475a fg:#f38ba8 bold)[](fg:#45475a)'
 symbol = "✗ "
 success_symbol = ""
 not_executable_symbol = "󰌋 "
@@ -224,9 +224,9 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = "[❯](bold fg:#7aab8a)"
-error_symbol = "[❯](bold fg:#d06080)"
-vimcmd_symbol = "[❮](bold fg:#7aab8a)"
-vimcmd_visual_symbol = "[❮](bold fg:#9878c8)"
-vimcmd_replace_symbol = "[❮](bold fg:#c9a040)"
-vimcmd_replace_one_symbol = "[❮](bold fg:#c9a040)"
+success_symbol = "[❯](bold fg:#a6e3a1)"
+error_symbol = "[❯](bold fg:#f38ba8)"
+vimcmd_symbol = "[❮](bold fg:#a6e3a1)"
+vimcmd_visual_symbol = "[❮](bold fg:#cba6f7)"
+vimcmd_replace_symbol = "[❮](bold fg:#fab387)"
+vimcmd_replace_one_symbol = "[❮](bold fg:#fab387)"
